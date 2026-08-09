@@ -1,0 +1,1553 @@
+[
+  {
+    "name": "Silicon Austria Labs GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.silicon-austria-labs.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Graz,06.Bez.:Jakomini",
+      "street": null
+    }
+  },
+  {
+    "name": "Research Center Pharmaceutical Engineering GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.rcpe.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Steiermark",
+      "city": "Graz,06.Bez.:Jakomini",
+      "street": null
+    }
+  },
+  {
+    "name": "MAGNA STEYR Engineering AG & Co KG",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.magna.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Steiermark",
+      "city": "Graz,07.Bez.:Liebenau",
+      "street": null
+    }
+  },
+  {
+    "name": "Technische Universit\u00e4t Graz",
+    "type": "Universit\u00e4t",
+    "website": "tugraz.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Graz",
+      "street": null
+    }
+  },
+  {
+    "name": "JOANNEUM RESEARCH Forschungsgesellschaft mbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.joanneum.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Graz,02.Bez.:Sankt Leonhard",
+      "street": null
+    }
+  },
+  {
+    "name": "Wirtschaftsuniversit\u00e4t Wien",
+    "type": "Universit\u00e4t",
+    "website": "www.wu-wien.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Leopoldstadt",
+      "street": null
+    }
+  },
+  {
+    "name": "Veterin\u00e4rmedizinische Universit\u00e4t Wien",
+    "type": "Universit\u00e4t",
+    "website": "www.vetmeduni.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Floridsdorf",
+      "street": null
+    }
+  },
+  {
+    "name": "Universit\u00e4t f\u00fcr Bodenkultur Wien",
+    "type": "Universit\u00e4t",
+    "website": "www.boku.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,W\u00e4hring",
+      "street": null
+    }
+  },
+  {
+    "name": "Universit\u00e4t f\u00fcr Weiterbildung Krems",
+    "type": "Universit\u00e4t",
+    "website": "www.donau-uni.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Krems an der Donau",
+      "street": null
+    }
+  },
+  {
+    "name": "Materials Center Leoben Forschung GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.mcl.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Steiermark",
+      "city": "Leoben",
+      "street": null
+    }
+  },
+  {
+    "name": "AIT Austrian Institute of Technology GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.ait.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Floridsdorf",
+      "street": null
+    }
+  },
+  {
+    "name": "Practical Robotics Institute Austria (PRIA) zur F\u00f6rderung des wissenschaftlich-technischen Nachwuchses \u00fcber Robotik",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.pria.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "Wien,Brigittenau",
+      "street": null
+    }
+  },
+  {
+    "name": "GETec Microscopy GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.getec-afm.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "Wien",
+      "street": null
+    }
+  },
+  {
+    "name": "Kompetenzzentrum Holz GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "wood-kplus.at/",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Ober\u00f6sterreich",
+      "city": "Linz",
+      "street": null
+    }
+  },
+  {
+    "name": "Phornano Holding GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.phornano.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Nieder\u00f6sterreich",
+      "city": "Korneuburg",
+      "street": null
+    }
+  },
+  {
+    "name": "Technische Universit\u00e4t Wien",
+    "type": "Universit\u00e4t",
+    "website": "www.tuwien.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Wieden",
+      "street": null
+    }
+  },
+  {
+    "name": "Universit\u00e4t Klagenfurt",
+    "type": "Universit\u00e4t",
+    "website": "www.uni-klu.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Klagenfurt,12.Bez.:St. Martin",
+      "street": null
+    }
+  },
+  {
+    "name": "TPA Gesellschaft f\u00fcr Qualit\u00e4tssicherung und Innovation GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.tpaqi.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "Trumau",
+      "street": null
+    }
+  },
+  {
+    "name": "Research Studios Austria Forschungsgesellschaft mbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.researchstudio.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Salzburg",
+      "street": null
+    }
+  },
+  {
+    "name": "Miba Automation Systems Ges.m.b.H.",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.miba.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Ober\u00f6sterreich",
+      "city": "Laakirchen",
+      "street": null
+    }
+  },
+  {
+    "name": "PROFACTOR GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.profactor.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Steyr-Gleink",
+      "street": null
+    }
+  },
+  {
+    "name": "LKR Leichtmetallkompetenzzentrum Ranshofen GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.lkr.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Braunau am Inn - Ranshofen",
+      "street": null
+    }
+  },
+  {
+    "name": "Software Competence Center Hagenberg GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.scch.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Ober\u00f6sterreich",
+      "city": "Hagenberg im M\u00fchlkreis",
+      "street": null
+    }
+  },
+  {
+    "name": "Universit\u00e4t Innsbruck",
+    "type": "Universit\u00e4t",
+    "website": "www.uibk.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Tirol",
+      "city": "Innsbruck",
+      "street": null
+    }
+  },
+  {
+    "name": "OHB Austria GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.ohb-digital.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Graz,05.Bez.:Gries",
+      "street": null
+    }
+  },
+  {
+    "name": "FOTEC Forschungs- und Technologietransfer GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.fotec.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Nieder\u00f6sterreich",
+      "city": "Wiener Neustadt",
+      "street": null
+    }
+  },
+  {
+    "name": "Lakeside Labs GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.lakeside-labs.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Klagenfurt,12.Bez.:St. Martin",
+      "street": null
+    }
+  },
+  {
+    "name": "Salzburg Research Forschungsgesellschaft m.b.H.",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.salzburgresearch.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Salzburg",
+      "street": null
+    }
+  },
+  {
+    "name": "\"Internationales Institut f\u00fcr angewandte Systemanalyse\"-\"International Institute for Applied Systems Analysis\"",
+    "type": "Gemeinn\u00fctzige Organisation",
+    "website": "www.iiasa.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Laxenburg",
+      "street": null
+    }
+  },
+  {
+    "name": "Medizinische Universit\u00e4t Graz",
+    "type": "Universit\u00e4t",
+    "website": "www.meduni-graz.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Steiermark",
+      "city": "Graz,10.Bez.:Ries",
+      "street": null
+    }
+  },
+  {
+    "name": "AC2T research GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.ac2t.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wiener Neustadt",
+      "street": null
+    }
+  },
+  {
+    "name": "Medizinische Universit\u00e4t Wien",
+    "type": "Universit\u00e4t",
+    "website": "www.meduniwien.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "Wien,Alsergrund",
+      "street": null
+    }
+  },
+  {
+    "name": "CogVis Software und Consulting GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.cogvis.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "Wien",
+      "street": null
+    }
+  },
+  {
+    "name": "EODC Earth Observation Data Centre for Water Resources Monitoring GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.eodc.eu",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Wieden",
+      "street": null
+    }
+  },
+  {
+    "name": "myneva Austria GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.myneva.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "K\u00e4rnten",
+      "city": "Wien,Leopoldstadt",
+      "street": null
+    }
+  },
+  {
+    "name": "Hochschule f\u00fcr Angewandte Wissenschaften St. P\u00f6lten GmbH",
+    "type": "Fachhochschule",
+    "website": "www.fhstp.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "St.P\u00f6lten",
+      "street": null
+    }
+  },
+  {
+    "name": "webLyzard technology gmbh",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.weblyzard.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Alsergrund",
+      "street": null
+    }
+  },
+  {
+    "name": "Modul University Vienna GmbH",
+    "type": "Privatuniversit\u00e4t",
+    "website": "www.modul.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "Wien,D\u00f6bling",
+      "street": null
+    }
+  },
+  {
+    "name": "FH O\u00d6 Forschungs & Entwicklungs GmbH",
+    "type": "Fachhochschule",
+    "website": "forschung.fh-ooe.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wels",
+      "street": null
+    }
+  },
+  {
+    "name": "Lithoz GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.lithoz.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Mariahilf",
+      "street": null
+    }
+  },
+  {
+    "name": "Fachhochschule Technikum Wien",
+    "type": "Fachhochschule",
+    "website": "www.technikum-wien.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Brigittenau",
+      "street": null
+    }
+  },
+  {
+    "name": "BRIMATECH Services GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.brimatech.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Landstra\u00dfe",
+      "street": null
+    }
+  },
+  {
+    "name": "BEST - Bioenergy and Sustainable Technologies GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.best-research.eu",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Graz,06.Bez.:Jakomini",
+      "street": null
+    }
+  },
+  {
+    "name": "Interdisziplin\u00e4res Forschungszentrum f\u00fcr Technik, Arbeit und Kultur (IFZ)",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.ifz.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Graz,02.Bez.:Sankt Leonhard",
+      "street": null
+    }
+  },
+  {
+    "name": "RISC Software GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.risc-software.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Hagenberg",
+      "street": null
+    }
+  },
+  {
+    "name": "VRVis GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.vrvis.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Donaustadt",
+      "street": null
+    }
+  },
+  {
+    "name": "Hochschule f\u00fcr Angewandte Wissenschaften St. P\u00f6lten Forschungs GmbH",
+    "type": "Fachhochschule",
+    "website": "www.fhstp.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "St. P\u00f6lten",
+      "street": null
+    }
+  },
+  {
+    "name": "Polymer Competence Center Leoben GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.pccl.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Steiermark",
+      "city": "Leoben",
+      "street": null
+    }
+  },
+  {
+    "name": "Virtual Vehicle Research GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.v2c2.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Graz,06.Bez.:Jakomini",
+      "street": null
+    }
+  },
+  {
+    "name": "Montanuniversit\u00e4t Leoben",
+    "type": "Universit\u00e4t",
+    "website": "www.unileoben.ac.at/",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Steiermark",
+      "city": "Leoben",
+      "street": null
+    }
+  },
+  {
+    "name": "Mission Embedded GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.mission-embedded.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Favoriten",
+      "street": null
+    }
+  },
+  {
+    "name": "INOCON Technologie GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.inocon.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Ober\u00f6sterreich",
+      "city": "Attnang",
+      "street": null
+    }
+  },
+  {
+    "name": "TTTech Computertechnik AG",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.tttech.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "Wien,Wieden",
+      "street": null
+    }
+  },
+  {
+    "name": "CEST Kompetenzzentrum f\u00fcr elektrochemische Oberfl\u00e4chentechnologie GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.cest.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Nieder\u00f6sterreich",
+      "city": "Wiener Neustadt",
+      "street": null
+    }
+  },
+  {
+    "name": "ONDEWO GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.ondewo.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Innere Stadt",
+      "street": null
+    }
+  },
+  {
+    "name": "APA - Austria Presse Agentur eG",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.apa.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Mariahilf",
+      "street": null
+    }
+  },
+  {
+    "name": "Pro2Future GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.pro2future.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Ober\u00f6sterreich",
+      "city": "Linz",
+      "street": null
+    }
+  },
+  {
+    "name": "AEE - Institut f\u00fcr Nachhaltige Technologien (kurz: AEE INTEC)",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.aee-intec.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Gleisdorf",
+      "street": null
+    }
+  },
+  {
+    "name": "\u00d6sterreichisches Institut f\u00fcr Nachhaltige Entwicklung - F\u00f6rderung einer zukunftsvertr\u00e4glichen Entwicklung durch Forschung, Planung und Umsetzung",
+    "type": "Universit\u00e4t",
+    "website": "oin.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "St. P\u00f6lten",
+      "street": null
+    }
+  },
+  {
+    "name": "Universit\u00e4t Linz",
+    "type": "Universit\u00e4t",
+    "website": "www.jku.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Linz",
+      "street": null
+    }
+  },
+  {
+    "name": "Hochschule Campus Wien Forschungs- und Entwicklungs GmbH",
+    "type": "Fachhochschule",
+    "website": "www.fh-campuswien.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Favoriten",
+      "street": null
+    }
+  },
+  {
+    "name": "Blackshark.ai GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "blackshark.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Graz,01.Bez.:Innere Stadt",
+      "street": null
+    }
+  },
+  {
+    "name": "MetGIS GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.metgis.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Josefstadt",
+      "street": null
+    }
+  },
+  {
+    "name": "SBA Research gemeinn\u00fctzige GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.sba-research.org",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "Wien,Wieden",
+      "street": null
+    }
+  },
+  {
+    "name": "VICESSE Research GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.vicesse.eu/",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Wieden",
+      "street": null
+    }
+  },
+  {
+    "name": "Linz Center of Mechatronics GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.lcm.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Ober\u00f6sterreich",
+      "city": "Linz",
+      "street": null
+    }
+  },
+  {
+    "name": "\u00d6sterreichisches Institut f\u00fcr Vereisungswissenschaften in der Luftfahrt (Alls)",
+    "type": "Gemeinn\u00fctzige Organisation",
+    "website": "www.aircraft-icing.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "K\u00f6flach",
+      "street": null
+    }
+  },
+  {
+    "name": "Robimo GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.robimo.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien",
+      "street": null
+    }
+  },
+  {
+    "name": "Alpex Immobilien GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.alpex-tec.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Mils",
+      "street": null
+    }
+  },
+  {
+    "name": "Alpex Technologies GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": null,
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Mils",
+      "street": null
+    }
+  },
+  {
+    "name": "winnovation consulting gmbh",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.winnovation.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Mariahilf",
+      "street": null
+    }
+  },
+  {
+    "name": "Fraunhofer Austria Research GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.fraunhofer.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Wieden",
+      "street": null
+    }
+  },
+  {
+    "name": "Universit\u00e4t Wien",
+    "type": "Universit\u00e4t",
+    "website": "www.univie.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Innere Stadt",
+      "street": null
+    }
+  },
+  {
+    "name": "ALP.Lab GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.alp-lab.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Graz,06.Bez.:Jakomini",
+      "street": null
+    }
+  },
+  {
+    "name": "FHW Fachhochschul-Studieng\u00e4nge Betriebs- und Forschungseinrichtungen der Wiener Wirtschaft GmbH",
+    "type": "Fachhochschule",
+    "website": "www.fh-wien.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,W\u00e4hring",
+      "street": null
+    }
+  },
+  {
+    "name": "Know Center Research GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.know-center.tugraz.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Steiermark",
+      "city": "Graz,06.Bez.:Jakomini",
+      "street": null
+    }
+  },
+  {
+    "name": "FH JOANNEUM Gesellschaft mbH",
+    "type": "Fachhochschule",
+    "website": "www.fh-joanneum.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Graz",
+      "street": null
+    }
+  },
+  {
+    "name": "ARWAG Living in Town GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.arwag.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "Wien,Landstra\u00dfe",
+      "street": null
+    }
+  },
+  {
+    "name": "Universit\u00e4t Salzburg",
+    "type": "Universit\u00e4t",
+    "website": "www.uni-salzburg.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Salzburg",
+      "street": null
+    }
+  },
+  {
+    "name": "ubicube GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": null,
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "Wien,Meidling",
+      "street": null
+    }
+  },
+  {
+    "name": "Prof. Dr. Guido Morgenthal",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.gmtib.de",
+    "address": {
+      "country": "DEUTSCHLAND",
+      "state": "'unbekannt'",
+      "city": "Weimar",
+      "street": null
+    }
+  },
+  {
+    "name": "Forschung Burgenland GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.forschung-burgenland.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Eisenstadt",
+      "street": null
+    }
+  },
+  {
+    "name": "Landeshauptstadt Klagenfurt am W\u00f6rthersee",
+    "type": "Bund, L\u00e4nder, Gemeinden",
+    "website": "www.klagenfurt.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Klagenfurt am W\u00f6rthersee",
+      "street": null
+    }
+  },
+  {
+    "name": "FREQUENTIS AG",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.frequentis.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Favoriten",
+      "street": null
+    }
+  },
+  {
+    "name": "TEST-FUCHS GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.test-fuchs.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Gro\u00df Siegharts",
+      "street": null
+    }
+  },
+  {
+    "name": "FH K\u00e4rnten - gemeinn\u00fctzige Gesellschaft mbH",
+    "type": "Fachhochschule",
+    "website": "www.fh-kaernten.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "St. Magdalen",
+      "street": null
+    }
+  },
+  {
+    "name": "\u00d6sterreichisches Institut f\u00fcr angewandte Telekommunikation",
+    "type": "Gemeinn\u00fctzige Organisation",
+    "website": "www.oiat.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Landstra\u00dfe",
+      "street": null
+    }
+  },
+  {
+    "name": "\u00d6sterreichische Bundesforste AG",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.bundesforste.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Purkersdorf",
+      "street": null
+    }
+  },
+  {
+    "name": "PRISMA solutions EDV-Dienstleistungen GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.prisma-solutions.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "M\u00f6dling",
+      "street": null
+    }
+  },
+  {
+    "name": "Immotech OP GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.immotech-austria.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Linz",
+      "street": null
+    }
+  },
+  {
+    "name": "Wirtschaftsagentur Burgenland Forschungs- und Innovations GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "wirtschaftsagentur-burgenland.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "G\u00fcssing",
+      "street": null
+    }
+  },
+  {
+    "name": "Senzoro GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.senzoro.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "Wien,Landstra\u00dfe",
+      "street": null
+    }
+  },
+  {
+    "name": "4ward Energy Research GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.4wardenergy.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Graz,14.Bez.:Eggenberg",
+      "street": null
+    }
+  },
+  {
+    "name": "DILT Analytics FlexCo",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.dilt.at/",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Steiermark",
+      "city": "Graz,05.Bez.:Gries",
+      "street": null
+    }
+  },
+  {
+    "name": "Universit\u00e4t Graz",
+    "type": "Universit\u00e4t",
+    "website": "www.uni-graz.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Graz,03.Bez.:Geidorf",
+      "street": null
+    }
+  },
+  {
+    "name": "GeoSphere Austria - Bundesanstalt f\u00fcr Geologie, Geophysik, Klimatologie und Meteorologie",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.geosphere.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,D\u00f6bling",
+      "street": null
+    }
+  },
+  {
+    "name": "Medizinische Universit\u00e4t Innsbruck",
+    "type": "Universit\u00e4t",
+    "website": "www.i-med.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Innsbruck",
+      "street": null
+    }
+  },
+  {
+    "name": "c-sense GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "In Arbeit",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Nieder\u00f6sterreich",
+      "city": "Langenlois",
+      "street": null
+    }
+  },
+  {
+    "name": "IntelliEdge GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": null,
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "Wien,Ottakring",
+      "street": null
+    }
+  },
+  {
+    "name": "BioNanoNet Forschungsgesellschaft mbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.bnn.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Steiermark",
+      "city": "Graz",
+      "street": null
+    }
+  },
+  {
+    "name": "Schmidt Harmonikaerzeugung GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.steirische-harmonika.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Weinitzen",
+      "street": null
+    }
+  },
+  {
+    "name": "Complexity Science Hub Vienna CSH - Verein zur F\u00f6rderung wissenschaftlicher Forschung im Bereich komplexer Systeme",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.csh.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Landstra\u00dfe",
+      "street": null
+    }
+  },
+  {
+    "name": "4D-IT GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.4d-it.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Pfaffst\u00e4tten",
+      "street": null
+    }
+  },
+  {
+    "name": "\"Digital Innovation Hub innov:ATE\" - \u00d6sterreichs digitaler Innovationshub f\u00fcr Land-, Holz-, Forst- und Energiewirtschaft",
+    "type": "Gemeinn\u00fctzige Organisation",
+    "website": null,
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "Wien,Neubau",
+      "street": null
+    }
+  },
+  {
+    "name": "\u00d6GUT GesmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.oegut.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "Wien,Leopoldstadt",
+      "street": null
+    }
+  },
+  {
+    "name": "S2data GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "s2-data.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Steiermark",
+      "city": "Graz,01.Bez.:Innere Stadt",
+      "street": null
+    }
+  },
+  {
+    "name": "Bartenbach GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.bartenbach.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wattens",
+      "street": null
+    }
+  },
+  {
+    "name": "VCE Vienna Consulting Engineers ZT GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.vce.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "Wien,Landstra\u00dfe",
+      "street": null
+    }
+  },
+  {
+    "name": "IKARUS Security GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.ikarus.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Landstra\u00dfe",
+      "street": null
+    }
+  },
+  {
+    "name": "IGASPIN GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.igaspin.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Graz,14.Bez.:Eggenberg",
+      "street": null
+    }
+  },
+  {
+    "name": "nast consulting ZT GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.nast.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Neubau",
+      "street": null
+    }
+  },
+  {
+    "name": "netwiss OG",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.netwiss.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,D\u00f6bling",
+      "street": null
+    }
+  },
+  {
+    "name": "AVL List GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.avl.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Graz,04.Bez.:Lend",
+      "street": null
+    }
+  },
+  {
+    "name": "\u00d6sterreichische Agentur f\u00fcr Gesundheit und Ern\u00e4hrungssicherheit GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.ages.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "Wien,Donaustadt",
+      "street": null
+    }
+  },
+  {
+    "name": "Hochschule f\u00fcr Angewandte Wissenschaften Campus Wien (HCW)",
+    "type": "Fachhochschule",
+    "website": "www.fh-campuswien.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Favoriten",
+      "street": null
+    }
+  },
+  {
+    "name": "Bundesforschungs- und Ausbildungszentrum f\u00fcr Wald, Naturgefahren und Landschaft",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.bfw.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien",
+      "street": null
+    }
+  },
+  {
+    "name": "BRAVE Analytics GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.braveanalytics.eu",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Graz",
+      "street": null
+    }
+  },
+  {
+    "name": "Saubermacher Dienstleistungs-Aktiengesellschaft",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.saubermacher.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Feldkirchen bei Graz",
+      "street": null
+    }
+  },
+  {
+    "name": "Fachhochschule Wiener Neustadt GmbH",
+    "type": "Fachhochschule",
+    "website": "www.fhwn.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wiener Neustadt",
+      "street": null
+    }
+  },
+  {
+    "name": "Digital Findet Stadt GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.digitalfindetstadt.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien,Wieden",
+      "street": null
+    }
+  },
+  {
+    "name": "TOM Robotics GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.tomrobotics.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Steiermark",
+      "city": "Graz,06.Bez.:Jakomini",
+      "street": null
+    }
+  },
+  {
+    "name": "Hochschule f\u00fcr Angewandte Wissenschaften Burgenland GmbH",
+    "type": "Fachhochschule",
+    "website": "www.fh-burgenland.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Eisenstadt",
+      "street": null
+    }
+  },
+  {
+    "name": "CANCOM Converged Services GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "https://www.cancom.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "Wien,Meidling",
+      "street": null
+    }
+  },
+  {
+    "name": "Woschitz Engineering ZT GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.rwe-zt.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Burgenland",
+      "city": "Eisenstadt",
+      "street": null
+    }
+  },
+  {
+    "name": "Competence Center CHASE GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.chasecenter.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Linz",
+      "street": null
+    }
+  },
+  {
+    "name": "SCIOFLEX Hydrogen GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.scioflex-hydrogen.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Mattersburg",
+      "street": null
+    }
+  },
+  {
+    "name": "\"klasse!forschung\"- Bildung trifft Forschung & Innovation",
+    "type": "Gemeinn\u00fctzige Organisation",
+    "website": "www.klasse-forschung.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Tirol",
+      "city": "Wilten",
+      "street": null
+    }
+  },
+  {
+    "name": "Universit\u00e4t Mozarteum Salzburg",
+    "type": "Universit\u00e4t",
+    "website": null,
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Salzburg",
+      "city": "Salzburg",
+      "street": null
+    }
+  },
+  {
+    "name": "CAMPUS 02 Fachhochschule der Wirtschaft GmbH",
+    "type": "Fachhochschule",
+    "website": "www.campus02.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Graz,03.Bez.:Geidorf",
+      "street": null
+    }
+  },
+  {
+    "name": "WasserCluster Lunz - Biologische Station GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.wasserkluster-lunz.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Nieder\u00f6sterreich",
+      "city": "Lunz am See",
+      "street": null
+    }
+  },
+  {
+    "name": "Interdisciplinary Transformation University",
+    "type": "Universit\u00e4t",
+    "website": null,
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Linz",
+      "street": null
+    }
+  },
+  {
+    "name": "optical design unit gmbh",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": null,
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Tirol",
+      "city": "Mils",
+      "street": null
+    }
+  },
+  {
+    "name": "INO GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.inocon.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Attnang",
+      "street": null
+    }
+  },
+  {
+    "name": "\u00d6sterreichische Akademie der Wissenschaften",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": "www.oeaw.ac.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Wien",
+      "street": null
+    }
+  },
+  {
+    "name": "Infineon Technologies Austria AG",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.infineon.com/cms/austria",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Villach-Auen",
+      "street": null
+    }
+  },
+  {
+    "name": "ARTI - Autonomous Robot Technology GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "arti-robots.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Steiermark",
+      "city": "G\u00f6ssendorf",
+      "street": null
+    }
+  },
+  {
+    "name": "\u00d6sterreichische Gesellschaft f\u00fcr Artificial Intelligence(Austrian Society for Artificial Intelligence)",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": null,
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "Wien,Alsergrund",
+      "street": null
+    }
+  },
+  {
+    "name": "Geo5 GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.geo-5.at",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Leoben",
+      "street": null
+    }
+  },
+  {
+    "name": "iSPACE plus GmbH",
+    "type": "Au\u00dferuniversit\u00e4re Forschungseinrichtung",
+    "website": null,
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": null,
+      "city": "Salzburg",
+      "street": null
+    }
+  },
+  {
+    "name": "atmoky GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "atmoky.com/imprint/",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Steiermark",
+      "city": "Graz,03.Bez.:Geidorf",
+      "street": null
+    }
+  },
+  {
+    "name": "TTTech Auto GmbH",
+    "type": "unternehmerisch t\u00e4tig",
+    "website": "www.tttech-auto.com",
+    "address": {
+      "country": "\u00d6STERREICH",
+      "state": "Wien",
+      "city": "Wien,Wieden",
+      "street": null
+    }
+  }
+]

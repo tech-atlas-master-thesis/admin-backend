@@ -2,7 +2,7 @@ from pipelineFramework import LocalisationString, PipelineConfig, GetConfigurati
 from pipeline_configs.FFG_steps.ffg_scraper import FFPScraper
 from pipeline_configs.FWF_steps.fwf_scraper import FWFScraper
 
-DEMO_PIPELINE = PipelineConfig(
+SCRAPER_PIPELINE = PipelineConfig(
     type="scraper_main",
     display_name=LocalisationString("Scraper Pipeline", "Scraper Pipeline"),
     steps=[
