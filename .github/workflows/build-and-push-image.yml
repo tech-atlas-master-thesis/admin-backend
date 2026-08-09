@@ -1,0 +1,32 @@
+name: Build Docker Image
+on:
+  push:
+    branches:
+      - main
+env:
+  IMAGE_NAME: tech-atlas-admin-be
+  IMAGE_TAG: latest
+jobs:
+  build:
+    name: push docker image to docker hub
+    runs-on: ubuntu-latest
+    env:
+      username: ${{secrets.DOCKERHUB_USERNAME}}
+      password: ${{secrets.DOCKERHUB_TOKEN}}
+    steps:
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{secrets.DOCKERHUB_USERNAME}}
+          password: ${{secrets.DOCKERHUB_TOKEN}}
+      - uses: actions/checkout@v2
+      - name: build the docker image
+        id: build-docker-image
+        run: |
+          ls -la
+          git submodule update --init --recursive --remote
+          tree
+          docker build . -f Dockerfile -t $username/$IMAGE_NAME:$IMAGE_TAG
+      - name: push the docker image
+        id: push-docker-image
+        run: docker push $username/$IMAGE_NAME:$IMAGE_TAG
