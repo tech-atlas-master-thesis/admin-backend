@@ -1,0 +1,3 @@
+[submodule "pipelineFramework"]
+	path = pipelineFramework
+	url = https://github.com/tech-atlas-master-thesis/pipeline-framework.git
