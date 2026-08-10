@@ -8,6 +8,7 @@ from pipelineFramework import (
     StepUserConfig,
     EventType,
 )
+from pipeline_configs.transform_steps.grant_extract import GrantExtractStep
 
 
 class GrantNormalizeStep(StepConfig):
@@ -35,4 +36,4 @@ class GrantNormalizeStep(StepConfig):
         return LocalisationString("Desc", "Desc")
 
     def dependencies(self) -> Union[List[str], None]:
-        return ["grant_extract"]
+        return [GrantExtractStep.name()]

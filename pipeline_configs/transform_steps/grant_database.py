@@ -9,6 +9,8 @@ from pipelineFramework import (
     EventType,
     get_fe_db_client,
 )
+from pipeline_configs.transform_steps.create_dataset import CreateDataSetStep
+from pipeline_configs.transform_steps.grant_enrich import GrantEnrichStep
 
 
 class GrantDatabaseStep(StepConfig):
@@ -41,4 +43,4 @@ class GrantDatabaseStep(StepConfig):
         return LocalisationString("Desc", "Desc")
 
     def dependencies(self) -> Union[List[str], None]:
-        return ["grant_enrich", "create_dataset"]
+        return [GrantEnrichStep.name(), CreateDataSetStep.name()]

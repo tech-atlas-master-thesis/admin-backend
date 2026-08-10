@@ -9,6 +9,7 @@ from pipelineFramework import (
     StepUserConfig,
     EventType,
 )
+from pipeline_configs.transform_steps.project_normalize import ProjectNormalizeStep
 
 
 class ProjectEnrichStep(StepConfig):
@@ -37,4 +38,4 @@ class ProjectEnrichStep(StepConfig):
         return LocalisationString("Desc", "Desc")
 
     def dependencies(self) -> Union[List[str], None]:
-        return ["project_normalize"]
+        return [ProjectNormalizeStep.name()]

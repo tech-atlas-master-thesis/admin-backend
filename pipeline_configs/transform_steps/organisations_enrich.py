@@ -8,6 +8,7 @@ from pipelineFramework import (
     StepUserConfig,
     EventType,
 )
+from pipeline_configs.transform_steps.organisations_normalize import OrganisationNormalizeStep
 
 
 class OrganisationEnrichStep(StepConfig):
@@ -35,4 +36,4 @@ class OrganisationEnrichStep(StepConfig):
         return LocalisationString("Desc", "Desc")
 
     def dependencies(self) -> Union[List[str], None]:
-        return ["organisation_normalize"]
+        return [OrganisationNormalizeStep.name()]

@@ -11,6 +11,8 @@ from pipelineFramework import (
     EventType,
 )
 from pipelineFramework.server.db.helper import get_fe_db_client
+from pipeline_configs.transform_steps.create_dataset import CreateDataSetStep
+from pipeline_configs.transform_steps.organisations_enrich import OrganisationEnrichStep
 
 
 class OrganisationDatabaseStep(StepConfig):
@@ -43,4 +45,4 @@ class OrganisationDatabaseStep(StepConfig):
         return LocalisationString("Desc", "Desc")
 
     def dependencies(self) -> Union[List[str], None]:
-        return ["organisation_enrich", "create_dataset"]
+        return [OrganisationEnrichStep.name(), CreateDataSetStep.name()]

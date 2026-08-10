@@ -10,6 +10,9 @@ from pipelineFramework import (
     EventType,
     Event,
 )
+from pipeline_configs.transform_steps.grant_database import GrantDatabaseStep
+from pipeline_configs.transform_steps.organisations_database import OrganisationDatabaseStep
+from pipeline_configs.transform_steps.project_extract import ProjectExtractStep
 
 
 class ProjectNormalizeStep(StepConfig):
@@ -124,4 +127,4 @@ class ProjectNormalizeStep(StepConfig):
         return LocalisationString("Desc", "Desc")
 
     def dependencies(self) -> Union[List[str], None]:
-        return ["project_extract", "organisation_database", "grant_database"]
+        return [ProjectExtractStep.name(), OrganisationDatabaseStep.name(), GrantDatabaseStep.name()]

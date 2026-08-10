@@ -12,6 +12,8 @@ from pipelineFramework import (
     EventType,
 )
 from pipelineFramework.server.db.helper import get_fe_db_client
+from pipeline_configs.transform_steps.create_dataset import CreateDataSetStep
+from pipeline_configs.transform_steps.scraper import GetTechnologyConfiguration
 
 
 class TechnologiesStep(StepConfig):
@@ -63,4 +65,4 @@ class TechnologiesStep(StepConfig):
         return LocalisationString("Desc", "Desc")
 
     def dependencies(self) -> Union[List[str], None]:
-        return ["getTechnologyConfiguration", "create_dataset"]
+        return [GetTechnologyConfiguration.name(), CreateDataSetStep.name()]
