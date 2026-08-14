@@ -1,4 +1,5 @@
 import logging
+from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
@@ -15,11 +16,23 @@ load_dotenv()
 
 API_BASE_URL = "/api/admin"
 
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    # Runs inside a live event loop regardless of how the app was launched
+    # (uvicorn directly vs. `fastapi run`, which imports the module before starting the loop).
+    pipeline_server.bind_event_loop()
+    yield
+
+
 app = FastAPI(
-    openapi_url=API_BASE_URL + "/openapi.json", docs_url=API_BASE_URL + "/docs", redoc_url=API_BASE_URL + "/redoc"
+    openapi_url=API_BASE_URL + "/openapi.json",
+    docs_url=API_BASE_URL + "/docs",
+    redoc_url=API_BASE_URL + "/redoc",
+    lifespan=lifespan,
 )
 app.add_middleware(RequestCancelledMiddleware)
 # cache = EnrichmentCache(get_cache_db_client())
-pipeline_server: PipelineServer = PipelineServer(PIPELINE_CONFIGS, CONFIG_DEFINITIONS)
+pipeline_server = PipelineServer(PIPELINE_CONFIGS, CONFIG_DEFINITIONS)
 add_common_api_calls(app, pipeline_server, API_BASE_URL)
 add_dataset_endpoints(app, API_BASE_URL)
