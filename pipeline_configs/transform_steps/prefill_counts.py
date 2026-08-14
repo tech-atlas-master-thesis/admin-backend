@@ -21,20 +21,30 @@ class PrefillTechnologyCounts(StepConfig):
     async def run(self, user_config: Optional[UserStepConfig], results: Optional[Dict[str, Any]] = None, **_):
         if results is None:
             results = {}
+        DATASET = results.get(CreateDataSetStep.name())
         PROJECTS: List[Dict[str, Any]] = results.get(ProjectEnrichStep.name())
         if PROJECTS is None:
             raise FileNotFoundError("No scraper data found")
         yield "Data found", EventType.INFO
 
+        techs = get_fe_db_client().get_collection("technologies").find({"dataset": DATASET})
+        field_maps = {tech["_id"]: tech["field"] for tech in techs}
+
         tech_counts = defaultdict(lambda: 0)
+        field_counts = defaultdict(lambda: 0)
         for project in PROJECTS:
             for tech in project["keyTechnologies"]:
                 tech_counts[tech] += 1
+            for field in {field_maps[tech] for tech in project["keyTechnologies"]}:
+                field_counts[field] += 1
 
         tech_db = get_fe_db_client().get_collection("technologies")
+        field_db = get_fe_db_client().get_collection("fields")
 
         for tech_id, count in tech_counts.items():
             tech_db.update_one({"_id": tech_id}, {"$set": {"projects": count}})
+        for field_id, count in field_counts.items():
+            field_db.update_one({"_id": field_id}, {"$set": {"projects": count}})
 
         yield {str(tech_id): tech_count for tech_id, tech_count in tech_counts.items()}, EventType.RESULT
 
@@ -54,52 +64,6 @@ class PrefillTechnologyCounts(StepConfig):
 
     def dependencies(self) -> Union[List[str], None]:
         return [ProjectEnrichStep.name(), GetTechnologyConfiguration.name()]
-
-
-class PrefillFieldCounts(StepConfig):
-    async def run(self, user_config: Optional[UserStepConfig], results: Optional[Dict[str, Any]] = None, **_):
-        if results is None:
-            results = {}
-        DATASET = results.get(CreateDataSetStep.name())
-        if DATASET is None:
-            raise FileNotFoundError("No dataset found")
-        yield "Data found", EventType.INFO
-
-        techs = get_fe_db_client().get_collection("technologies").find({"dataset": DATASET})
-
-        fields_count = defaultdict(lambda: 0)
-        for tech in techs:
-            if "field" not in tech:
-                yield f"Not field found for Technology {tech['label']}. Maybe the Technology has been added twice?", EventType.WARNING
-                continue
-            field = tech["field"]
-            projects = tech["projects"]
-            if projects is not None:
-                fields_count[field] += projects
-
-        field_db = get_fe_db_client().get_collection("fields")
-
-        for field_id, count in fields_count.items():
-            field_db.update_one({"_id": field_id}, {"$set": {"projects": count}})
-
-        yield {str(field_id): field_count for field_id, field_count in fields_count.items()}, EventType.RESULT
-
-    def user_config(self) -> List[StepUserConfig]:
-        return []
-
-    @staticmethod
-    def name() -> str:
-        return "prefill_field_counts"
-
-    @staticmethod
-    def display_name() -> LocalisationStringType:
-        return LocalisationString("Prefill Technology Field Counts", "Technologiefelder Zählungen vorausfüllen")
-
-    def description(self) -> LocalisationStringType:
-        return LocalisationString("Desc", "Desc")
-
-    def dependencies(self) -> Union[List[str], None]:
-        return [PrefillTechnologyCounts.name(), GetTechnologyConfiguration.name()]
 
 
 class PrefillGrantCounts(StepConfig):
@@ -189,7 +153,6 @@ class PrefillProgrammeCounts(StepConfig):
 
 PrefillStepCollection = [
     PrefillTechnologyCounts(),
-    PrefillFieldCounts(),
     PrefillGrantCounts(),
     PrefillProgrammeCounts(),
 ]
