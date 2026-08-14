@@ -28,14 +28,14 @@ class PrefillTechnologyCounts(StepConfig):
         yield "Data found", EventType.INFO
 
         techs = get_fe_db_client().get_collection("technologies").find({"dataset": DATASET})
-        field_maps = {tech["_id"]: tech["field"] for tech in techs}
+        field_maps = {tech["_id"]: tech["field"] for tech in techs if "field" in tech}
 
         tech_counts = defaultdict(lambda: 0)
         field_counts = defaultdict(lambda: 0)
         for project in PROJECTS:
             for tech in project["keyTechnologies"]:
                 tech_counts[tech] += 1
-            for field in {field_maps[tech] for tech in project["keyTechnologies"]}:
+            for field in {field_maps[tech] for tech in project["keyTechnologies"] if tech in field_maps}:
                 field_counts[field] += 1
 
         tech_db = get_fe_db_client().get_collection("technologies")
