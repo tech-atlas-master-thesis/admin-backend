@@ -16,6 +16,9 @@ from scrapers.Scraper import Scraper
 
 
 class FWF(Scraper):
+    # Meilisearch only parses the first ten words of `q`. See _check_query_length.
+    MAX_QUERY_WORDS = 10
+
     def __init__(self, user_config: UserStepConfig, results: Dict[str, Any]):
         super().__init__()
 
@@ -23,11 +26,15 @@ class FWF(Scraper):
 
         self.TECHNOLOGIES = results.get("getTechnologyConfiguration")
 
-        self.PROJECT_SEARCH_ENDPOINT = user_config.get("PROJECT_SEARCH_ENDPOINT")
+        self.MULTI_SEARCH_ENDPOINT = user_config.get("MULTI_SEARCH_ENDPOINT")
+        self.PROJECT_SEARCH_INDEX = user_config.get("PROJECT_SEARCH_INDEX")
         self.PROJECT_SEARCH_ENDPOINT_HEADERS = user_config.get("PROJECT_SEARCH_ENDPOINT_HEADERS")
         self.PROJECT_SEARCH_ITEMS_FIELD = user_config.get("PROJECT_SEARCH_ITEMS_FIELD")
         self.PROJECT_SEARCH_MATCHING_STRATEGY = user_config.get("PROJECT_SEARCH_MATCHING_STRATEGY")
         self.PROJECT_SEARCH_LOCALES = user_config.get("PROJECT_SEARCH_LOCALES")
+        self.PROJECT_SEARCH_ATTRIBUTES_TO_SEARCH_ON = user_config.get("PROJECT_SEARCH_ATTRIBUTES_TO_SEARCH_ON")
+        self.PROJECT_SEARCH_PAGE_SIZE = user_config.get("PROJECT_SEARCH_PAGE_SIZE")
+        self.PROJECT_SEARCH_MAX_TOTAL_HITS = user_config.get("PROJECT_SEARCH_MAX_TOTAL_HITS")
         self.SEARCH_DATE_FROM = user_config.get("SEARCH_DATE_FROM")
         self.SEARCH_DATE_UNTIL = user_config.get("SEARCH_DATE_UNTIL")
         self.FOUND_KEYWORD_COLUMN = "keyTechnologies"
@@ -79,36 +86,84 @@ class FWF(Scraper):
     async def get_results_for_keyword(self, keyword: super().Keyword) -> Tuple[pd.DataFrame | None, List[str]]:
         self.warnings = []
         async with aiohttp.ClientSession() as session:
-            df = pd.read_json(await self._get_query_results(session, keyword), orient="records")
+            hits = await self._get_query_results(session, keyword)
+        if not hits:
+            return None, self.warnings
+        df = pd.read_json(StringIO(json.dumps(hits)), orient="records")
         df = self._add_missing_columns(df)
         df = self._transform_dataframe(df)
         df[self.FOUND_KEYWORD_COLUMN] = keyword.name
         return df, self.warnings
 
-    async def _get_query_results(self, session: aiohttp.ClientSession, keyword: super().Keyword) -> StringIO | None:
-        async with session.get(
-            self.PROJECT_SEARCH_ENDPOINT,
-            json={},
-            params={
-                "limit": 999999,
-                "attributesToRetrieve": ",".join(self.QUERY_REQUIRED_FIELDS),
-                "matchingStrategy": self.PROJECT_SEARCH_MATCHING_STRATEGY,
-                "locales": ",".join(self.PROJECT_SEARCH_LOCALES),
-                "showRankingScoreDetails": "true",
-                "filter": self._get_search_filters(),
-                "q": self.get_query_string(keyword),
-            },
+    async def _get_query_results(
+        self, session: aiohttp.ClientSession, keyword: super().Keyword
+    ) -> List[Dict[str, Any]]:
+        queries = self._build_queries(keyword)
+        hits: List[Dict[str, Any]] = []
+        offset = 0
+
+        while True:
+            page = await self._query_page(session, queries, offset)
+            hits.extend(page)
+            if len(page) < self.PROJECT_SEARCH_PAGE_SIZE:
+                break
+            offset += self.PROJECT_SEARCH_PAGE_SIZE
+            if self.PROJECT_SEARCH_MAX_TOTAL_HITS is not None and offset >= self.PROJECT_SEARCH_MAX_TOTAL_HITS:
+                self.warnings.append(
+                    f'Results for "{keyword.name}" were truncated at {self.PROJECT_SEARCH_MAX_TOTAL_HITS} '
+                    f"documents (the index's pagination.maxTotalHits). Narrow the search terms or shard the "
+                    f"query by start date to see the remainder."
+                )
+                break
+
+        return hits
+
+    async def _query_page(
+        self, session: aiohttp.ClientSession, queries: List[Dict[str, Any]], offset: int
+    ) -> List[Dict[str, Any]]:
+        body = {
+            "federation": {"offset": offset, "limit": self.PROJECT_SEARCH_PAGE_SIZE},
+            "queries": queries,
+        }
+        async with session.post(
+            self.MULTI_SEARCH_ENDPOINT,
+            json=body,
             headers={**self.PROJECT_SEARCH_ENDPOINT_HEADERS, "Content-Type": "application/json"},
         ) as response:
             if not response.ok:
                 raise response.raise_for_status()
-            hits = json.loads(await response.content.read())[self.PROJECT_SEARCH_ITEMS_FIELD]
-            return StringIO(json.dumps(hits))
+            return json.loads(await response.content.read())[self.PROJECT_SEARCH_ITEMS_FIELD]
 
-    def get_query_string(self, keyword: super().Keyword) -> str:
-        any_of = " ".join(keyword.any_of)
-        excluded = " ".join(f"-{term}" for term in keyword.exclude)
-        return f"{any_of} {excluded}"
+    def _build_queries(self, keyword: super().Keyword) -> List[Dict[str, Any]]:
+        excluded = " ".join(f"-{self._as_phrase(term)}" for term in keyword.exclude)
+        queries = []
+        for term in keyword.any_of:
+            query = {
+                "indexUid": self.PROJECT_SEARCH_INDEX,
+                "q": self._check_query_length(f"{self._as_phrase(term)} {excluded}".strip(), keyword),
+                "matchingStrategy": self.PROJECT_SEARCH_MATCHING_STRATEGY,
+                "attributesToRetrieve": self.QUERY_REQUIRED_FIELDS,
+            }
+            if self.PROJECT_SEARCH_LOCALES:
+                query["locales"] = self.PROJECT_SEARCH_LOCALES
+            if self.PROJECT_SEARCH_ATTRIBUTES_TO_SEARCH_ON:
+                query["attributesToSearchOn"] = self.PROJECT_SEARCH_ATTRIBUTES_TO_SEARCH_ON
+            if search_filter := self._get_search_filters():
+                query["filter"] = search_filter
+            queries.append(query)
+        return queries
+
+    @staticmethod
+    def _as_phrase(term: str) -> str:
+        return '"{}"'.format(re.sub(r"\s+", " ", term.replace('"', " ")).strip())
+
+    def _check_query_length(self, query: str, keyword: super().Keyword) -> str:
+        if len(query.split()) > self.MAX_QUERY_WORDS:
+            self.warnings.append(
+                f'Query "{query}" for "{keyword.name}" exceeds the {self.MAX_QUERY_WORDS} word limit Meilisearch '
+                f"applies to q. Trailing terms, most likely exclusions, will be ignored."
+            )
+        return query
 
     def _add_missing_columns(self, df: pd.DataFrame) -> pd.DataFrame:
         for column in self.QUERY_REQUIRED_FIELDS:
@@ -189,6 +244,8 @@ class FWF(Scraper):
         return ""
 
     async def aggregate_dataframes(self, dataframes: List[pd.DataFrame]) -> pd.DataFrame:
+        if not dataframes:
+            return pd.DataFrame(columns=[self.FOUND_KEYWORD_COLUMN, *self.RELEVANT_COLUMNS])
         return (
             pd.concat(dataframes)
             .groupby("externalId", as_index=False)
