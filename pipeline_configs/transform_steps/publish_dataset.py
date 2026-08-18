@@ -22,10 +22,10 @@ from pipeline_configs.transform_steps.project_database import ProjectDatabaseSte
 
 class PublishDataSetStep(StepConfig):
     async def run(self, pipeline: Pipeline, results, **_):
-        datasets = get_fe_db_client().get_collection("datasets")
+        datasets = get_fe_db_client().datasets
         DATASET_ID: ObjectId = results.get(CreateDataSetStep.name())
         yield f"Publishing DataSet with ID {DATASET_ID}", EventType.INFO
-        dataset = datasets.insert_one(
+        dataset = await datasets.insert_one(
             {
                 "_id": DATASET_ID,
                 "pipelineType": pipeline.type,

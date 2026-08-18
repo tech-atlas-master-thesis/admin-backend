@@ -27,8 +27,8 @@ class PrefillTechnologyCounts(StepConfig):
             raise FileNotFoundError("No scraper data found")
         yield "Data found", EventType.INFO
 
-        techs = get_fe_db_client().get_collection("technologies").find({"dataset": DATASET})
-        field_maps = {tech["_id"]: tech["field"] for tech in techs if "field" in tech}
+        techs = get_fe_db_client().technologies.find({"dataset": DATASET})
+        field_maps = {tech["_id"]: tech["field"] async for tech in techs if "field" in tech}
 
         tech_counts = defaultdict(lambda: 0)
         field_counts = defaultdict(lambda: 0)
@@ -38,8 +38,8 @@ class PrefillTechnologyCounts(StepConfig):
             for field in {field_maps[tech] for tech in project["keyTechnologies"] if tech in field_maps}:
                 field_counts[field] += 1
 
-        tech_db = get_fe_db_client().get_collection("technologies")
-        field_db = get_fe_db_client().get_collection("fields")
+        tech_db = await get_fe_db_client().technologies
+        field_db = await get_fe_db_client().fields
 
         for tech_id, count in tech_counts.items():
             tech_db.update_one({"_id": tech_id}, {"$set": {"projects": count}})
@@ -81,7 +81,7 @@ class PrefillGrantCounts(StepConfig):
             if grant is not None:
                 grant_count[grant] += 1
 
-        grant_db = get_fe_db_client().get_collection("grants")
+        grant_db = await get_fe_db_client().grants
 
         for grant_id, count in grant_count.items():
             grant_db.update_one({"_id": grant_id}, {"$set": {"projects": count}})
@@ -115,16 +115,16 @@ class PrefillProgrammeCounts(StepConfig):
             raise FileNotFoundError("No dataset found")
         yield "Data found", EventType.INFO
 
-        grants = get_fe_db_client().get_collection("grants").find({"dataset": DATASET})
+        grants = get_fe_db_client().grants.find({"dataset": DATASET})
 
         programmes_count = defaultdict(lambda: 0)
-        for grant in grants:
+        async for grant in grants:
             programme = grant["programme"]
             projects = grant["projects"]
             if projects is not None:
                 programmes_count[programme] += projects
 
-        programme_db = get_fe_db_client().get_collection("programmes")
+        programme_db = await get_fe_db_client().programmes
 
         for programme_id, count in programmes_count.items():
             programme_db.update_one({"_id": programme_id}, {"$set": {"projects": count}})

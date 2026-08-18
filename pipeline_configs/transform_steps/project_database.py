@@ -25,9 +25,9 @@ class ProjectDatabaseStep(StepConfig):
             raise FileNotFoundError("No organisation data found")
         yield "Data found", EventType.INFO
 
-        project_db = get_fe_db_client().get_collection("projects")
+        project_db = get_fe_db_client().projects
 
-        project_db.insert_many([{**item, "dataset": DATASET} for item in PROJECTS])
+        await project_db.insert_many([{**item, "dataset": DATASET} for item in PROJECTS])
 
     def user_config(self) -> List[StepUserConfig]:
         return []

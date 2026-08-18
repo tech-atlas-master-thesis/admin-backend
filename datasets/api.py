@@ -84,7 +84,7 @@ def _serialize_object_ids(obj: Any) -> Any:
     return obj
 
 
-def _get_data_set_object(
+async def _get_data_set_object(
     collection: str,
     search_fields: List[str],
     included_fields: List[Lookup],
@@ -113,15 +113,15 @@ def _get_data_set_object(
     aggregation.append({"$sort": sort_query})
     aggregation.append({"$skip": offset})
     aggregation.append({"$limit": limit})
-    dataset_items = dataset_db.aggregate(aggregation)
-    total_records = dataset_db.count_documents(query)
+    dataset_items = await dataset_db.aggregate(aggregation)
+    total_records = await dataset_db.count_documents(query)
     return PaginatedListDto(
-        [_serialize_object_ids(dataset_item) for dataset_item in dataset_items],
+        [_serialize_object_ids(dataset_item) async for dataset_item in dataset_items],
         PageDto(offset, limit, total_records),
     )
 
 
-def _get_dataset_object_export_json(
+async def _get_dataset_object_export_json(
     collection: str,
     search_fields: List[str],
     included_fields: List[Lookup],
@@ -138,10 +138,10 @@ def _get_dataset_object_export_json(
         )
     if include_data:
         aggregation += [lookup.serialize() for lookup in included_fields]
-    return bson_util.dumps([*dataset_db.aggregate(aggregation)])
+    return bson_util.dumps([export_file async for export_file in (await dataset_db.aggregate(aggregation))])
 
 
-def _get_data_set_export(
+async def _get_data_set_export(
     collection: str,
     search_fields: List[str],
     included_fields: List[Lookup],
@@ -150,7 +150,7 @@ def _get_data_set_export(
     include_data: Optional[bool] = None,
 ) -> Response:
     response = Response(
-        _get_dataset_object_export_json(collection, search_fields, included_fields, dataset_id, search, include_data),
+        await _get_dataset_object_export_json(collection, search_fields, included_fields, dataset_id, search, include_data),
         media_type="text/json",
     )
     response.headers["Content-Disposition"] = (
@@ -169,7 +169,7 @@ def add_dataset_endpoints(app: FastAPI, api_base_url: str) -> None:
         offset: int = 0,
         _=Depends(AUTH_REQUIREMENTS_VIEW),
     ) -> PaginatedListDto[DatasetDto]:
-        dataset_db = get_fe_db_client().get_collection("datasets")
+        dataset_db = get_fe_db_client().datasets
         query = {}
         if pipelineType:
             query["pipelineType"] = {"$in": pipelineType}
@@ -181,9 +181,9 @@ def add_dataset_endpoints(app: FastAPI, api_base_url: str) -> None:
         else:
             sort_query = {"_id": -1}
         datasets = dataset_db.find(query).sort(sort_query).skip(offset).limit(limit)
-        total_records = dataset_db.count_documents(query)
+        total_records = await dataset_db.count_documents(query)
         return PaginatedListDto(
-            [DatasetDto.from_entity(pipeline) for pipeline in datasets], PageDto(offset, limit, total_records)
+            [DatasetDto.from_entity(pipeline) async for pipeline in datasets], PageDto(offset, limit, total_records)
         )
 
     @app.get(api_base_url + "/datasets/{dataset_id}")
@@ -191,8 +191,8 @@ def add_dataset_endpoints(app: FastAPI, api_base_url: str) -> None:
         dataset_id: str,
         _=Depends(AUTH_REQUIREMENTS_VIEW),
     ) -> DatasetDto:
-        dataset_db = get_fe_db_client().get_collection("datasets")
-        dataset = dataset_db.find_one({"_id": ObjectId(dataset_id)})
+        dataset_db = get_fe_db_client().datasets
+        dataset = await dataset_db.find_one({"_id": ObjectId(dataset_id)})
 
         if not dataset:
             raise HTTPException(status_code=404, detail=f"Pipeline '{dataset_id}' not found")
@@ -204,8 +204,8 @@ def add_dataset_endpoints(app: FastAPI, api_base_url: str) -> None:
         body: DatasetDto,
         _=Depends(AUTH_REQUIREMENTS_EDIT),
     ) -> DatasetDto:
-        dataset_db = get_fe_db_client().get_collection("datasets")
-        result = dataset_db.update_one(
+        dataset_db = get_fe_db_client().datasets
+        result = await dataset_db.update_one(
             {"_id": ObjectId(dataset_id)},
             {
                 "$set": {
@@ -219,7 +219,7 @@ def add_dataset_endpoints(app: FastAPI, api_base_url: str) -> None:
         if not result.acknowledged or result.modified_count != 1:
             raise HTTPException(status_code=404, detail=f"Pipeline '{dataset_id}' not found")
 
-        dataset = dataset_db.find_one({"_id": ObjectId(dataset_id)})
+        dataset = await dataset_db.find_one({"_id": ObjectId(dataset_id)})
         if not dataset:
             raise HTTPException(status_code=404, detail=f"Pipeline '{dataset_id}' not found")
         return DatasetDto.from_entity(dataset)
@@ -229,28 +229,28 @@ def add_dataset_endpoints(app: FastAPI, api_base_url: str) -> None:
         dataset_id: str,
         _=Depends(AUTH_REQUIREMENTS_EDIT),
     ):
-        dataset_db = get_fe_db_client().get_collection("datasets")
-        result = dataset_db.delete_one({"_id": ObjectId(dataset_id)})
+        dataset_db = get_fe_db_client().datasets
+        result = await dataset_db.delete_one({"_id": ObjectId(dataset_id)})
 
         if not result.acknowledged or result.deleted_count != 1:
             raise HTTPException(status_code=404, detail=f"Pipeline '{dataset_id}' not found")
 
     @app.get(api_base_url + "/datasets/{dataset_id}/export")
-    def get_full_dataset_export(
+    async def get_full_dataset_export(
         dataset_id: str,
         _=Depends(AUTH_REQUIREMENTS_VIEW),
     ):
         with io.BytesIO() as zip_buffer:
             with zipfile.ZipFile(zip_buffer, "w") as zip_file:
-                dataset_db = get_fe_db_client().get_collection("datasets")
-                dataset = dataset_db.find_one({"_id": ObjectId(dataset_id)})
+                dataset_db = get_fe_db_client().datasets
+                dataset = await dataset_db.find_one({"_id": ObjectId(dataset_id)})
 
                 zip_file.writestr(zipfile.ZipInfo("datasets.json"), bson_util.dumps([dataset]))
 
                 for dataset_object in OBJECT_CONFIGS.values():
                     zip_file.writestr(
                         zipfile.ZipInfo(f"{dataset_object.collection}.json"),
-                        _get_dataset_object_export_json(dataset_object.collection, [], [], dataset_id),
+                        await _get_dataset_object_export_json(dataset_object.collection, [], [], dataset_id),
                     )
             zip_buffer.seek(0)
             response = Response(zip_buffer.getvalue(), media_type="application/zip")
@@ -273,7 +273,7 @@ def add_dataset_endpoints(app: FastAPI, api_base_url: str) -> None:
         object_config = OBJECT_CONFIGS.get(object_type)
         if not object_config:
             raise HTTPException(status_code=404, detail=f"DataSet object '{object_type}' not found")
-        return _get_data_set_object(
+        return await _get_data_set_object(
             object_config.collection,
             object_config.search_fields,
             object_config.included_fields,
@@ -296,7 +296,7 @@ def add_dataset_endpoints(app: FastAPI, api_base_url: str) -> None:
         object_config = OBJECT_CONFIGS.get(object_type)
         if not object_config:
             raise HTTPException(status_code=404, detail=f"DataSet object '{object_type}' not found")
-        return _get_data_set_export(
+        return await _get_data_set_export(
             object_config.collection,
             object_config.search_fields,
             object_config.included_fields,

@@ -23,9 +23,9 @@ class GrantDatabaseStep(StepConfig):
             raise FileNotFoundError("No grant data found")
         yield "Data found", EventType.INFO
 
-        project_db = get_fe_db_client().get_collection("grants")
+        project_db = get_fe_db_client().grants
 
-        ids = project_db.insert_many([{**item, "dataset": DATASET} for item in GRANTS])
+        ids = await project_db.insert_many([{**item, "dataset": DATASET} for item in GRANTS])
         yield dict(zip((grant["name"] for grant in GRANTS), ids.inserted_ids)), EventType.RESULT
 
     def user_config(self) -> List[StepUserConfig]:

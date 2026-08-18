@@ -21,7 +21,7 @@ API_BASE_URL = "/api/admin"
 async def lifespan(_app: FastAPI):
     # Runs inside a live event loop regardless of how the app was launched
     # (uvicorn directly vs. `fastapi run`, which imports the module before starting the loop).
-    pipeline_server.bind_event_loop()
+    await pipeline_server.bind_event_loop()
     yield
 
 

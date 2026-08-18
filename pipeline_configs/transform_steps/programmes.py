@@ -116,9 +116,9 @@ class ProgrammesDatabaseStep(StepConfig):
             raise FileNotFoundError("No programme data found")
         yield "Data found", EventType.INFO
 
-        project_db = get_fe_db_client().get_collection("programmes")
+        project_db = get_fe_db_client().programmes
 
-        ids = project_db.insert_many([{**item, "dataset": DATASET} for item in PROGRAMMES])
+        ids = await project_db.insert_many([{**item, "dataset": DATASET} for item in PROGRAMMES])
         yield dict(zip((programme["name"] for programme in PROGRAMMES), ids.inserted_ids)), EventType.RESULT
 
     def user_config(self) -> List[StepUserConfig]:

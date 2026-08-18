@@ -28,8 +28,8 @@ class TechnologiesStep(StepConfig):
             raise FileNotFoundError("No organisation data found")
         yield "Data found", EventType.INFO
 
-        field_db = get_fe_db_client().get_collection("fields")
-        tech_db = get_fe_db_client().get_collection("technologies")
+        field_db = get_fe_db_client().fields
+        tech_db = get_fe_db_client().technologies
 
         techs_flat = [tech for field in TECH_CONFIG for tech in field["technologies"]]
 
@@ -41,10 +41,10 @@ class TechnologiesStep(StepConfig):
         for field in fields:
             field["technologies"] = [tech_id_map[tech["label"]] for tech in field["technologies"]]
 
-        field_ids = field_db.insert_many([{**item, "projects": 0, "dataset": DATASET} for item in fields])
+        field_ids = await field_db.insert_many([{**item, "projects": 0, "dataset": DATASET} for item in fields])
 
         for field, field_id in zip(fields, field_ids.inserted_ids):
-            tech_db.update_many(
+            await tech_db.update_many(
                 {"dataset": DATASET, "_id": {"$in": field["technologies"]}}, {"$set": {"field": field_id}}
             )
 
