@@ -38,13 +38,13 @@ class PrefillTechnologyCounts(StepConfig):
             for field in {field_maps[tech] for tech in project["keyTechnologies"] if tech in field_maps}:
                 field_counts[field] += 1
 
-        tech_db = await get_fe_db_client().technologies
-        field_db = await get_fe_db_client().fields
+        tech_db = get_fe_db_client().technologies
+        field_db = get_fe_db_client().fields
 
         for tech_id, count in tech_counts.items():
-            tech_db.update_one({"_id": tech_id}, {"$set": {"projects": count}})
+            await tech_db.update_one({"_id": tech_id}, {"$set": {"projects": count}})
         for field_id, count in field_counts.items():
-            field_db.update_one({"_id": field_id}, {"$set": {"projects": count}})
+            await field_db.update_one({"_id": field_id}, {"$set": {"projects": count}})
 
         yield {str(tech_id): tech_count for tech_id, tech_count in tech_counts.items()}, EventType.RESULT
 
@@ -81,10 +81,10 @@ class PrefillGrantCounts(StepConfig):
             if grant is not None:
                 grant_count[grant] += 1
 
-        grant_db = await get_fe_db_client().grants
+        grant_db = get_fe_db_client().grants
 
         for grant_id, count in grant_count.items():
-            grant_db.update_one({"_id": grant_id}, {"$set": {"projects": count}})
+            await grant_db.update_one({"_id": grant_id}, {"$set": {"projects": count}})
 
         yield {str(grant_id): grant_count for grant_id, grant_count in grant_count.items()}, EventType.RESULT
 
@@ -124,10 +124,10 @@ class PrefillProgrammeCounts(StepConfig):
             if projects is not None:
                 programmes_count[programme] += projects
 
-        programme_db = await get_fe_db_client().programmes
+        programme_db = get_fe_db_client().programmes
 
         for programme_id, count in programmes_count.items():
-            programme_db.update_one({"_id": programme_id}, {"$set": {"projects": count}})
+            await programme_db.update_one({"_id": programme_id}, {"$set": {"projects": count}})
 
         yield {
             str(programme_id): programme_count for programme_id, programme_count in programmes_count.items()

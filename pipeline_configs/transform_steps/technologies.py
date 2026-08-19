@@ -33,7 +33,7 @@ class TechnologiesStep(StepConfig):
 
         techs_flat = [tech for field in TECH_CONFIG for tech in field["technologies"]]
 
-        tech_ids = tech_db.insert_many([{**item, "projects": 0, "dataset": DATASET} for item in techs_flat])
+        tech_ids = await tech_db.insert_many([{**item, "projects": 0, "dataset": DATASET} for item in techs_flat])
         tech_id_map = {tech["label"]: tech_id for tech, tech_id in zip(techs_flat, tech_ids.inserted_ids)}
 
         fields = deepcopy(TECH_CONFIG)
