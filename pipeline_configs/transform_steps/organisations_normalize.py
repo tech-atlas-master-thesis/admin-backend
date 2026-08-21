@@ -1,3 +1,4 @@
+import re
 from typing import Optional, Union, List, Dict, Any
 
 from pipelineFramework import (
@@ -9,6 +10,7 @@ from pipelineFramework import (
     EventType,
     Event,
 )
+from pipeline_configs.transform_steps.configs import GetOrganisationTypeMapperConfiguration
 from pipeline_configs.transform_steps.organisations_extract import OrganisationExtractStep
 
 
@@ -23,6 +25,7 @@ class OrganisationNormalizeStep(StepConfig):
         if results is None:
             results = {}
         ORGANISATIONS: Dict[str, Dict[str, Any]] = results.get("organisation_extract")
+        ORGANISATION_TYPE_MAPPER = results.get(GetOrganisationTypeMapperConfiguration.name())
         if ORGANISATIONS is None:
             raise FileNotFoundError("No organisation data found")
         TYPE_MAPPING: Dict[str, str] = user_config.get("TYPE_MAPPING")
@@ -30,7 +33,7 @@ class OrganisationNormalizeStep(StepConfig):
 
         organisations = self.deduplicate_organisations(ORGANISATIONS, warnings if warnings else [])
         self.map_type(organisations, TYPE_MAPPING)
-        self.map_special_organisations(organisations, warnings if warnings else [])
+        self.map_special_organisations(organisations, ORGANISATION_TYPE_MAPPER, warnings if warnings else [])
 
         yield organisations, EventType.RESULT
 
@@ -43,9 +46,20 @@ class OrganisationNormalizeStep(StepConfig):
             if identifier not in unique_organisations:
                 unique_organisations[identifier] = organisation
             else:
-                # TODO: merge orgs
+                unique_organisations[identifier] = self.merge_organisation(
+                    unique_organisations[identifier], organisation
+                )
                 pass
         return unique_organisations
+
+    def merge_organisation(self, org1: Dict[str, Any], org2: Dict[str, Any]) -> Dict[str, Any]:
+        merged_org = org1.copy()
+        for key, value in org2.items():
+            if key not in merged_org or merged_org[key] is None:
+                merged_org[key] = value
+        if merged_org["type"] == "__SPECIAL_CONVERSION_NEEDED":
+            merged_org["type"] = org2["type"]
+        return merged_org
 
     def map_type(self, organisations: Dict[str, Dict[str, Any]], mapping: Dict[str, str]) -> None:
         for organisation in organisations.values():
@@ -54,17 +68,25 @@ class OrganisationNormalizeStep(StepConfig):
                 new_type = "__SPECIAL_CONVERSION_NEEDED"
             organisation["type"] = new_type
 
-    def map_special_organisations(self, organisations: Dict[str, Dict[str, Any]], warnings: List[Event]) -> None:
-        # TODO: find good strategy to categorise FWF orgs
+    def map_special_organisations(
+        self, organisations: Dict[str, Dict[str, Any]], organisation_mapper, warnings: List[Event]
+    ) -> None:
         for organisation in organisations.values():
-            if organisation["type"] == "__SPECIAL_CONVERSION_NEEDED":
-                warnings.append(
-                    Event.now(
-                        f"No mapping found for type {organisation['type']} in organisation {organisation['name']}",
-                        EventType.WARNING,
+            current_org_type = organisation["type"]
+            if current_org_type == "__SPECIAL_CONVERSION_NEEDED":
+                for mapper in organisation_mapper:
+                    if any(re.findall(regex, organisation["name"].lower()) for regex in mapper["keywords"]):
+                        organisation["type"] = mapper["mapTo"]
+                        break
+
+                if organisation["type"] == "__SPECIAL_CONVERSION_NEEDED":
+                    warnings.append(
+                        Event.now(
+                            f"No mapping found for organisation {organisation['name']}",
+                            EventType.WARNING,
+                        )
                     )
-                )
-                organisation["type"] = "OTHER"
+                    organisation["type"] = "OTHER"
 
     def user_config(self) -> List[StepUserConfig]:
         return [
@@ -107,4 +129,4 @@ class OrganisationNormalizeStep(StepConfig):
         return LocalisationString("Desc", "Desc")
 
     def dependencies(self) -> Union[List[str], None]:
-        return [OrganisationExtractStep.name()]
+        return [OrganisationExtractStep.name(), GetOrganisationTypeMapperConfiguration.name()]
