@@ -31,8 +31,10 @@ class OrganisationNormalizeStep(StepConfig):
         TYPE_MAPPING: Dict[str, str] = user_config.get("TYPE_MAPPING")
         yield "Data found", EventType.INFO
 
-        organisations = self.deduplicate_organisations(ORGANISATIONS, warnings if warnings else [])
+        organisations = ORGANISATIONS.copy()
+
         self.map_type(organisations, TYPE_MAPPING)
+        organisations = self.deduplicate_organisations(organisations, warnings if warnings else [])
         self.map_special_organisations(organisations, ORGANISATION_TYPE_MAPPER, warnings if warnings else [])
 
         yield organisations, EventType.RESULT
@@ -49,7 +51,6 @@ class OrganisationNormalizeStep(StepConfig):
                 unique_organisations[identifier] = self.merge_organisation(
                     unique_organisations[identifier], organisation
                 )
-                pass
         return unique_organisations
 
     def merge_organisation(self, org1: Dict[str, Any], org2: Dict[str, Any]) -> Dict[str, Any]:
@@ -110,9 +111,6 @@ class OrganisationNormalizeStep(StepConfig):
                     "Universität": "UNIVERSITY",
                     "unternehmerisch tätig": "COMPANY",
                     "Projektpartner:in": "OTHER",
-                    "Nationale Forschungseinrichtung": "OTHER",
-                    "assoziierte:r Forschungspartner:in": "OTHER",
-                    "nationale:r Kooperationspartner:in": "OTHER",
                 },
             ),
         ]
