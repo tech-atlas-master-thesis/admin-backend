@@ -4,5 +4,11 @@ from pipelineFramework import PipelineConfig
 from .test import TEST_PIPELINE
 from .scraper_main import SCRAPER_PIPELINE
 from .transform_main import TRANSFORMER_PIPELINE
+from .registry_main import REGISTRY_PIPELINE
 
-PIPELINE_CONFIGS: List[PipelineConfig] = [TEST_PIPELINE, SCRAPER_PIPELINE, TRANSFORMER_PIPELINE]
+PIPELINE_CONFIGS: List[PipelineConfig] = [
+    TEST_PIPELINE,
+    SCRAPER_PIPELINE,
+    TRANSFORMER_PIPELINE,
+    REGISTRY_PIPELINE,
+]

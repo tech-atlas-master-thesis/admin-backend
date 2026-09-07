@@ -11,7 +11,8 @@ COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app/
 
-RUN chown -R nonroot /app
+RUN mkdir -p /var/lib/registry-data
+RUN chown -R nonroot /app /var/lib/registry-data
 USER nonroot
 
 EXPOSE 8080
