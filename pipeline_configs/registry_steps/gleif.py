@@ -12,6 +12,7 @@ from pipelineFramework import (
     StepUserConfig,
     StreamingDownloadStep,
     UserStepConfig,
+    slugify_version,
 )
 from registries import gleif
 from user_agent import USER_AGENT
@@ -30,7 +31,9 @@ class GleifDownloadStep(StreamingDownloadStep):
             payload = await response.json(content_type=None)
 
         version, url = gleif.parse_golden_copy_publish(payload)
-        return RemoteFile(url=url, version=version, filename=f"gleif-lei2-{version}.zip")
+        # The publish date is a timestamp, so it goes through slugify_version before it
+        # becomes part of a filename - a raw "2025-01-01T08:00:00Z" cannot be written on Windows.
+        return RemoteFile(url=url, version=version, filename=f"gleif-lei2-{slugify_version(version)}.zip")
 
     def user_config(self) -> List[StepUserConfig]:
         return [
