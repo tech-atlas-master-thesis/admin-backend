@@ -12,10 +12,10 @@ SOURCE = "bev"
 
 # BEV dates its filenames; verify against the current listing at https://data.bev.gv.at/geonetwork
 # and override with the step's SOURCE_URL if it moved.
-DEFAULT_URL = "https://data.bev.gv.at/download/Adressregister/Adresse_Relationale_Tabellen-Stichtagsdaten-aktuell.zip"
+DEFAULT_URL = "https://data.bev.gv.at/download/Adressregister/Archiv_Adressregister/Adresse_Relationale_Tabellen_Stichtagsdaten_20251001.zip"
 
 DELIMITER = ";"
-ENCODING = "utf-8"
+ENCODING = "utf-8-sig"
 
 MEMBER_ADRESSE = "ADRESSE.csv"
 MEMBER_STRASSE = "STRASSE.csv"
@@ -80,7 +80,7 @@ def _house_number(row: Dict[str, str]) -> Optional[str]:
 def _load_lookup(path: Path, member: str, key: str, value: str) -> Dict[str, str]:
     lookup: Dict[str, str] = {}
     with text_stream(path, member, encoding=ENCODING) as stream:
-        reader = csv.DictReader(stream, delimiter=DELIMITER)
+        reader = csv.DictReader(stream, delimiter=DELIMITER, skipinitialspace=True)
         _require_columns(reader.fieldnames, [key, value], member)
         for row in reader:
             identifier = (row.get(key) or "").strip()

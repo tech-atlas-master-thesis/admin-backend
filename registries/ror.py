@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 from typing import Any, Dict, Iterator, List, Optional, Tuple
 
@@ -12,7 +13,7 @@ COUNTRY_CODE = "AT"
 ZENODO_API = "https://zenodo.org/api"
 # Concept record for DOI 10.5281/zenodo.6347574; its links.latest always points at the newest release.
 ZENODO_CONCEPT_RECORD = "6347574"
-DATA_MEMBER = "*schema_v2.json"
+DATA_MEMBER = "v2.*.json"
 
 
 def parse_zenodo_release(record: Dict[str, Any]) -> Tuple[str, str]:
@@ -131,7 +132,7 @@ def to_document(record: Dict[str, Any]) -> Dict[str, Any]:
 
 def iter_documents(path: Path) -> Iterator[Dict[str, Any]]:
     with binary_stream(path, DATA_MEMBER) as stream:
-        for record in ijson.items(stream, "item"):
+        for record in json.load(stream):
             if is_austrian(record):
                 yield to_document(record)
 
