@@ -1,7 +1,7 @@
 import csv
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Dict, Iterator, List, Optional
+from typing import Any, Dict, Iterable, Iterator, List, Optional, Tuple
 
 from pymongo import ASCENDING, IndexModel
 from pyproj import Transformer
@@ -146,3 +146,69 @@ def indexes() -> List[IndexModel]:
         IndexModel([("postal_code", ASCENDING), ("street_key", ASCENDING)], name="postal_code_street"),
         IndexModel([("street_key", ASCENDING)], name="street_key"),
     ]
+
+
+CHUNK_SIZE = 200
+CENTROID_SAMPLE = 400
+
+
+def street_key(street: Optional[str]) -> Optional[str]:
+    return normalize_key(street) if street else None
+
+
+def _chunks(values: List[Any], size: int = CHUNK_SIZE) -> Iterator[List[Any]]:
+    for start in range(0, len(values), size):
+        yield values[start : start + size]
+
+
+async def load_streets(collection, requests: Iterable[Tuple[str, str]]) -> Dict[Tuple[str, str], List[Dict[str, Any]]]:
+    wanted = sorted({(postal_code, key) for postal_code, key in requests if postal_code and key})
+    found: Dict[Tuple[str, str], List[Dict[str, Any]]] = {}
+    for chunk in _chunks(wanted):
+        query = {"$or": [{"postal_code": postal_code, "street_key": key} for postal_code, key in chunk]}
+        async for document in collection.find(query):
+            found.setdefault((document.get("postal_code"), document.get("street_key")), []).append(document)
+    return found
+
+
+def pick_address(documents: List[Dict[str, Any]], house_number: Optional[str]) -> Optional[Tuple[Dict[str, Any], str]]:
+    if not documents:
+        return None
+    if house_number:
+        wanted = normalize_key(house_number)
+        for document in documents:
+            if normalize_key(document.get("house_number") or "") == wanted:
+                return document, "rooftop"
+        # A house number that is not in the register still pins the street it belongs to.
+        stem = "".join(character for character in wanted if character.isdigit())
+        for document in documents:
+            digits = "".join(character for character in (document.get("house_number") or "") if character.isdigit())
+            if stem and digits == stem:
+                return document, "rooftop"
+    return documents[0], "street"
+
+
+async def load_postal_code_centroid(collection, postal_code: str) -> Optional[Tuple[float, float, Dict[str, Any]]]:
+    documents = [document async for document in collection.find({"postal_code": postal_code}).limit(CENTROID_SAMPLE)]
+    points = [
+        (document["lat"], document["lon"])
+        for document in documents
+        if document.get("lat") is not None and document.get("lon") is not None
+    ]
+    if not points:
+        return None
+    latitude = sum(point[0] for point in points) / len(points)
+    longitude = sum(point[1] for point in points) / len(points)
+    return latitude, longitude, {"sampled": len(points), "postal_code": postal_code}
+
+
+def address_of(document: Dict[str, Any]) -> Dict[str, Optional[str]]:
+    return {
+        "country": "Österreich",
+        "country_code": "AT",
+        "state": document.get("state"),
+        "city": document.get("city"),
+        "postal_code": document.get("postal_code"),
+        "street": document.get("street"),
+        "house_number": document.get("house_number"),
+    }

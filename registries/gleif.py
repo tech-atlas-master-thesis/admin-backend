@@ -1,11 +1,12 @@
 import csv
 import re
 from pathlib import Path
-from typing import Any, Dict, Iterator, List, Optional, Tuple
+from typing import Any, Dict, Iterable, Iterator, List, Optional, Tuple
 
 from pymongo import ASCENDING, IndexModel
 
 from pipelineFramework import normalize_key, text_stream
+from . import matching
 
 SOURCE = "gleif"
 COUNTRY_CODE = "AT"
@@ -115,3 +116,56 @@ def indexes() -> List[IndexModel]:
         IndexModel([("firmenbuchnummer", ASCENDING)], name="firmenbuchnummer", sparse=True),
         IndexModel([("legal_address.postal_code", ASCENDING)], name="postal_code"),
     ]
+
+
+CHUNK_SIZE = 1000
+POOL_LIMIT = 50_000
+
+
+def _chunks(values: List[str], size: int = CHUNK_SIZE) -> Iterator[List[str]]:
+    for start in range(0, len(values), size):
+        yield values[start : start + size]
+
+
+async def load_by_names(collection, keys: Iterable[str]) -> Dict[str, List[Dict[str, Any]]]:
+    wanted = {key for key in keys if key}
+    index: Dict[str, Dict[str, Dict[str, Any]]] = {}
+    for chunk in _chunks(sorted(wanted)):
+        async for document in collection.find({"search_name": {"$in": chunk}}):
+            key = document.get("search_name")
+            if key in wanted:
+                index.setdefault(key, {})[document["_id"]] = document
+    return {key: list(documents.values()) for key, documents in index.items()}
+
+
+async def load_pool(collection, limit: int = POOL_LIMIT) -> List[Dict[str, Any]]:
+    return [document async for document in collection.find({}).limit(limit)]
+
+
+def candidates(documents: Iterable[Dict[str, Any]]) -> List[Tuple[str, str, Dict[str, Any]]]:
+    pool: List[Tuple[str, str, Dict[str, Any]]] = []
+    for document in documents:
+        for folded in matching.fold_names(document.get("legal_name")):
+            pool.append((folded, document["_id"], document))
+    return pool
+
+
+def address_of(document: Dict[str, Any]) -> Dict[str, Optional[str]]:
+    # The legal address is the registered seat; headquarters only fills what it leaves empty.
+    legal = document.get("legal_address") or {}
+    headquarters = document.get("headquarters_address") or {}
+    merged = {field: legal.get(field) or headquarters.get(field) for field in ADDRESS_FIELDS}
+    street, house_number = matching.split_street(merged.get("street"))
+    return {
+        "country": merged.get("country"),
+        "country_code": (merged.get("country") or "").strip().upper() or None,
+        "state": matching.state_name(merged.get("region")),
+        "city": merged.get("city"),
+        "postal_code": merged.get("postal_code"),
+        "street": street,
+        "house_number": house_number,
+    }
+
+
+def is_active(document: Dict[str, Any]) -> bool:
+    return (document.get("entity_status") or "ACTIVE").upper() == "ACTIVE"

@@ -1,3 +1,3 @@
-from . import bev, gleif, ror
+from . import bev, gleif, matching, ror
 
-__all__ = ["bev", "gleif", "ror"]
+__all__ = ["bev", "gleif", "matching", "ror"]
