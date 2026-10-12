@@ -22,18 +22,23 @@ class GrantExtractStep(StepConfig):
         SCRAPER_DATA = results.get("getScraperResults")
         if SCRAPER_DATA is None:
             raise FileNotFoundError("No organisation data found")
-        grants = []
+        grants = {}
         pd.DataFrame().itertuples()
         for _, grant_data in SCRAPER_DATA.iterrows():
             # TODO: fix for FWF data ("grant")
             new_grant = None
-            if "bidding" in grant_data or "programme" in grant_data:
+            if (
+                "data_source" in grant_data
+                and grant_data["data_source"] == "FFG"
+                and "bidding" in grant_data
+                and "programme" in grant_data
+            ):
                 new_grant = {
                     "name": grant_data["bidding"],
                     "programme": grant_data["programme"],
                     "projects": 0,
                 }
-            if "grant" in grant_data:
+            if "data_source" in grant_data and grant_data["data_source"] == "FWF" and "grant" in grant_data:
                 new_grant = {
                     "name": grant_data["grant"],
                     "programme": grant_data["grant"],
@@ -42,7 +47,7 @@ class GrantExtractStep(StepConfig):
             if new_grant:
                 if any(new_grant == grant for grant in grants):
                     continue
-                grants.append(new_grant)
+                grants[new_grant["name"]] = new_grant
         yield f"Extracted {len(grants)} unique grants", EventType.INFO
         yield grants, EventType.RESULT
 

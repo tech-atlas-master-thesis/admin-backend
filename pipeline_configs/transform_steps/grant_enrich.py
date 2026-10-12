@@ -22,7 +22,7 @@ class GrantEnrichStep(StepConfig):
             raise FileNotFoundError("No organisation data found")
         yield "Data found", EventType.INFO
 
-        for grant in GRANTS:
+        for grant in GRANTS.values():
             grant["programme"] = PROGRAMMES.get(grant["programme"])
 
         yield GRANTS, EventType.RESULT

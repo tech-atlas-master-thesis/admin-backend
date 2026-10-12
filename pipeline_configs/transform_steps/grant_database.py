@@ -25,8 +25,8 @@ class GrantDatabaseStep(StepConfig):
 
         project_db = get_fe_db_client().grants
 
-        ids = await project_db.insert_many([{**item, "dataset": DATASET} for item in GRANTS])
-        yield dict(zip((grant["name"] for grant in GRANTS), ids.inserted_ids)), EventType.RESULT
+        ids = await project_db.insert_many([{**item, "dataset": DATASET} for item in GRANTS.values()])
+        yield dict(zip(GRANTS.keys(), ids.inserted_ids)), EventType.RESULT
 
     def user_config(self) -> List[StepUserConfig]:
         return []

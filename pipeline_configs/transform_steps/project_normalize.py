@@ -26,25 +26,20 @@ class ProjectNormalizeStep(StepConfig):
         if results is None:
             results = {}
         PROJECTS: List[Dict[str, Any]] = results.get("project_extract")
-        TECHNOLOGIES: Dict[str, List[str, str]] = results.get("technologies")
         if PROJECTS is None:
             raise FileNotFoundError("No scraper data found")
-        ORGANISATION_MAPPING: Dict[str, str] = results.get("organisation_database")
-        GRANT_MAPPING: Dict[str, str] = results.get("grant_database")
         STATUS_MAPPING: Dict[str, str] = user_config.get("STATUS_MAPPING")
         yield "Data found", EventType.INFO
 
-        self.add_technology_ids(PROJECTS, TECHNOLOGIES)
-        self.add_organisations(PROJECTS, ORGANISATION_MAPPING, warnings if warnings else [])
-        self.add_grants(PROJECTS, GRANT_MAPPING)
         self.parse_keywords(PROJECTS)
-        self.map_status(PROJECTS, STATUS_MAPPING, warnings if warnings else [])
+        self.map_status(PROJECTS, STATUS_MAPPING, warnings if warnings is not None else [])
+        self.normalize_grant(PROJECTS)
 
         yield PROJECTS, EventType.RESULT
 
     def map_status(self, projects: List[Dict[str, Any]], mapping: Dict[str, str], warnings: List[Event]) -> None:
         for project in projects:
-            new_type = mapping.get(project["status"], None)
+            new_type = mapping.get(project["status"].lower(), None)
             if not new_type:
                 warnings.append(
                     Event.now(
@@ -58,41 +53,13 @@ class ProjectNormalizeStep(StepConfig):
         for project in projects:
             project["keywords"] = project["keywords"].split(", ")
 
-    def add_organisations(
-        self, projects: List[Dict[str, Any]], organisation_mapping: Dict[str, str], warnings: List[Event]
-    ):
+    def normalize_grant(self, projects: List[Dict[str, Any]]) -> None:
         for project in projects:
-            orgs = json.loads(project["organisations"])
-            project["organisations"] = [organisation_mapping.get(org["organisationName"]) for org in orgs]
-            project_leaders = [
-                organisation_mapping.get(org["organisationName"])
-                for org in orgs
-                if "role_in_project" in org
-                and org["role_in_project"] in ["Konsortialführer", "Einzelantragsteller", "LEADER"]
-            ]
-            if not project_leaders:
-                warnings.append(
-                    Event.now(
-                        f"No project leader found for project {project['title']} ({project['externalId']} from {project['data_source']})",
-                        EventType.WARNING,
-                    )
-                )
-            project["projectLeader"] = project_leaders[0] if len(project_leaders) == 1 else project_leaders
-
-    def add_technology_ids(self, projects: List[Dict[str, Any]], technologies: Dict[str, List[str, str]]) -> None:
-        for project in projects:
-            tech_ids = []
-            for tech in json.loads(project["keyTechnologies"]):
-                tech_id = technologies[tech]
-                tech_ids.append(tech_id)
-            project["keyTechnologies"] = tech_ids
-
-    def add_grants(self, projects: List[Dict[str, Any]], grants: Dict[str, str]) -> None:
-        for project in projects:
-            grant = grants.get(project["bidding"])
-            project["grant"] = grant
-            del project["bidding"]
-            del project["programme"]
+            if "bidding" in project:
+                project["grant"] = project["bidding"]
+                del project["bidding"]
+            if "programme" in project:
+                del project["programme"]
 
     def user_config(self) -> List[StepUserConfig]:
         return [
@@ -109,8 +76,10 @@ class ProjectNormalizeStep(StepConfig):
                     "laufend": "ONGOING",
                     "ended": "ENDED",
                     "ongoing": "ONGOING",
+                    "pending": "PENDING",
                     "prematurely terminated": "TERMINATED",
                     "starting date pending": "PENDING",
+                    "withdrawn": "TERMINATED",
                 },
             ),
         ]

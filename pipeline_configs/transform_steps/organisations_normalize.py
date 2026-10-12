@@ -34,8 +34,10 @@ class OrganisationNormalizeStep(StepConfig):
         organisations = ORGANISATIONS.copy()
 
         self.map_type(organisations, TYPE_MAPPING)
-        organisations = self.deduplicate_organisations(organisations, warnings if warnings else [])
-        self.map_special_organisations(organisations, ORGANISATION_TYPE_MAPPER, warnings if warnings else [])
+        organisations = self.deduplicate_organisations(organisations, warnings if warnings is not None else [])
+        self.map_special_organisations(
+            organisations, ORGANISATION_TYPE_MAPPER, warnings if warnings is not None else []
+        )
 
         yield organisations, EventType.RESULT
 

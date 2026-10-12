@@ -24,10 +24,10 @@ class ProgrammeExtractStep(StepConfig):
         if GRANTS_DATA is None:
             raise FileNotFoundError("No grant data found")
         programmes = set()
-        for grant in GRANTS_DATA:
+        for _, grant in GRANTS_DATA.items():
             programmes.add(grant["programme"])
         yield f"Extracted {len(programmes)} unique programmes", EventType.INFO
-        yield [{"name": programme, "projects": 0} for programme in programmes], EventType.RESULT
+        yield {programme: {"name": programme, "projects": 0} for programme in programmes}, EventType.RESULT
 
     def user_config(self) -> List[StepUserConfig]:
         return []
@@ -118,8 +118,8 @@ class ProgrammesDatabaseStep(StepConfig):
 
         project_db = get_fe_db_client().programmes
 
-        ids = await project_db.insert_many([{**item, "dataset": DATASET} for item in PROGRAMMES])
-        yield dict(zip((programme["name"] for programme in PROGRAMMES), ids.inserted_ids)), EventType.RESULT
+        ids = await project_db.insert_many([{**item, "dataset": DATASET} for _, item in PROGRAMMES.items()])
+        yield dict(zip(PROGRAMMES.keys(), ids.inserted_ids)), EventType.RESULT
 
     def user_config(self) -> List[StepUserConfig]:
         return []
