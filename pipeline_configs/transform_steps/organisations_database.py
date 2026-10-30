@@ -9,6 +9,7 @@ from pipelineFramework import (
     LocalisationString,
     StepUserConfig,
     EventType,
+    Event,
 )
 from pipelineFramework.server.db.helper import get_fe_db_client
 from pipeline_configs.transform_steps.create_dataset import CreateDataSetStep
@@ -16,9 +17,16 @@ from pipeline_configs.transform_steps.organisations_enrich import OrganisationEn
 
 
 class OrganisationDatabaseStep(StepConfig):
-    async def run(self, user_config: Optional[UserStepConfig], results: Optional[Dict[str, Any]] = None, **_):
+    async def run(
+        self,
+        user_config: Optional[UserStepConfig],
+        results: Optional[Dict[str, Any]] = None,
+        events: Optional[List[Event]] = None,
+        **_,
+    ):
         if results is None:
             results = {}
+        events = events if events is not None else []
         ORGANISATIONS = results.get("organisation_enrich")
         DATASET = results.get("create_dataset")
         if ORGANISATIONS is None:
@@ -28,7 +36,26 @@ class OrganisationDatabaseStep(StepConfig):
         project_db = get_fe_db_client().organisations
 
         ids = await project_db.insert_many([{**item, "dataset": DATASET} for item in ORGANISATIONS.values()])
-        yield dict(zip(ORGANISATIONS.keys(), ids.inserted_ids)), EventType.RESULT
+        mapping = dict(zip(ORGANISATIONS.keys(), ids.inserted_ids))
+
+        # Names that were merged into another organisation (e.g. institutes into their university) still
+        # appear in the project data, so they resolve to the id of the organisation they were merged into.
+        alias_count = 0
+        for (key, organisation), organisation_id in zip(ORGANISATIONS.items(), ids.inserted_ids):
+            for alias in organisation.get("aliases") or []:
+                if alias in mapping and mapping[alias] != organisation_id:
+                    events.append(
+                        Event.now(
+                            f"Alias '{alias}' of organisation '{key}' is already used by another organisation",
+                            EventType.WARNING,
+                        )
+                    )
+                    continue
+                mapping[alias] = organisation_id
+                alias_count += 1
+        yield f"Saved {len(ORGANISATIONS)} organisations, resolving {alias_count} additional alias names", EventType.INFO
+
+        yield mapping, EventType.RESULT
 
     def user_config(self) -> List[StepUserConfig]:
         return []
