@@ -21,7 +21,7 @@ class ProjectEnrichStep(StepConfig):
         self,
         user_config: Optional[UserStepConfig],
         results: Optional[Dict[str, Any]] = None,
-        warnings: Optional[List[Event]] = None,
+        events: Optional[List[Event]] = None,
         **_,
     ):
         if results is None:
@@ -35,7 +35,7 @@ class ProjectEnrichStep(StepConfig):
         yield "Data found", EventType.INFO
 
         self.add_technology_ids(PROJECTS, TECHNOLOGIES)
-        self.add_organisations(PROJECTS, ORGANISATION_MAPPING, warnings if warnings is not None else [])
+        self.add_organisations(PROJECTS, ORGANISATION_MAPPING, events if events is not None else [])
         self.add_grants(PROJECTS, GRANT_MAPPING)
 
         yield PROJECTS, EventType.RESULT

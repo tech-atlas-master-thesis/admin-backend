@@ -19,7 +19,7 @@ class OrganisationNormalizeStep(StepConfig):
         self,
         user_config: Optional[UserStepConfig],
         results: Optional[Dict[str, Any]] = None,
-        warnings: List[Event] = None,
+        events: List[Event] = None,
         **_,
     ):
         if results is None:
@@ -34,9 +34,9 @@ class OrganisationNormalizeStep(StepConfig):
         organisations = ORGANISATIONS.copy()
 
         self.map_type(organisations, TYPE_MAPPING)
-        organisations = self.deduplicate_organisations(organisations, warnings if warnings is not None else [])
+        organisations = self.deduplicate_organisations(organisations, events if events is not None else [])
         self.map_special_organisations(
-            organisations, ORGANISATION_TYPE_MAPPER, warnings if warnings is not None else []
+            organisations, ORGANISATION_TYPE_MAPPER, events if events is not None else []
         )
 
         yield organisations, EventType.RESULT

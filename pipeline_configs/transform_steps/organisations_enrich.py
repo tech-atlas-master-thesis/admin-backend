@@ -172,7 +172,7 @@ class OrganisationEnrichStep(StepConfig):
         self,
         user_config: Optional[UserStepConfig] = None,
         results: Optional[Dict[str, Any]] = None,
-        warnings: Optional[List[Event]] = None,
+        events: Optional[List[Event]] = None,
         **_,
     ):
         if results is None:
@@ -180,7 +180,7 @@ class OrganisationEnrichStep(StepConfig):
         organisations: Dict[str, Dict[str, Any]] = results.get(OrganisationNormalizeStep.name())
         if organisations is None:
             raise FileNotFoundError("No organisation data found")
-        warnings = warnings if warnings is not None else []
+        events = events if events is not None else []
         settings = self.settings(user_config)
 
         registry_db = get_registry_db_client()
@@ -224,7 +224,7 @@ class OrganisationEnrichStep(StepConfig):
 
         for record in records:
             for message in record.warnings:
-                warnings.append(Event.now(message, EventType.WARNING))
+                events.append(Event.now(message, EventType.WARNING))
 
         yield self.coverage(records), EventType.INFO
         yield {record.key: record.as_organisation() for record in records}, EventType.RESULT

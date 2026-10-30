@@ -20,7 +20,7 @@ class ProjectNormalizeStep(StepConfig):
         self,
         user_config: Optional[UserStepConfig],
         results: Optional[Dict[str, Any]] = None,
-        warnings: Optional[List[Event]] = None,
+        events: Optional[List[Event]] = None,
         **_,
     ):
         if results is None:
@@ -32,7 +32,7 @@ class ProjectNormalizeStep(StepConfig):
         yield "Data found", EventType.INFO
 
         self.parse_keywords(PROJECTS)
-        self.map_status(PROJECTS, STATUS_MAPPING, warnings if warnings is not None else [])
+        self.map_status(PROJECTS, STATUS_MAPPING, events if events is not None else [])
         self.normalize_grant(PROJECTS)
 
         yield PROJECTS, EventType.RESULT

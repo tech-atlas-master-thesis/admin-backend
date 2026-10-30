@@ -195,7 +195,7 @@ async def run_step(
             results=shared,
             pipeline=PipelineDummy(),
             step=StepDummy(),
-            warnings=[],
+            events=[],
         ):
             recorded = log.record(event, echo=echo)
             if recorded.type == EventType.RESULT:
@@ -226,7 +226,7 @@ async def run_step_raising(
             results=shared,
             pipeline=PipelineDummy(),
             step=StepDummy(),
-            warnings=[],
+            events=[],
         ):
             log.record(event)
     except exception as error:  # noqa: B902 - the type is what the test expects
