@@ -227,8 +227,6 @@ class FWFScraper(StepConfig):
                 StepUserConfig.StepUserConfigType.MAPPING,
                 {
                     "role_in_project": "LEADER",
-                    "organisationCountry": "Österreich",
-                    "organisationType": "Nationale Forschungseinrichtung",
                 },
             ),
             StepUserConfig(
@@ -259,7 +257,7 @@ class FWFScraper(StepConfig):
                     "Zusatzdaten die nationalen Projektpartnern hinzugefügt werden soll",
                 ),
                 StepUserConfig.StepUserConfigType.MAPPING,
-                {"organisationCountry": "Österreich"},
+                {},
             ),
             StepUserConfig(
                 "ORGANISATION_NATIONAL_PARTNERS_REGEX",
