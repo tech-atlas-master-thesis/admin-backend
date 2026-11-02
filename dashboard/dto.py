@@ -2,7 +2,8 @@ from dataclasses import dataclass
 from typing import List, Optional
 
 from datasets import DatasetDto
-from pipelineFramework import PipelineDto, ScheduleDto
+from pipelineFramework import PipelineDto
+from pipelineFramework.server.schedules.pipeline_schedule import PipelineSchedule
 
 
 @dataclass
@@ -24,7 +25,7 @@ class DashboardPipelinesDto :
 @dataclass
 class DashboardSchedulesDto :
     active: int
-    recentlyExecuted: List[ScheduleDto]
+    recentlyExecuted: List[PipelineSchedule]
 
 
 @dataclass
