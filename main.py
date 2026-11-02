@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 
 from config_definitions import CONFIG_DEFINITIONS
+from dashboard import add_dashboard_endpoints
 from datasets import add_dataset_endpoints
 from middleware.requestCancelledMiddleware import RequestCancelledMiddleware
 from pipelineFramework import PipelineServer, add_common_api_calls, ConfigurationManager
@@ -36,3 +37,4 @@ app.add_middleware(RequestCancelledMiddleware)
 pipeline_server = PipelineServer(PIPELINE_CONFIGS, CONFIG_DEFINITIONS)
 add_common_api_calls(app, pipeline_server, API_BASE_URL)
 add_dataset_endpoints(app, API_BASE_URL)
+add_dashboard_endpoints(app, API_BASE_URL)
