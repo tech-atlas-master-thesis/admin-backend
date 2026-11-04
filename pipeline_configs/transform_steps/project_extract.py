@@ -62,14 +62,18 @@ class ProjectExtractStep(StepConfig):
             "data_source",
         ]
 
+        # The other extract steps read this frame at the same time. Under pandas' copy-on-write a
+        # shallow copy costs nothing and keeps the column writes below away from the shared frame.
+        frame = SCRAPER_DATA.copy(deep=False)
+
         for column in RELEVANT_COLUMNS:
-            if column not in SCRAPER_DATA.columns:
-                SCRAPER_DATA[column] = None
+            if column not in frame.columns:
+                frame[column] = None
 
         # TODO: convert this in the scraper pipeline
-        SCRAPER_DATA["start"] = self._convert_to_date(SCRAPER_DATA["start"])
-        SCRAPER_DATA["end"] = self._convert_to_date(SCRAPER_DATA["end"])
-        projects = SCRAPER_DATA[RELEVANT_COLUMNS].to_dict("records")
+        frame["start"] = self._convert_to_date(frame["start"])
+        frame["end"] = self._convert_to_date(frame["end"])
+        projects = frame[RELEVANT_COLUMNS].to_dict("records")
         yield [
             self.map(project, RELEVANT_COLUMNS)
             for project in projects

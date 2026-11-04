@@ -12,7 +12,6 @@ from pipelineFramework import (
 )
 from pipeline_configs.transform_steps.grant_database import GrantDatabaseStep
 from pipeline_configs.transform_steps.organisations_database import OrganisationDatabaseStep
-from pipeline_configs.transform_steps.project_extract import ProjectExtractStep
 from pipeline_configs.transform_steps.project_normalize import ProjectNormalizeStep
 
 
@@ -26,7 +25,7 @@ class ProjectEnrichStep(StepConfig):
     ):
         if results is None:
             results = {}
-        PROJECTS: List[Dict[str, Any]] = results.get(ProjectExtractStep.name())
+        PROJECTS: List[Dict[str, Any]] = results.get(ProjectNormalizeStep.name())
         TECHNOLOGIES: Dict[str, List[str, str]] = results.get("technologies")
         if PROJECTS is None:
             raise FileNotFoundError("No scraper data found")
