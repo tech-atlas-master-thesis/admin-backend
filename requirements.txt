@@ -19,3 +19,4 @@ apscheduler==4.0.0a6
 ijson >= 3.3.0
 pyproj >= 3.7.0
 rapidfuzz >= 3.14
+numpy==2.5.4

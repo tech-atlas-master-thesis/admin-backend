@@ -1,15 +1,12 @@
 import datetime
-import itertools
 import json
 import re
+from io import StringIO
 from typing import List, Dict, Any, Optional, Tuple
 
 import aiohttp
 import numpy as np
 import pandas as pd
-from aiohttp import BasicAuth
-from pandas import StringDtype
-from six import StringIO
 
 from pipelineFramework import UserStepConfig
 from scrapers.Scraper import Scraper
