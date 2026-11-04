@@ -1,3 +1,4 @@
+from datetime import datetime
 from dataclasses import dataclass
 from typing import Dict, Any, Optional, Callable
 
@@ -23,6 +24,10 @@ class DatasetDto:
     pipelineName: str
     active: bool
     created: AuditInfoDto
+    projects: int
+    organisations: int
+    from_date: datetime
+
 
     @classmethod
     def from_entity(cls, entity: Dict):
@@ -33,6 +38,9 @@ class DatasetDto:
             _get(entity, "pipelineName"),
             _get(entity, "active", bool),
             _get(entity, "created"),
+            _get(entity, "projects"),
+            _get(entity, "organisations"),
+            _get(entity, "from"),
         )
 
     def to_entity(self) -> Dict:
@@ -43,4 +51,7 @@ class DatasetDto:
             "pipelineName": self.pipelineName,
             "active": self.active,
             "created": self.created,
+            "projects": self.projects,
+            "organisations": self.organisations,
+            "from": self.from_date,
         }
