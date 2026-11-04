@@ -7,7 +7,7 @@ TECHNOLOGIES_CONFIG = Configuration(
         {
             "label": "Künstliche Intelligenz und Dateninnovation",
             "description": "Technologien und Methoden zur Entwicklung, zum Einsatz und zur Steuerung von KI-Systemen sowie der zugrunde liegenden Daten.",
-            "short": "",
+            "short": "ki",
             "style": {"color": "#CD6A42", "accent": "#D19A84"},
             "programmes": [],
             "technologies": [
@@ -470,7 +470,7 @@ TECHNOLOGIES_CONFIG = Configuration(
         {
             "label": "Chips, Elektronische Komponenten und Systeme",
             "description": "Technologien zur Entwicklung, Herstellung und Integration von Halbleitern, elektronischen Bauteilen und eingebetteten Systemen.",
-            "short": "",
+            "short": "chips",
             "style": {"color": "#A52932", "accent": "#C77D82"},
             "programmes": [],
             "technologies": [
@@ -862,7 +862,7 @@ TECHNOLOGIES_CONFIG = Configuration(
         {
             "label": "Fortgeschrittene Produktionstechnologien und Robotik",
             "description": "Technologien, die Produktionsprozesse automatisierter, flexibler, vernetzter und intelligenter machen.",
-            "short": "",
+            "short": "robotics",
             "style": {"color": "#752347", "accent": "#AB6885"},
             "programmes": [],
             "technologies": [
@@ -1172,7 +1172,7 @@ TECHNOLOGIES_CONFIG = Configuration(
         {
             "label": "Quantentechnologie und Photonik",
             "description": "Technologien, die quantenmechanische Effekte und Licht für Berechnung, Kommunikation, Sensorik und Messtechnik nutzen.",
-            "short": "",
+            "short": "quantum",
             "style": {"color": "#59437C", "accent": "#9684B3"},
             "programmes": [],
             "technologies": [
@@ -1525,7 +1525,7 @@ TECHNOLOGIES_CONFIG = Configuration(
         {
             "label": "Fortgeschrittene Werkstoffe (Advanced Materials)",
             "description": "Neuartige und maßgeschneiderte Werkstoffe mit verbesserten oder speziell angepassten Eigenschaften für anspruchsvolle Anwendungen.",
-            "short": "",
+            "short": "materials",
             "style": {"color": "#2E5793", "accent": "#8FA6C9"},
             "programmes": [],
             "technologies": [
@@ -1892,7 +1892,7 @@ TECHNOLOGIES_CONFIG = Configuration(
         {
             "label": "Life-Sciences & Biotech",
             "description": "Technologien, die biologisches Wissen auf Gesundheitswesen, Pharmazie, Diagnostik und industrielle Prozesse anwenden.",
-            "short": "",
+            "short": "life",
             "style": {"color": "#4C8090", "accent": "#82A9B5"},
             "programmes": [],
             "technologies": [
@@ -2347,8 +2347,8 @@ TECHNOLOGIES_CONFIG = Configuration(
         {
             "label": "Energie- und Umwelttechnologien",
             "description": "Technologien zur nachhaltigen Erzeugung, Speicherung und Steuerung von Energie sowie zum Schutz der Umwelt.",
-            "short": "",
-            "style": {"color": "#5B869F", "accent": "#93B4C7"},
+            "short": "energy",
+            "style": {"color": "#4D9553", "accent": "#73BE7A"},
             "programmes": [],
             "technologies": [
                 {
@@ -2773,7 +2773,7 @@ TECHNOLOGIES_CONFIG = Configuration(
         {
             "label": "Mobilitätstechnologien",
             "description": "Technologien, die sauberere, intelligentere und stärker vernetzte Mobilität von Personen und Gütern ermöglichen.",
-            "short": "",
+            "short": "mobility",
             "style": {"color": "#616A1E", "accent": "#ABB374"},
             "programmes": [],
             "technologies": [
@@ -3112,7 +3112,7 @@ TECHNOLOGIES_CONFIG = Configuration(
         {
             "label": "Weltraum- und Luftfahrttechnologien",
             "description": "Technologien für Weltraumsysteme, Satellitenanwendungen und nachhaltige Luftfahrt.",
-            "short": None,
+            "short": "space",
             "style": {"color": "#E2AD34", "accent": "#E8CE90"},
             "programmes": [],
             "technologies": [
