@@ -1,6 +1,7 @@
 import re
 from typing import Any, Dict, List, Optional, Sequence, Tuple
 
+import numpy as np
 from rapidfuzz import fuzz, process
 
 from pipelineFramework import normalize_key
@@ -333,6 +334,11 @@ def looks_like_street(value: Any) -> bool:
     return bool(street) and any(character.isalpha() for character in street or "")
 
 
+TOP_CANDIDATES = 10
+# Bounds the score matrix: 64 queries against a 50,000 name pool is about 25 MB.
+BATCH_QUERIES = 64
+
+
 def best_match(
     queries: Sequence[str],
     candidates: Sequence[Tuple[str, str, Any]],
@@ -351,13 +357,62 @@ def best_match(
             query,
             texts,
             scorer=fuzz.token_sort_ratio,
-            limit=10,
+            limit=TOP_CANDIDATES,
             score_cutoff=max(threshold - margin, 0),
         ):
-            identity = candidates[index][1]
-            if score > scores.get(identity, (0.0, 0))[0]:
-                scores[identity] = (score, index)
+            _keep_best(scores, candidates[index][1], score, index)
 
+    return _decide(scores, candidates, threshold, margin)
+
+
+def best_matches(
+    query_lists: Sequence[Sequence[str]],
+    candidates: Sequence[Tuple[str, str, Any]],
+    threshold: float,
+    margin: float,
+    chunk_size: int = BATCH_QUERIES,
+) -> List[Optional[Tuple[Any, float]]]:
+    # Decides exactly like best_match, one result per entry of query_lists. It is far faster on
+    # large pools and cdist releases the GIL, so call it through asyncio.to_thread: unlike
+    # process.extract it leaves the event loop responsive for the whole run.
+    per_record: List[Dict[str, Tuple[float, int]]] = [{} for _ in query_lists]
+    flat = [(position, query) for position, queries in enumerate(query_lists) for query in queries]
+    if not flat or not candidates:
+        return [None] * len(query_lists)
+
+    texts = [text for text, _, _ in candidates]
+    for start in range(0, len(flat), chunk_size):
+        chunk = flat[start : start + chunk_size]
+        matrix = process.cdist(
+            [query for _, query in chunk],
+            texts,
+            scorer=fuzz.token_sort_ratio,
+            score_cutoff=max(threshold - margin, 0),
+            workers=-1,
+            # float64 keeps the scores identical to process.extract, so that a score sitting right
+            # on the threshold or the margin cannot decide differently here.
+            dtype=np.float64,
+        )
+        for row, (position, _) in zip(matrix, chunk):
+            hits = np.flatnonzero(row)
+            # A stable sort keeps the lower index first among equal scores, as process.extract does.
+            for index in hits[np.argsort(-row[hits], kind="stable")][:TOP_CANDIDATES]:
+                _keep_best(per_record[position], candidates[index][1], float(row[index]), int(index))
+
+    return [_decide(scores, candidates, threshold, margin) for scores in per_record]
+
+
+def _keep_best(scores: Dict[str, Tuple[float, int]], identity: str, score: float, index: int) -> None:
+    if score > scores.get(identity, (0.0, 0))[0]:
+        scores[identity] = (score, index)
+
+
+def _decide(
+    scores: Dict[str, Tuple[float, int]],
+    candidates: Sequence[Tuple[str, str, Any]],
+    threshold: float,
+    margin: float,
+) -> Optional[Tuple[Any, float]]:
     if not scores:
         return None
 

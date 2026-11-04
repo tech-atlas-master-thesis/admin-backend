@@ -197,7 +197,7 @@ class OrganisationEnrichStep(StepConfig):
         )
 
         started = time.perf_counter()
-        records = [OrganisationRecord.build(key, organisation) for key, organisation in organisations.items()]
+        records = await asyncio.to_thread(self.build_records, organisations)
         for record in records:
             record.match["snapshots"] = snapshots
         yield (
@@ -229,6 +229,9 @@ class OrganisationEnrichStep(StepConfig):
         yield self.coverage(records), EventType.INFO
         yield {record.key: record.as_organisation() for record in records}, EventType.RESULT
 
+    def build_records(self, organisations: Dict[str, Dict[str, Any]]) -> List[OrganisationRecord]:
+        return [OrganisationRecord.build(key, organisation) for key, organisation in organisations.items()]
+
     async def match_ror(self, collection, records: List[OrganisationRecord], settings: Settings) -> Dict[str, Any]:
         started = time.perf_counter()
         by_name = await ror.load_by_names(collection, {key for record in records for key in record.name_keys})
@@ -237,7 +240,21 @@ class OrganisationEnrichStep(StepConfig):
         scanned = sum(len(documents) for documents in by_name.values()) + len(by_id)
 
         methods: Counter = Counter()
-        pools: Dict[str, List[Tuple[str, str, Dict[str, Any]]]] = {}
+        austrian_fuzzy: List[OrganisationRecord] = []
+
+        def conclude(
+            record: OrganisationRecord,
+            document: Optional[Dict[str, Any]],
+            method: Optional[str],
+            score: Optional[float],
+            ambiguous: bool = False,
+        ) -> None:
+            if document is None:
+                record.match["ror"] = {"status": "ambiguous" if ambiguous else "unmatched"}
+                methods["unmatched"] += 1
+                return
+            self.apply_ror(record, document, method, score)
+            methods[method] += 1
 
         for record in records:
             document, method, score, ambiguous = None, None, None, False
@@ -268,18 +285,32 @@ class OrganisationEnrichStep(StepConfig):
                         break
 
             if document is None and not ambiguous:
-                pool = await self.ror_pool(collection, record, pools, settings)
+                if record.is_austrian:
+                    austrian_fuzzy.append(record)
+                    continue
+                # A worldwide fuzzy pass would be both slow and ambiguous, so foreign organisations
+                # are narrowed by their country and the first token of their name before scoring.
+                prefix = record.primary_key.split(" ")[0]
+                pool = ror.candidates(await ror.load_by_name_prefix(collection, prefix, record.country_code))
                 found = matching.best_match(record.fold_names, pool, settings.fuzzy_threshold, settings.fuzzy_margin)
                 if found:
                     document, method, score = found[0], "fuzzy", found[1]
 
-            if document is None:
-                record.match["ror"] = {"status": "ambiguous" if ambiguous else "unmatched"}
-                methods["unmatched"] += 1
-                continue
+            conclude(record, document, method, score, ambiguous)
 
-            self.apply_ror(record, document, method, score)
-            methods[method] += 1
+        if austrian_fuzzy:
+            documents = await ror.load_pool(collection, "AT", settings.pool_limit)
+            pool = await asyncio.to_thread(ror.candidates, documents)
+            found_all = await asyncio.to_thread(
+                matching.best_matches,
+                [record.fold_names for record in austrian_fuzzy],
+                pool,
+                settings.fuzzy_threshold,
+                settings.fuzzy_margin,
+            )
+            for record, found in zip(austrian_fuzzy, found_all):
+                document, score = found if found else (None, None)
+                conclude(record, document, "fuzzy", score)
 
         return {
             "matched": sum(count for method, count in methods.items() if method != "unmatched"),
@@ -288,22 +319,6 @@ class OrganisationEnrichStep(StepConfig):
             "scanned": scanned,
             "elapsed": time.perf_counter() - started,
         }
-
-    async def ror_pool(
-        self,
-        collection,
-        record: OrganisationRecord,
-        pools: Dict[str, List[Tuple[str, str, Dict[str, Any]]]],
-        settings: Settings,
-    ) -> List[Tuple[str, str, Dict[str, Any]]]:
-        if record.is_austrian:
-            if "AT" not in pools:
-                pools["AT"] = ror.candidates(await ror.load_pool(collection, "AT", settings.pool_limit))
-            return pools["AT"]
-        # A worldwide fuzzy pass would be both slow and ambiguous, so foreign organisations are
-        # narrowed by their country and the first token of their name before scoring.
-        prefix = record.primary_key.split(" ")[0]
-        return ror.candidates(await ror.load_by_name_prefix(collection, prefix, record.country_code))
 
     def apply_ror(self, record: OrganisationRecord, document: Dict[str, Any], method: str, score: float) -> None:
         names = document.get("names") or {}
@@ -330,7 +345,31 @@ class OrganisationEnrichStep(StepConfig):
         scanned = sum(len(documents) for documents in by_name.values())
 
         methods: Counter = Counter()
-        pool: Optional[List[Tuple[str, str, Dict[str, Any]]]] = None
+        fuzzy: List[OrganisationRecord] = []
+
+        def conclude(
+            record: OrganisationRecord,
+            document: Optional[Dict[str, Any]],
+            method: Optional[str],
+            score: Optional[float],
+            ambiguous: bool = False,
+        ) -> None:
+            if document is None:
+                record.match["gleif"] = {"status": "ambiguous" if ambiguous else "unmatched"}
+                methods["unmatched"] += 1
+                return
+            record.match["gleif"] = {
+                "status": "matched",
+                "method": method,
+                "score": round(float(score), 1),
+                "lei": document["_id"],
+                "legal_name": document.get("legal_name"),
+                "registration_authority_id": document.get("registration_authority_id"),
+            }
+            if not record.firmenbuchnummer:
+                record.firmenbuchnummer = document.get("firmenbuchnummer")
+            record.fill_address(gleif.address_of(document), "gleif")
+            methods[method] += 1
 
         for record in records:
             if not record.is_austrian:
@@ -350,35 +389,31 @@ class OrganisationEnrichStep(StepConfig):
                     break
 
             if document is None and not ambiguous:
-                if pool is None:
-                    pool = gleif.candidates(await gleif.load_pool(collection, settings.pool_limit))
-                found = matching.best_match(record.fold_names, pool, settings.fuzzy_threshold, settings.fuzzy_margin)
-                if found:
-                    document, method, score = found[0], "fuzzy", found[1]
-
-            if document is None:
-                record.match["gleif"] = {"status": "ambiguous" if ambiguous else "unmatched"}
-                methods["unmatched"] += 1
+                fuzzy.append(record)
                 continue
 
-            record.match["gleif"] = {
-                "status": "matched",
-                "method": method,
-                "score": round(float(score), 1),
-                "lei": document["_id"],
-                "legal_name": document.get("legal_name"),
-                "registration_authority_id": document.get("registration_authority_id"),
-            }
-            if not record.firmenbuchnummer:
-                record.firmenbuchnummer = document.get("firmenbuchnummer")
-            record.fill_address(gleif.address_of(document), "gleif")
-            methods[method] += 1
+            conclude(record, document, method, score, ambiguous)
+
+        pool: List[Tuple[str, str, Dict[str, Any]]] = []
+        if fuzzy:
+            documents = await gleif.load_pool(collection, settings.pool_limit)
+            pool = await asyncio.to_thread(gleif.candidates, documents)
+            found_all = await asyncio.to_thread(
+                matching.best_matches,
+                [record.fold_names for record in fuzzy],
+                pool,
+                settings.fuzzy_threshold,
+                settings.fuzzy_margin,
+            )
+            for record, found in zip(fuzzy, found_all):
+                document, score = found if found else (None, None)
+                conclude(record, document, "fuzzy", score)
 
         return {
             "matched": sum(count for method, count in methods.items() if method != "unmatched"),
             "total": len(wanted),
             "methods": methods,
-            "scanned": scanned + (len(pool) if pool else 0),
+            "scanned": scanned + len(pool),
             "elapsed": time.perf_counter() - started,
             "extra": f"{sum(1 for record in records if record.firmenbuchnummer)} Firmenbuchnummer(n)",
         }

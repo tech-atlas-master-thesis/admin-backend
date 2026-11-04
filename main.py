@@ -1,3 +1,4 @@
+import asyncio
 import logging
 from contextlib import asynccontextmanager
 
@@ -9,6 +10,7 @@ from dashboard import add_dashboard_endpoints
 from datasets import add_dataset_endpoints
 from middleware.requestCancelledMiddleware import RequestCancelledMiddleware
 from pipelineFramework import PipelineServer, add_common_api_calls, ConfigurationManager
+from pipelineFramework.server.pipeline.loop_monitor import monitor_event_loop
 from pipeline_configs import PIPELINE_CONFIGS
 
 logging.basicConfig(level=logging.DEBUG)
@@ -23,7 +25,9 @@ async def lifespan(_app: FastAPI):
     # Runs inside a live event loop regardless of how the app was launched
     # (uvicorn directly vs. `fastapi run`, which imports the module before starting the loop).
     await pipeline_server.bind_event_loop()
+    loop_monitor = asyncio.create_task(monitor_event_loop())
     yield
+    loop_monitor.cancel()
 
 
 app = FastAPI(

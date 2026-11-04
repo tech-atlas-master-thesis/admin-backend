@@ -1,8 +1,8 @@
-import json
 import re
 from pathlib import Path
 from typing import Any, Dict, Iterable, Iterator, List, Optional, Tuple
 
+import ijson
 from pymongo import ASCENDING, IndexModel
 
 from pipelineFramework import binary_stream, normalize_key
@@ -124,8 +124,10 @@ def to_document(record: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def iter_documents(path: Path) -> Iterator[Dict[str, Any]]:
+    # Streamed because json.load holds the GIL for the whole file, which stalls the event loop even
+    # from a worker thread.
     with binary_stream(path, DATA_MEMBER) as stream:
-        for record in json.load(stream):
+        for record in ijson.items(stream, "item", use_float=True):
             yield to_document(record)
 
 
