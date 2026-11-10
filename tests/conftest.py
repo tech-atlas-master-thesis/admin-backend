@@ -80,7 +80,7 @@ def spool_dir() -> Path:
 @pytest_asyncio.fixture
 async def registry_database():
     """The registry database the steps write to, once it has answered a ping."""
-    from pipelineFramework import get_registry_db_client
+    from pipelineFramework import close_db_clients, get_registry_db_client
 
     global _unreachable
     if _unreachable:
@@ -90,14 +90,16 @@ async def registry_database():
     try:
         await asyncio.wait_for(database.command("ping"), timeout=PING_TIMEOUT)
     except Exception as error:  # noqa: BLE001 - any failure here means the same thing
-        await database.client.close()
+        await close_db_clients()
         _unreachable = (
             f'MongoDB "{os.environ.get("DB_REGISTRY_NAME")}" at {os.environ.get("MONGO_URL")} '
             f"is not reachable ({type(error).__name__}: {error})"
         )
         pytest.skip(_unreachable)
 
+    # The clients are shared per process now, so the steps under test use this same one. Closing
+    # through close_db_clients also drops it from the cache instead of leaving a closed client there.
     try:
         yield database
     finally:
-        await database.client.close()
+        await close_db_clients()

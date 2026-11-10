@@ -9,7 +9,7 @@ from config_definitions import CONFIG_DEFINITIONS
 from dashboard import add_dashboard_endpoints
 from datasets import add_dataset_endpoints
 from middleware.requestCancelledMiddleware import RequestCancelledMiddleware
-from pipelineFramework import PipelineServer, add_common_api_calls, ConfigurationManager
+from pipelineFramework import PipelineServer, add_common_api_calls, close_db_clients
 from pipelineFramework.server.pipeline.loop_monitor import monitor_event_loop
 from pipeline_configs import PIPELINE_CONFIGS
 
@@ -28,6 +28,7 @@ async def lifespan(_app: FastAPI):
     loop_monitor = asyncio.create_task(monitor_event_loop())
     yield
     loop_monitor.cancel()
+    await close_db_clients()
 
 
 app = FastAPI(
