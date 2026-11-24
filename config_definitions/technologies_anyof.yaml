@@ -1,0 +1,1732 @@
+Künstliche Intelligenz und Dateninnovation:
+    Maschinelles Lernen:
+       - Maschinelles Lernen
+       - maschinellen Lernen
+       - maschinellen Lernens
+       - maschinellem Lernen
+       - Machine Learning
+       - überwachtes Lernen
+       - unüberwachtes Lernen
+       - supervised learning
+       - unsupervised learning
+       - selbstüberwachtes Lernen
+       - self-supervised learning
+       - Lernalgorithmus
+       - Lernalgorithmen
+    Deep Learning:
+       - Deep Learning
+       - tiefes neuronales Netz
+       - tiefe neuronale Netze
+       - tiefen neuronalen Netzen
+       - künstliches neuronales Netz
+       - künstliche neuronale Netze
+       - künstlichen neuronalen Netzen
+       - deep neural network
+       - deep neural networks
+       - Convolutional Neural Network
+       - Convolutional Neural Networks
+       - Transformer-Architektur
+       - Faltungsnetz
+    Generative KI:
+       - Generative KI
+       - generativer KI
+       - Generative AI
+       - generatives Modell
+       - generative Modelle
+       - generativen Modellen
+       - generative model
+       - generative models
+       - Diffusionsmodell
+       - Diffusionsmodelle
+       - diffusion model
+       - diffusion models
+       - Generative Adversarial Network
+       - Generative Adversarial Networks
+       - Bildsynthese
+    Large Language Models:
+       - Large Language Model
+       - Large Language Models
+       - LLM
+       - LLMs
+       - großes Sprachmodell
+       - große Sprachmodelle
+       - großen Sprachmodellen
+       - Sprachmodell
+       - Sprachmodelle
+       - Sprachmodellen
+       - Foundation Model
+       - Foundation Models
+       - Grundlagenmodell
+       - Prompt Engineering
+    Natural Language Processing:
+       - Natural Language Processing
+       - NLP
+       - natürliche Sprachverarbeitung
+       - natürlicher Sprachverarbeitung
+       - Sprachverarbeitung
+       - Computerlinguistik
+       - computational linguistics
+       - Textanalyse
+       - Text Mining
+       - Spracherkennung
+       - speech recognition
+       - Named Entity Recognition
+    Computer Vision:
+       - Computer Vision
+       - maschinelles Sehen
+       - maschinellen Sehens
+       - Bildverarbeitung
+       - Bilderkennung
+       - image recognition
+       - Objekterkennung
+       - object detection
+       - Bildsegmentierung
+       - image segmentation
+       - Bildklassifikation
+       - visuelle Inspektion
+    Reinforcement Learning:
+       - Reinforcement Learning
+       - bestärkendes Lernen
+       - bestärkenden Lernens
+       - verstärkendes Lernen
+       - Verstärkungslernen
+       - Q-Learning
+       - Policy Gradient
+       - Belohnungsfunktion
+    Hybrid AI:
+       - Hybrid AI
+       - hybride KI
+       - hybrider KI
+       - neuro-symbolische KI
+       - neurosymbolische KI
+       - neuro-symbolic AI
+       - symbolische KI
+       - wissensbasiertes System
+       - wissensbasierte Systeme
+       - Wissensgraph
+       - Wissensgraphen
+       - knowledge graph
+       - knowledge graphs
+       - Ontologie
+       - physikinformiertes Lernen
+    Erklärbare und Vertrauenswürdige KI:
+       - Erklärbare KI
+       - erklärbarer KI
+       - Explainable AI
+       - XAI
+       - Erklärbarkeit
+       - explainability
+       - Vertrauenswürdige KI
+       - vertrauenswürdiger KI
+       - Trustworthy AI
+       - interpretierbare KI
+       - interpretable machine learning
+       - nachvollziehbare KI
+       - Responsible AI
+       - KI-Transparenz
+    Edge AI:
+       - Edge AI
+       - Edge-KI
+       - Edge Computing
+       - on-device AI
+       - eingebettete KI
+       - TinyML
+       - KI am Edge
+       - Edge-Geräten
+       - Inferenz am Gerät
+       - Modellkompression
+    Federated Learning:
+       - Federated Learning
+       - föderiertes Lernen
+       - föderierten Lernens
+       - föderiertem Lernen
+       - föderiertes Training
+       - dezentrales Lernen
+       - dezentrales Training
+       - verteiltes Lernen
+    Privacy-Preserving AI:
+       - Privacy-Preserving
+       - datenschutzfreundliche KI
+       - datenschutzfreundliches maschinelles Lernen
+       - Differential Privacy
+       - differenzielle Privatsphäre
+       - homomorphe Verschlüsselung
+       - homomorphic encryption
+       - Secure Multi-Party Computation
+       - sichere Mehrparteienberechnung
+       - synthetische Daten
+       - Anonymisierung
+    MLOps:
+       - MLOps
+       - Machine Learning Operations
+       - Modell-Deployment
+       - model deployment
+       - Modellbereitstellung
+       - Modellüberwachung
+       - model monitoring
+       - ML-Pipeline
+       - ML-Pipelines
+       - Modelllebenszyklus
+       - AIOps
+    Datenräume:
+       - Datenraum
+       - Datenräume
+       - Datenräumen
+       - Data Space
+       - Data Spaces
+       - Gaia-X
+       - IDSA
+       - International Data Spaces
+       - Datenökosystem
+       - Datenökosysteme
+       - Dateninfrastruktur
+       - Dateninfrastrukturen
+       - Datenteilung
+       - data sharing
+    Data Governance:
+       - Data Governance
+       - Datengovernance
+       - Datenverwaltung
+       - Data Stewardship
+       - Datensouveränität
+       - data sovereignty
+       - FAIR-Prinzipien
+       - FAIR data
+       - Metadatenstandards
+       - Datenrichtlinien
+    Datenqualität:
+       - Datenqualität
+       - Data Quality
+       - Datenbereinigung
+       - data cleaning
+       - data cleansing
+       - Datenkuratierung
+       - data curation
+       - Datenvalidierung
+       - Datenkonsistenz
+       - Datenaufbereitung
+    KI-basierte Qualitätskontrolle:
+       - KI-basierte Qualitätskontrolle
+       - KI-gestützte Qualitätskontrolle
+       - automatisierte Qualitätskontrolle
+       - automatisierte Fehlererkennung
+       - automatische Defekterkennung
+       - automated defect detection
+       - Fehlerklassifikation
+       - Qualitätsinspektion
+       - optische Qualitätsprüfung
+       - automated visual inspection
+    Prozessoptimierung:
+       - Prozessoptimierung
+       - Process Optimization
+       - Prozessverbesserung
+       - Prozesseffizienz
+       - process efficiency
+       - Effizienzsteigerung
+       - datenbasierte Prozessoptimierung
+       - Prozessanalyse
+       - Process Mining
+    Prognosemodelle und Automatisierung komplexer Aufgaben:
+       - Prognosemodell
+       - Prognosemodelle
+       - Prognosemodellen
+       - Vorhersagemodell
+       - Vorhersagemodelle
+       - forecasting model
+       - forecasting models
+       - predictive model
+       - predictive models
+       - Predictive Analytics
+       - Zeitreihenprognose
+       - time series forecasting
+       - Bedarfsprognose
+       - Entscheidungsautomatisierung
+Chips, Elektronische Komponenten und Systeme:
+    Halbleiter:
+       - Halbleiter
+       - Semiconductor
+       - Semiconductors
+       - Halbleitertechnologie
+       - Halbleitertechnologien
+       - Halbleiterfertigung
+       - Halbleiterbauelement
+       - Halbleiterbauelemente
+       - Halbleitermaterialien
+       - Wide-Bandgap
+       - Siliziumkarbid
+       - silicon carbide
+       - Galliumnitrid
+       - gallium nitride
+    Mikroelektronik:
+       - Mikroelektronik
+       - Microelectronics
+       - mikroelektronische Bauelemente
+       - mikroelektronisches Bauelement
+       - mikroelektronische Systeme
+       - Mikrochip
+       - Mikrochips
+    Nanoelektronik:
+       - Nanoelektronik
+       - Nanoelectronics
+       - nanoelektronische Bauelemente
+       - nanoelektronisches Bauelement
+       - Nanostrukturierung
+       - Nanolithografie
+       - nanoscale electronics
+    Integrierte Schaltungen und Chipdesign:
+       - Integrierte Schaltung
+       - Integrierte Schaltungen
+       - integrierter Schaltungen
+       - Integrated Circuit
+       - Integrated Circuits
+       - Chipdesign
+       - chip design
+       - Schaltungsentwurf
+       - Schaltungsdesign
+       - ASIC
+       - FPGA
+       - RISC-V
+       - EDA-Werkzeuge
+    Sensorik:
+       - Sensorik
+       - Sensortechnologie
+       - Sensortechnologien
+       - Sensor Technology
+       - Sensorsystem
+       - Sensorsysteme
+       - Sensorchip
+       - Sensorchips
+       - integrierte Sensoren
+       - Sensorfusion
+       - intelligente Sensoren
+       - Sensorelektronik
+    MEMS:
+       - MEMS
+       - mikroelektromechanische Systeme
+       - mikroelektromechanisches System
+       - microelectromechanical systems
+       - Mikrosystemtechnik
+       - Mikroaktorik
+       - MEMS-Sensor
+       - MEMS-Sensoren
+    Leistungselektronik:
+       - Leistungselektronik
+       - Power Electronics
+       - leistungselektronische Systeme
+       - leistungselektronisches System
+       - Leistungshalbleiter
+       - power semiconductor
+       - Wechselrichter
+       - Umrichter
+       - Leistungsmodul
+       - DC-DC-Wandler
+    Analog-/Mixed-Signal-Chips:
+       - Mixed-Signal
+       - Analogschaltung
+       - Analogschaltungen
+       - analoge Schaltungen
+       - analoge Schaltungstechnik
+       - Analogdesign
+       - Analog-Digital-Wandler
+       - analog-to-digital converter
+       - Signalkonditionierung
+    RF-/HF-Komponenten:
+       - Hochfrequenztechnik
+       - Hochfrequenzkomponenten
+       - Hochfrequenzkomponente
+       - Hochfrequenzschaltung
+       - RF-Komponenten
+       - HF-Komponenten
+       - radio frequency components
+       - Millimeterwellen
+       - millimeter wave
+       - Mikrowellentechnik
+       - Antennentechnik
+       - Antennendesign
+    Embedded Systems:
+       - Embedded Systems
+       - embedded system
+       - eingebettetes System
+       - eingebettete Systeme
+       - eingebetteter Systeme
+       - Mikrocontroller
+       - microcontroller
+       - eingebettete Software
+       - embedded software
+       - Echtzeitsystem
+       - Echtzeitsysteme
+       - Firmware
+    Secure Connectivity:
+       - Secure Connectivity
+       - sichere Konnektivität
+       - sichere Datenübertragung
+       - sichere Kommunikation
+       - secure communication
+       - Hardware-Sicherheit
+       - hardware security
+       - Trusted Execution Environment
+       - Secure Element
+       - Hardware-Vertrauensanker
+       - sichere Vernetzung
+       - Post-Quanten-Kryptografie
+    Advanced Packaging:
+       - Advanced Packaging
+       - Chip-Packaging
+       - Aufbau- und Verbindungstechnik
+       - Aufbau- und Verbindungstechnologie
+       - 3D-Integration
+       - 3D-Stapelung
+       - 3D stacking
+       - Chiplet
+       - Chiplets
+       - Wafer-Level Packaging
+       - Die-Bonding
+       - Interposer
+    System-on-Chip:
+       - System-on-Chip
+       - System on Chip
+       - Systems-on-Chip
+       - SoC-Design
+       - SoC-Architektur
+       - Ein-Chip-System
+    System-in-Packag:
+       - System-in-Package
+       - System in Package
+       - Systems-in-Package
+       - SiP-Modul
+       - Multi-Chip-Modul
+       - heterogene Integration
+    Photonische integrierte Schaltungen:
+       - Photonic Integrated Circuit
+       - Photonic Integrated Circuits
+       - Siliziumphotonik
+       - silicon photonics
+       - photonischer Chip
+       - photonische Chips
+       - photonic chip
+       - elektronisch-photonische Integration
+       - co-packaged optics
+       - optische Interconnects
+       - photonische Bauelemente auf Chip
+    Quantenchips:
+       - Quantenchip
+       - Quantenchips
+       - Quantum Chip
+       - Qubit
+       - Qubits
+       - Qubit-Hardware
+       - qubit hardware
+       - supraleitende Qubits
+       - superconducting qubit
+       - Spin-Qubit
+       - Ionenfalle
+       - trapped ion
+       - Quantenprozessor
+       - quantum processor
+    Pilotlinien und Halbleiter-Testinfrastruktur:
+       - Pilotlinie
+       - Pilotlinien
+       - Pilot Line
+       - Pilot Lines
+       - Halbleiter-Testinfrastruktur
+       - semiconductor test infrastructure
+       - Waferfertigung
+       - Wafertechnologie
+       - Reinraumfertigung
+       - Chip-Prototyping
+       - Testchip
+Fortgeschrittene Produktionstechnologien und Robotik:
+    Additive Fertigung / 3D-Druck:
+       - Additive Fertigung
+       - additiven Fertigung
+       - additive manufacturing
+       - 3D-Druck
+       - 3D printing
+       - 3D-Druckverfahren
+       - generative Fertigung
+       - Lasersintern
+       - selektives Laserschmelzen
+       - laser powder bed fusion
+       - Binder Jetting
+       - Bauteildruck
+    Industrielle und Kollaborative Robotik:
+       - Industrieroboter
+       - industrial robot
+       - industrial robotics
+       - Robotik
+       - Robotersystem
+       - Robotersysteme
+       - kollaborative Robotik
+       - kollaborativer Roboter
+       - kollaborative Roboter
+       - Cobot
+       - Cobots
+       - collaborative robot
+       - Mensch-Roboter-Kollaboration
+       - Robotergreifer
+    Autonome Produktionssysteme:
+       - Autonome Produktion
+       - autonome Produktionssysteme
+       - autonomes Produktionssystem
+       - autonomous production
+       - autonome Fertigung
+       - selbststeuernde Fertigung
+       - selbstoptimierende Produktion
+       - autonome Fertigungszelle
+    Automatisierung:
+       - Automatisierung
+       - Automatisierungstechnik
+       - Automation
+       - Prozessautomatisierung
+       - Fertigungsautomatisierung
+       - Montageautomatisierung
+       - Automatisierungslösung
+       - Automatisierungslösungen
+       - Handhabungstechnik
+       - speicherprogrammierbare Steuerung
+    Cyber-Physische Produktionssysteme:
+       - Cyber-physisches Produktionssystem
+       - cyber-physische Produktionssysteme
+       - Cyber-Physical Production System
+       - Cyber-Physical Production Systems
+       - CPPS
+       - cyber-physisches System
+       - cyber-physische Systeme
+       - Cyber-Physical Systems
+    Industrie 4.0 und digitale Zwillinge:
+       - Industrie 4.0
+       - Industry 4.0
+       - digitaler Zwilling
+       - digitale Zwillinge
+       - digitalen Zwillings
+       - digital twin
+       - digital twins
+       - Smart Factory
+       - intelligente Fabrik
+       - vernetzte Produktion
+       - Verwaltungsschale
+       - Asset Administration Shell
+       - OPC UA
+    Manufacturing-X / Produktionsdatenräume:
+       - Manufacturing-X
+       - Produktionsdatenraum
+       - Produktionsdatenräume
+       - production data space
+       - Catena-X
+       - industrielles Datenökosystem
+       - Datenaustausch in der Wertschöpfungskette
+       - Lieferkettendaten
+    Prozesssimulation:
+       - Prozesssimulation
+       - process simulation
+       - Fertigungssimulation
+       - Produktionssimulation
+       - Materialflusssimulation
+       - Umformsimulation
+       - Gießsimulation
+       - virtuelle Inbetriebnahme
+    Inline-Messtechnik:
+       - Inline-Messtechnik
+       - inline metrology
+       - Inline-Messung
+       - Inline-Messungen
+       - Inline-Qualitätsprüfung
+       - prozessintegrierte Messtechnik
+       - in-situ Messung
+       - In-Prozess-Messung
+       - Inline-Inspektion
+    Predictive Maintenanc:
+       - Predictive Maintenance
+       - vorausschauende Wartung
+       - vorausschauenden Wartung
+       - prädiktive Wartung
+       - vorausschauende Instandhaltung
+       - prädiktive Instandhaltung
+       - Zustandsüberwachung
+       - condition monitoring
+       - Restlebensdauerprognose
+       - Ausfallvorhersage
+    Zerstörungsfreie Prüfung:
+       - Zerstörungsfreie Prüfung
+       - zerstörungsfreien Prüfung
+       - zerstörungsfreie Prüfverfahren
+       - Non-Destructive Testing
+       - NDT
+       - zerstörungsfreie Werkstoffprüfung
+       - zerstörungsfreie Materialprüfung
+       - Ultraschallprüfung
+       - Röntgenprüfung
+       - Wirbelstromprüfung
+    Flexible Fertigung:
+       - Flexible Fertigung
+       - flexible manufacturing
+       - flexible Fertigungssysteme
+       - flexibles Fertigungssystem
+       - flexible Produktion
+       - wandlungsfähige Produktion
+       - Losgröße 1
+       - kundenindividuelle Fertigung
+    Rekonfigurierbare Produktion:
+       - Rekonfigurierbare Produktion
+       - rekonfigurierbare Fertigungssysteme
+       - rekonfigurierbares Produktionssystem
+       - reconfigurable manufacturing
+       - modulare Produktion
+       - modulare Fertigung
+       - wandelbare Produktionssysteme
+    Pilotfabriken:
+       - Pilotfabrik
+       - Pilotfabriken
+       - pilot factory
+       - Lernfabrik
+       - Lernfabriken
+       - learning factory
+       - Demonstrationsfabrik
+       - Modellfabrik
+Quantentechnologie und Photonik:
+    Quantencomputing:
+       - Quantencomputing
+       - Quantencomputer
+       - Quantencomputern
+       - quantum computing
+       - quantum computer
+       - quantum computers
+       - Quantenrechner
+       - Quantenvorteil
+       - quantum advantage
+       - Quanteninformatik
+    Quantensimulation:
+       - Quantensimulation
+       - Quantensimulationen
+       - quantum simulation
+       - Quantensimulator
+       - quantum simulator
+       - Quantenvielteilchensysteme
+       - Simulation von Quantensystemen
+    Quantenkommunikation:
+       - Quantenkommunikation
+       - quantum communication
+       - Quantennetzwerk
+       - Quantennetzwerke
+       - quantum network
+       - quantum networks
+       - Quanteninternet
+       - quantum internet
+       - Quantenrepeater
+       - verschränkte Photonen
+    Quantum Key Distribution:
+       - Quantum Key Distribution
+       - QKD
+       - Quantenschlüsselaustausch
+       - Quantenschlüsselverteilung
+       - Quantenkryptografie
+       - quantum cryptography
+       - quantum key
+    Quantensensorik:
+       - Quantensensorik
+       - Quantensensor
+       - Quantensensoren
+       - quantum sensing
+       - quantum sensor
+       - quantum sensors
+       - Quantenmagnetometer
+       - NV-Zentren
+       - Atominterferometrie
+    Quantenmetrologie:
+       - Quantenmetrologie
+       - quantum metrology
+       - Quantennormale
+       - Quantennormal
+       - Atomuhr
+       - Atomuhren
+       - atomic clock
+       - optische Uhren
+       - Frequenzkamm
+    Quantenchips und Quantenalgorithmen:
+       - Quantenalgorithmus
+       - Quantenalgorithmen
+       - quantum algorithm
+       - quantum algorithms
+       - Quantenfehlerkorrektur
+       - quantum error correction
+       - Quantum Machine Learning
+       - variationelle Quantenalgorithmen
+       - Quantensoftware
+       - Quantenschaltkreis
+    Photonik:
+       - Photonik
+       - Photonics
+       - photonische Systeme
+       - photonisches System
+       - photonische Bauelemente
+       - photonische Technologien
+       - Optoelektronik
+       - optoelectronics
+       - Lichtquellen
+       - Leuchtdioden
+    Laser:
+       - Laser
+       - Lasertechnologie
+       - laser technology
+       - Lasersystem
+       - Lasersysteme
+       - Laserquelle
+       - Laserquellen
+       - Ultrakurzpulslaser
+       - Faserlaser
+       - Halbleiterlaser
+       - Laserstrahlung
+    Optische Sensorik:
+       - Optische Sensorik
+       - optischer Sensor
+       - optische Sensoren
+       - optical sensing
+       - optical sensor
+       - optical sensors
+       - faseroptischer Sensor
+       - faseroptische Sensoren
+       - fiber optic sensor
+       - photonische Sensorik
+       - optische Messsysteme
+    Spektroskopie:
+       - Spektroskopie
+       - Spectroscopy
+       - spektroskopische Verfahren
+       - spektroskopische Methoden
+       - Raman-Spektroskopie
+       - Infrarotspektroskopie
+       - Fluoreszenzspektroskopie
+       - Spektrometer
+       - Hyperspektralspektroskopie
+    Optische Messtechnik:
+       - Optische Messtechnik
+       - optical metrology
+       - optische Messverfahren
+       - optisches Messverfahren
+       - Interferometrie
+       - interferometry
+       - berührungslose Messung
+       - optische 3D-Messung
+       - Weißlichtinterferometrie
+    Lidar:
+       - Lidar
+       - Lidar-Sensor
+       - Lidar-System
+       - Laserscanning
+       - laser scanning
+       - Laserscanner
+       - Laufzeitmessung
+       - Time-of-Flight
+    Photonische integrierte Schaltungen:
+       - Photonische integrierte Schaltung
+       - Photonische integrierte Schaltungen
+       - integrierte Photonik
+       - integrierten Photonik
+       - photonischer Schaltkreis
+       - photonische Schaltkreise
+       - photonische Wellenleiter
+       - optischer Wellenleiter
+       - Quantenphotonik
+       - quantum photonics
+       - integrated photonics
+    Optische Kommunikation:
+       - Optische Kommunikation
+       - optical communication
+       - optische Datenübertragung
+       - optische Nachrichtentechnik
+       - Glasfaserkommunikation
+       - fiber-optic communication
+       - Glasfasernetz
+       - Glasfasernetze
+       - optische Netze
+       - Freiraumoptik
+       - free-space optical
+    Bildgebung und photonikbasierte Fertigung:
+       - optische Bildgebung
+       - optical imaging
+       - photonikbasierte Fertigung
+       - photonics-based manufacturing
+       - Lasermaterialbearbeitung
+       - laser material processing
+       - Laserfertigung
+       - Hyperspektralbildgebung
+       - hyperspectral imaging
+       - bildgebende Verfahren
+Fortgeschrittene Werkstoffe (Advanced Materials):
+    Ultraleichte Verbundwerkstoffe:
+       - Ultraleichte Verbundwerkstoffe
+       - ultraleichter Verbundwerkstoff
+       - ultra-lightweight composite
+       - Leichtbauverbundwerkstoff
+       - Leichtbauverbundwerkstoffe
+       - Leichtbauwerkstoff
+       - Leichtbauwerkstoffe
+       - ultraleichte Werkstoffe
+    Advanced Composites:
+       - Advanced Composites
+       - Verbundwerkstoff
+       - Verbundwerkstoffe
+       - Verbundwerkstoffen
+       - composite material
+       - composite materials
+       - Faserverbundwerkstoff
+       - Faserverbundwerkstoffe
+       - faserverstärkte Kunststoffe
+       - fibre-reinforced composite
+       - Kohlenstofffaser
+       - Kohlenstofffasern
+    Hochleistungslegierungen:
+       - Hochleistungslegierung
+       - Hochleistungslegierungen
+       - high-performance alloy
+       - Hochtemperaturlegierung
+       - Hochtemperaturlegierungen
+       - Superlegierung
+       - superalloy
+       - Nickelbasislegierung
+       - hochentropische Legierungen
+       - high-entropy alloy
+       - Titanlegierung
+    Selbstheilende Polymere:
+       - Selbstheilende Polymere
+       - selbstheilendes Polymer
+       - self-healing polymer
+       - self-healing polymers
+       - selbstheilende Materialien
+       - selbstheilendes Material
+       - self-healing material
+       - Selbstheilungsmechanismus
+    Biobasierte und Multifunktionale Biomaterialien:
+       - Biomaterial
+       - Biomaterialien
+       - biomaterials
+       - multifunktionales Biomaterial
+       - biokompatibles Material
+       - biokompatible Materialien
+       - biocompatible material
+       - Implantatwerkstoff
+       - Implantatwerkstoffe
+       - Scaffold
+       - Scaffolds
+       - Gerüststruktur
+       - biologisch abbaubare Materialien
+    Funktionale Materialien:
+       - Funktionale Materialien
+       - funktionale Werkstoffe
+       - Funktionsmaterialien
+       - Funktionsmaterial
+       - functional materials
+       - functional material
+       - piezoelektrische Materialien
+       - magnetische Materialien
+       - ferroelektrische Materialien
+       - leitfähige Polymere
+    Nanomaterialien:
+       - Nanomaterial
+       - Nanomaterialien
+       - nanomaterials
+       - Nanopartikel
+       - nanoparticles
+       - Nanostrukturen
+       - nanostrukturierte Materialien
+       - Nanokomposit
+       - Nanokomposite
+       - 2D-Materialien
+       - Graphen
+       - Nanoröhren
+    Intelligente Materialien:
+       - Intelligente Materialien
+       - intelligente Werkstoffe
+       - Smart Materials
+       - smart material
+       - adaptive Werkstoffe
+       - Formgedächtnislegierung
+       - Formgedächtnislegierungen
+       - shape memory alloy
+       - stimuli-responsive material
+       - schaltbare Materialien
+    Oberflächen:
+       - Oberflächentechnik
+       - Oberflächenmodifikation
+       - surface engineering
+       - surface modification
+       - Oberflächenfunktionalisierung
+       - surface functionalization
+       - Oberflächenstrukturierung
+       - Oberflächeneigenschaften
+       - Oberflächenveredelung
+       - funktionalisierte Oberflächen
+    Beschichtungen:
+       - Beschichtung
+       - Beschichtungen
+       - Beschichtungsverfahren
+       - Beschichtungstechnologie
+       - Coating
+       - Coatings
+       - Dünnschicht
+       - Dünnschichten
+       - thin film coating
+       - Schutzschicht
+       - Schutzschichten
+       - funktionale Beschichtung
+       - Hartstoffschicht
+    Grenzflächen:
+       - Grenzfläche
+       - Grenzflächen
+       - Grenzflächenchemie
+       - Grenzflächenphysik
+       - Grenzflächeneigenschaften
+       - interface engineering
+       - Phasengrenzfläche
+       - Grenzflächenanalytik
+       - Haftvermittlung
+    Batteriematerialien:
+       - Batteriematerial
+       - Batteriematerialien
+       - battery material
+       - battery materials
+       - Kathodenmaterial
+       - Kathodenmaterialien
+       - Anodenmaterial
+       - cathode material
+       - anode material
+       - Elektrodenmaterial
+       - Festkörperelektrolyt
+       - solid-state electrolyte
+       - Batteriezellchemie
+    Wasserstoffmaterialien:
+       - Wasserstoffmaterial
+       - Wasserstoffmaterialien
+       - Wasserstoffspeichermaterial
+       - Wasserstoffspeichermaterialien
+       - hydrogen storage material
+       - Metallhydrid
+       - Metallhydride
+       - Wasserstoffversprödung
+       - hydrogen embrittlement
+       - wasserstoffbeständige Werkstoffe
+    Materialien für Energieumwandlung:
+       - Materialien für Energieumwandlung
+       - energy conversion material
+       - Thermoelektrikum
+       - thermoelektrische Materialien
+       - thermoelectric material
+       - Photovoltaikmaterial
+       - Photovoltaikmaterialien
+       - Perowskit
+       - Perowskite
+       - perovskite
+       - Katalysatormaterial
+       - Katalysatormaterialien
+    Recyclingfähige Werkstoffe:
+       - Recyclingfähige Werkstoffe
+       - recyclingfähiger Werkstoff
+       - recyclingfähig
+       - recyclable material
+       - recyclable materials
+       - recyclingfähige Materialien
+       - kreislauffähige Werkstoffe
+       - Design for Recycling
+       - Rezyklateinsatz
+    Safe-and-Sustainable-by-Design:
+       - Safe-and-Sustainable-by-Design
+       - Safe and Sustainable by Design
+       - SSbD
+       - Sustainable by Design
+       - sicher und nachhaltig gestaltet
+       - sichere und nachhaltige Chemikalien
+Life-Sciences & Biotech:
+    Arzneimittelentwicklung:
+       - Arzneimittelentwicklung
+       - Drug Development
+       - drug discovery
+       - Wirkstoffentwicklung
+       - Wirkstoffforschung
+       - Wirkstoffkandidat
+       - Medikamentenentwicklung
+       - Arzneimittelforschung
+       - präklinische Entwicklung
+       - Arzneistoffdesign
+    Biologika:
+       - Biologika
+       - Biologics
+       - biopharmaceutical
+       - biopharmaceuticals
+       - Biopharmazeutika
+       - monoklonale Antikörper
+       - monoklonaler Antikörper
+       - monoclonal antibody
+       - therapeutische Proteine
+       - therapeutisches Protein
+       - Biosimilar
+       - Biosimilars
+    Impfstoffe:
+       - Impfstoff
+       - Impfstoffe
+       - Impfstoffen
+       - Impfstoffentwicklung
+       - Vaccine
+       - Vaccines
+       - vaccine development
+       - Vakzin
+       - Vakzine
+       - mRNA-Impfstoff
+       - Adjuvans
+    Diagnostika:
+       - Diagnostikum
+       - Diagnostika
+       - Diagnostics
+       - diagnostic test
+       - Diagnoseverfahren
+       - Diagnostikentwicklung
+       - In-vitro-Diagnostik
+       - Point-of-Care-Diagnostik
+       - molekulare Diagnostik
+       - Schnelltest
+       - diagnostischer Assay
+    Medizinprodukte:
+       - Medizinprodukt
+       - Medizinprodukte
+       - Medizinprodukten
+       - Medical Device
+       - Medical Devices
+       - Medizintechnik
+       - medizinisches Gerät
+       - medizinische Geräte
+       - Implantat
+       - Implantate
+       - Prothese
+       - Prothesen
+    Klinische Studien:
+       - Klinische Studie
+       - Klinische Studien
+       - klinischen Studie
+       - klinischen Studien
+       - Clinical Trial
+       - Clinical Trials
+       - klinische Prüfung
+       - klinische Erprobung
+       - Phase-I-Studie
+       - Phase-III-Studie
+       - Probandenstudie
+    Biomarker:
+       - Biomarker
+       - Biomarkern
+       - biomarkers
+       - Biomarkeridentifikation
+       - prognostischer Marker
+       - diagnostischer Marker
+       - prädiktiver Marker
+       - Biomarkervalidierung
+    Genomik:
+       - Genomik
+       - Genomics
+       - Genomanalyse
+       - Genomsequenzierung
+       - genome sequencing
+       - Sequenzierung
+       - next-generation sequencing
+       - Einzelzellsequenzierung
+       - single-cell sequencing
+       - Genexpression
+       - genomweite Analyse
+    Proteomik:
+       - Proteomik
+       - Proteomics
+       - Proteom
+       - Proteome
+       - Proteomanalyse
+       - Proteomforschung
+       - Proteinstrukturanalyse
+       - Protein-Protein-Interaktion
+    Omics-Technologien:
+       - Omics
+       - Omics-Technologien
+       - Multi-Omics
+       - Metabolomik
+       - metabolomics
+       - Transkriptomik
+       - transcriptomics
+       - Lipidomik
+       - Epigenomik
+       - epigenomics
+       - Metagenomik
+    Bioinformatik:
+       - Bioinformatik
+       - Bioinformatics
+       - bioinformatische Analyse
+       - bioinformatische Methoden
+       - Computational Biology
+       - Systembiologie
+       - systems biology
+       - biologische Datenanalyse
+       - Sequenzanalyse
+    Personalisierte Medizin:
+       - Personalisierte Medizin
+       - personalisierten Medizin
+       - Personalized Medicine
+       - precision medicine
+       - Präzisionsmedizin
+       - individualisierte Therapie
+       - individualisierte Medizin
+       - stratifizierte Medizin
+       - patientenindividuelle Therapie
+    Zell- und Gentherapien:
+       - Zelltherapie
+       - Zelltherapien
+       - Gentherapie
+       - Gentherapien
+       - Cell Therapy
+       - Gene Therapy
+       - CAR-T
+       - CAR-T-Zellen
+       - Stammzelltherapie
+       - regenerative Medizin
+       - Zellersatztherapie
+    CRISPR / Gene Editing:
+       - CRISPR
+       - Gene Editing
+       - Genom-Editierung
+       - Genomeditierung
+       - Geneditierung
+       - genome editing
+       - Genschere
+       - Cas9
+       - Basen-Editierung
+       - base editing
+       - Prime Editing
+    Synthetische Biologie:
+       - Synthetische Biologie
+       - synthetischen Biologie
+       - Synthetic Biology
+       - Metabolic Engineering
+       - Stoffwechselengineering
+       - synthetische Genschaltkreise
+       - zellfreie Synthese
+       - Bioengineering von Organismen
+    Industrielle Biotechnologie:
+       - Industrielle Biotechnologie
+       - industriellen Biotechnologie
+       - Industrial Biotechnology
+       - weiße Biotechnologie
+       - Biokatalyse
+       - biocatalysis
+       - Biokatalysator
+       - Enzymtechnologie
+       - Enzymengineering
+       - Biotransformation
+       - Bioraffinerie
+    Fermentation:
+       - Fermentation
+       - Fermentierung
+       - Fermentationsprozess
+       - Fermentationsprozesse
+       - fermentative Herstellung
+       - Präzisionsfermentation
+       - precision fermentation
+       - Submersfermentation
+    Bioprozessentwicklung:
+       - Bioprozessentwicklung
+       - Bioprocess Development
+       - bioprocess engineering
+       - Bioprozesstechnik
+       - Bioprozess
+       - Bioprozesse
+       - Bioreaktor
+       - Bioreaktoren
+       - Upstream Processing
+       - Downstream Processing
+       - Prozessscale-up
+    Biobasierte Materialien:
+       - Biobasierte Materialien
+       - biobasierte Werkstoffe
+       - biobasierter Werkstoff
+       - Bio-based Materials
+       - bio-based material
+       - Biokunststoff
+       - Biokunststoffe
+       - bioplastic
+       - bioplastics
+       - biobasierte Kunststoffe
+       - nachwachsende Rohstoffe
+       - biogene Reststoffe
+    Digitale Gesundheit:
+       - Digitale Gesundheit
+       - Digital Health
+       - eHealth
+       - mHealth
+       - digitale Gesundheitsanwendung
+       - digitale Gesundheitsanwendungen
+       - Telemedizin
+       - telemedicine
+       - digitale Therapeutika
+       - Gesundheits-App
+       - Patientenmonitoring
+Energie- und Umwelttechnologien:
+    Erneuerbare Energien:
+       - Erneuerbare Energien
+       - erneuerbarer Energien
+       - erneuerbare Energiequellen
+       - Renewable Energy
+       - renewable energies
+       - Photovoltaik
+       - photovoltaics
+       - Windenergie
+       - wind energy
+       - Solarenergie
+       - Solarthermie
+       - Geothermie
+       - Wasserkraft
+    Energieumwandlung:
+       - Energieumwandlung
+       - Energy Conversion
+       - Energiewandlung
+       - Energiewandler
+       - Kraft-Wärme-Kopplung
+       - combined heat and power
+       - thermoelektrische Umwandlung
+       - Umwandlungswirkungsgrad
+    Batteriespeicher:
+       - Batteriespeicher
+       - Battery Storage
+       - Batteriesystem
+       - Batteriesysteme
+       - Stromspeicher
+       - electricity storage
+       - Energiespeicher
+       - energy storage
+       - Lithium-Ionen-Batterie
+       - Lithium-Ionen-Batterien
+       - Netzspeicher
+       - Speicherkapazität
+    Thermische Speicher:
+       - Thermischer Speicher
+       - Thermische Speicher
+       - Thermal Storage
+       - thermal energy storage
+       - Wärmespeicher
+       - Wärmespeicherung
+       - Latentwärmespeicher
+       - Hochtemperaturspeicher
+       - Kältespeicher
+    Wasserstoff:
+       - Wasserstoff
+       - Hydrogen
+       - grüner Wasserstoff
+       - green hydrogen
+       - Wasserstoffwirtschaft
+       - Wasserstofferzeugung
+       - Wasserstoffspeicherung
+       - Wasserelektrolyse
+       - Elektrolyseur
+       - Elektrolyseure
+    Grüne Gase:
+       - Grüne Gase
+       - grünes Gas
+       - Green Gases
+       - erneuerbares Gas
+       - erneuerbare Gase
+       - Biomethan
+       - biomethane
+       - Biogas
+       - synthetisches Methan
+       - Gasnetzeinspeisung
+    Power-to-X:
+       - Power-to-X
+       - Power-to-Gas
+       - Power-to-Liquid
+       - Power-to-Heat
+       - PtX
+       - E-Fuel
+       - E-Fuels
+       - synthetische Kraftstoffe
+       - synthetic fuels
+       - strombasierte Kraftstoffe
+    Smart Grids:
+       - Smart Grid
+       - Smart Grids
+       - intelligentes Stromnetz
+       - intelligente Stromnetze
+       - Netzmanagement
+       - Lastmanagement
+       - Demand Response
+       - virtuelles Kraftwerk
+       - Energiemanagementsystem
+       - Flexibilitätsvermarktung
+    Netztechnologien und Energieeffizienz:
+       - Netztechnologie
+       - Netztechnologien
+       - Netzstabilität
+       - grid stability
+       - Netzintegration
+       - Übertragungsnetz
+       - Verteilnetz
+       - Verteilnetze
+       - Energieeffizienz
+       - Energy Efficiency
+       - Netzausbau
+    Wärmepumpen:
+       - Wärmepumpe
+       - Wärmepumpen
+       - Heat Pump
+       - heat pumps
+       - Wärmepumpensystem
+       - Wärmepumpensysteme
+       - Hochtemperatur-Wärmepumpe
+       - Großwärmepumpe
+    Industrielle Abwärme:
+       - Industrielle Abwärme
+       - industriellen Abwärme
+       - Industrial Waste Heat
+       - Abwärme
+       - Abwärmenutzung
+       - Abwärmerückgewinnung
+       - waste heat recovery
+       - Wärmerückgewinnung
+    Klimaneutrale Prozesswärme:
+       - Klimaneutrale Prozesswärme
+       - Prozesswärme
+       - process heat
+       - Hochtemperaturprozesswärme
+       - Elektrifizierung der Prozesswärme
+       - Dekarbonisierung der Industrie
+       - industrial decarbonisation
+       - klimaneutrale Wärmeerzeugung
+    CO2-Management:
+       - CO2-Management
+       - carbon management
+       - Kohlendioxidmanagement
+       - CO2-Bilanz
+       - CO2-Fußabdruck
+       - Carbon Footprint
+       - Emissionsminderung
+       - Treibhausgasemissionen
+       - CO2-Reduktion
+       - Emissionsbilanzierung
+    CCU/CCS:
+       - Carbon Capture
+       - Carbon Capture and Storage
+       - Carbon Capture and Utilization
+       - CO2-Abscheidung
+       - Kohlendioxidabscheidung
+       - CO2-Speicherung
+       - CO2-Nutzung
+       - CO2-Verwertung
+       - Direct Air Capture
+       - CCU
+       - CCS
+    Kreislaufwirtschaft:
+       - Kreislaufwirtschaft
+       - Circular Economy
+       - Kreislaufführung
+       - zirkuläre Wertschöpfung
+       - zirkuläre Geschäftsmodelle
+       - Circular Design
+       - Kaskadennutzung
+       - geschlossene Stoffkreisläufe
+    Recycling:
+       - Recycling
+       - Wiederverwertung
+       - Recyclingverfahren
+       - Recyclingprozess
+       - Recyclingprozesse
+       - chemisches Recycling
+       - werkstoffliches Recycling
+       - Wertstoffrückgewinnung
+       - Rückgewinnung von Rohstoffen
+       - Wiederaufbereitung
+    Ressourceneffizienz:
+       - Ressourceneffizienz
+       - Resource Efficiency
+       - ressourceneffizient
+       - ressourceneffiziente Produktion
+       - Materialeffizienz
+       - Rohstoffeffizienz
+       - Ressourcenschonung
+       - Materialeinsparung
+    Umweltmonitoring:
+       - Umweltmonitoring
+       - Environmental Monitoring
+       - Umweltüberwachung
+       - Umweltmesstechnik
+       - Umweltsensorik
+       - Immissionsmessung
+       - Luftgütemessung
+       - Gewässermonitoring
+       - Bodenmonitoring
+       - Biodiversitätsmonitoring
+    Wasser-, Abfall- und Luftreinhaltung:
+       - Wasseraufbereitung
+       - water treatment
+       - Abwasserbehandlung
+       - Abwasserreinigung
+       - wastewater treatment
+       - Abfallbewirtschaftung
+       - Abfallwirtschaft
+       - waste management
+       - Luftreinhaltung
+       - air pollution control
+       - Luftschadstoffe
+       - Emissionsreinigung
+Mobilitätstechnologien:
+    Emissionsfreie Antriebe:
+       - Emissionsfreie Antriebe
+       - emissionsfreier Antrieb
+       - Zero-Emission Drivetrain
+       - zero-emission vehicle
+       - alternative Antriebe
+       - alternativer Antrieb
+       - Antriebsstrang
+       - Antriebsstränge
+       - emissionsfreier Verkehr
+    Elektromobilität:
+       - Elektromobilität
+       - Electromobility
+       - E-Mobilität
+       - electric vehicle
+       - electric vehicles
+       - Elektrofahrzeug
+       - Elektrofahrzeuge
+       - Elektrofahrzeugen
+       - batterieelektrisches Fahrzeug
+       - E-Fahrzeug
+       - Elektroantrieb
+    Brennstoffzellen:
+       - Brennstoffzelle
+       - Brennstoffzellen
+       - Fuel Cell
+       - fuel cells
+       - Brennstoffzellensystem
+       - Brennstoffzellensysteme
+       - PEM-Brennstoffzelle
+       - Festoxidbrennstoffzelle
+       - solid oxide fuel cell
+       - Brennstoffzellenstack
+    Wasserstoffmobilität:
+       - Wasserstoffmobilität
+       - Hydrogen Mobility
+       - Wasserstofffahrzeug
+       - Wasserstofffahrzeuge
+       - wasserstoffbetriebenes Fahrzeug
+       - hydrogen vehicle
+       - hydrogen vehicles
+       - Wasserstoffantrieb
+       - Wasserstoffbus
+       - Wasserstoff-Lkw
+    Lade- und Betankungsinfrastruktur:
+       - Ladeinfrastruktur
+       - charging infrastructure
+       - Betankungsinfrastruktur
+       - refueling infrastructure
+       - Ladestation
+       - Ladestationen
+       - charging station
+       - Schnellladen
+       - Schnellladeinfrastruktur
+       - Wasserstofftankstelle
+       - Ladepunkt
+    Leichtbau:
+       - Leichtbau
+       - Leichtbauweise
+       - Leichtbaukonzept
+       - Leichtbaukonzepte
+       - Fahrzeugleichtbau
+       - Lightweight Construction
+       - lightweight design
+       - Gewichtsreduktion
+       - Multimaterial-Leichtbau
+    Batterieintegration und Fahrzeugsoftware:
+       - Batterieintegration
+       - battery integration
+       - Batteriemanagementsystem
+       - Batteriemanagementsysteme
+       - battery management system
+       - Fahrzeugsoftware
+       - vehicle software
+       - software-defined vehicle
+       - E/E-Architektur
+       - Fahrzeugarchitektur
+       - Steuergerätesoftware
+    Automatisierte Fahrzeuge:
+       - Automatisiertes Fahrzeug
+       - Automatisierte Fahrzeuge
+       - Automated Vehicle
+       - automated driving
+       - automatisiertes Fahren
+       - autonomes Fahren
+       - autonomen Fahrens
+       - autonomous driving
+       - selbstfahrendes Fahrzeug
+       - Fahrerassistenzsystem
+       - Fahrerassistenzsysteme
+       - ADAS
+    Vernetzte Verkehrssysteme:
+       - Vernetzte Verkehrssysteme
+       - Connected Transport
+       - vernetztes Fahrzeug
+       - vernetzte Fahrzeuge
+       - connected vehicle
+       - connected vehicles
+       - Fahrzeugvernetzung
+       - vernetzte Mobilität
+       - vernetzte Infrastruktur
+    C-ITS:
+       - C-ITS
+       - Cooperative Intelligent Transport Systems
+       - kooperative intelligente Verkehrssysteme
+       - kooperatives Fahren
+       - kooperative Verkehrssysteme
+       - Intelligent Transport Systems
+       - intelligente Verkehrssysteme
+    V2X-Kommunikation:
+       - V2X
+       - V2X-Kommunikation
+       - Vehicle-to-Everything
+       - Vehicle-to-Vehicle
+       - Vehicle-to-Infrastructure
+       - Car2X
+       - Car2Car
+       - V2V
+       - V2I
+       - Fahrzeug-zu-Fahrzeug-Kommunikation
+    Mobility-as-a-Service:
+       - Mobility-as-a-Service
+       - Mobility as a Service
+       - MaaS
+       - Mobilität als Dienstleistung
+       - Mobilitätsdienstleistung
+       - Mobilitätsdienstleistungen
+       - Sharing-Mobilität
+       - Carsharing
+       - integrierte Mobilitätsangebote
+    Digitale Mobilitätsdienste:
+       - Digitale Mobilitätsdienste
+       - Digital Mobility Services
+       - Mobilitätsplattform
+       - Mobilitätsplattformen
+       - mobility platform
+       - digitale Mobilitätslösungen
+       - Mobilitäts-App
+       - multimodale Reiseplanung
+       - Routenplanung
+       - Buchungsplattform
+    Verkehrssteuerung:
+       - Verkehrssteuerung
+       - Traffic Management
+       - traffic control
+       - Verkehrsmanagement
+       - Verkehrsflusssteuerung
+       - Verkehrsleitsystem
+       - Verkehrsleitsysteme
+       - Verkehrsleittechnik
+       - Verkehrsprognose
+       - Staureduktion
+    Bahntechnologien und Logistiksystem:
+       - Bahntechnologie
+       - Bahntechnologien
+       - Rail Technology
+       - Schienenverkehr
+       - Schienengüterverkehr
+       - Bahnsystem
+       - Bahninfrastruktur
+       - Logistiksystem
+       - Logistiksysteme
+       - logistics system
+       - Güterlogistik
+       - Intermodalverkehr
+Weltraum- und Luftfahrttechnologien:
+    Satellitentechnologien:
+       - Satellitentechnologie
+       - Satellitentechnologien
+       - Satellite Technology
+       - Satellitensystem
+       - Satellitensysteme
+       - Kleinsatellit
+       - Kleinsatelliten
+       - CubeSat
+       - CubeSats
+       - Nanosatellit
+       - Satellitenkonstellation
+       - Satellitenplattform
+    Erdbeobachtung / Copernicus:
+       - Erdbeobachtung
+       - Earth Observation
+       - Copernicus
+       - Fernerkundung
+       - remote sensing
+       - Satellitenbilder
+       - Satellitenbild
+       - Erdbeobachtungsdaten
+       - Sentinel-Daten
+       - Landbedeckungskartierung
+    Wetter- und Klimamonitoring:
+       - Klimamonitoring
+       - Wettermonitoring
+       - Weather Monitoring
+       - Climate Monitoring
+       - Klimabeobachtung
+       - Klimadaten
+       - Wettervorhersage
+       - weather forecasting
+       - atmosphärische Messungen
+       - Klimamodellierung
+    Navigation / GNSS:
+       - GNSS
+       - Satellitennavigation
+       - satellite navigation
+       - Global Navigation Satellite System
+       - Galileo
+       - EGNOS
+       - GPS
+       - Präzisionsnavigation
+       - Positionsbestimmung
+    Satellitenkommunikation:
+       - Satellitenkommunikation
+       - Satellite Communication
+       - satellite communications
+       - SatCom
+       - Satellitenfunk
+       - Satellitenverbindung
+       - satellite link
+       - Bodenstation
+    Raumfahrtkomponenten:
+       - Raumfahrtkomponente
+       - Raumfahrtkomponenten
+       - Spacecraft Component
+       - spacecraft components
+       - Satellitenkomponenten
+       - weltraumtaugliche Komponenten
+       - Raumfahrthardware
+       - Raumfahrtmechanismen
+    Weltraumelektronik:
+       - Weltraumelektronik
+       - Space Electronics
+       - strahlungsharte Elektronik
+       - strahlungsfeste Elektronik
+       - radiation-hardened
+       - weltraumtaugliche Elektronik
+       - Strahlungsfestigkeit
+       - space-qualified electronics
+    On-board-Systeme:
+       - On-board-System
+       - On-board Systems
+       - onboard system
+       - Bordsystem
+       - Bordsysteme
+       - Bordelektronik
+       - Bordcomputer
+       - on-board data handling
+       - Bordrechner
+       - Lageregelungssystem
+    Sensorik:
+       - Weltraumsensorik
+       - Satellitensensor
+       - Satellitensensoren
+       - optische Nutzlast
+       - Nutzlastsensorik
+       - Radarsensorik
+       - SAR-Sensor
+       - Sternsensor
+       - spaceborne sensor
+       - weltraumtaugliche Sensoren
+       - Instrumentierung für Satelliten
+    Satellitendatenanalyse:
+       - Satellitendatenanalyse
+       - Satellite Data Analysis
+       - Satellitendaten
+       - satellite data
+       - Satellitenbildauswertung
+       - Geodatenanalyse
+       - Geoinformation
+       - Erdbeobachtungsdienste
+       - Datenprodukte aus Satellitendaten
+    Weltraumwissenschaft:
+       - Weltraumwissenschaft
+       - Space Science
+       - Weltraumforschung
+       - Weltraumphysik
+       - Astrophysik
+       - Planetenforschung
+       - planetary science
+       - Weltraummissionen
+       - Exoplaneten
+    Sicherheits-/Resilienzbezogene Anwendungen:
+       - Sicherheitsanwendung
+       - Sicherheitsanwendungen
+       - Security Application
+       - Resilienzanwendung
+       - Resilience Application
+       - Resilienz kritischer Infrastruktur
+       - critical infrastructure resilience
+       - Krisenmanagement
+       - Katastrophenschutz
+       - Lagebilderstellung
+       - Weltraumlagebild
+    Avionik:
+       - Avionik
+       - Avionics
+       - Avioniksystem
+       - Avioniksysteme
+       - Flugsteuerungssystem
+       - flight control system
+       - Flugführungssystem
+       - Cockpitsysteme
+    Nachhaltige Luftfahrt:
+       - Nachhaltige Luftfahrt
+       - nachhaltigen Luftfahrt
+       - Sustainable Aviation
+       - emissionsarme Luftfahrt
+       - grüne Luftfahrt
+       - Luftfahrtemissionen
+       - Dekarbonisierung der Luftfahrt
+       - klimaneutrales Fliegen
+       - Elektroflugzeug
+    SAF:
+       - SAF
+       - Sustainable Aviation Fuel
+       - Sustainable Aviation Fuels
+       - nachhaltiger Flugkraftstoff
+       - nachhaltige Flugkraftstoffe
+       - alternative Flugkraftstoffe
+       - Biokerosin
+       - synthetisches Kerosin
+    Wasserstoff in der Luftfahrt:
+       - Wasserstoff in der Luftfahrt
+       - Hydrogen in Aviation
+       - Wasserstoffflugzeug
+       - Wasserstoffflugzeuge
+       - hydrogen aircraft
+       - wasserstoffbetriebenes Flugzeug
+       - Flüssigwasserstoff
+       - liquid hydrogen
+       - Wasserstoffturbine
+    Aerodynamik:
+       - Aerodynamik
+       - Aerodynamics
+       - aerodynamische Optimierung
+       - aerodynamisches Design
+       - Strömungssimulation
+       - Strömungsmechanik
+       - computational fluid dynamics
+       - Widerstandsreduktion
+       - Umströmung
+    Leichte Strukturen:
+       - Leichte Strukturen
+       - Lightweight Structures
+       - Leichtbaustruktur
+       - Leichtbaustrukturen
+       - Strukturleichtbau
+       - Faserverbundstruktur
+       - Faserverbundstrukturen
+       - Strukturbauteil
+       - Strukturoptimierung
+    Flugverkehrsmanagement:
+       - Flugverkehrsmanagement
+       - Air Traffic Management
+       - air traffic control
+       - Flugsicherung
+       - Flugverkehrskontrolle
+       - Luftraumüberwachung
+       - Luftraummanagement
+       - U-Space
+       - Drohnenverkehrsmanagement
