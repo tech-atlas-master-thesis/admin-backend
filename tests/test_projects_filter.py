@@ -7,7 +7,12 @@ from pipelineFramework import EventType
 from pipeline_configs.transform_steps.project_extract import ProjectExtractStep
 from pipeline_configs.transform_steps.project_normalize import ProjectNormalizeStep
 from pipeline_configs.transform_steps.projects_filter import ProjectsFilterStep
-from scrapers.technology_matcher import ScoreWeights, project_texts, score_project, technologies_from_config
+from pipeline_configs.transform_steps.technology_matcher import (
+    ScoreWeights,
+    project_texts,
+    score_project,
+    technologies_from_config,
+)
 
 TECH_CONFIG = [
     {
@@ -158,9 +163,14 @@ async def test_normalize_output_only_gains_the_match_field():
     extracted = await result_of(ProjectExtractStep(), {"getScraperResults": frame})
     status = {"STATUS_MAPPING": {"laufend": "ONGOING"}}
 
-    # What normalize produced before projects_filter existed: extract output without the new columns.
+    # What normalize produced before projects_filter existed: extract output without the new columns, with the
+    # keyTechnologies the scraper used to deliver (extract no longer passes it on, projects_filter sets it).
     legacy = [
-        {k: v for k, v in p.items() if k not in ("grant", "title_en", "abstract_en", "keywords_en")} for p in extracted
+        {
+            **{k: v for k, v in p.items() if k not in ("grant", "title_en", "abstract_en", "keywords_en")},
+            "keyTechnologies": None,
+        }
+        for p in extracted
     ]
     before = await result_of(ProjectNormalizeStep(), {"projects_filter": legacy}, status)
 

@@ -13,7 +13,7 @@ from pipelineFramework import (
 )
 from pipeline_configs.transform_steps.create_dataset import CreateDataSetStep
 from pipeline_configs.transform_steps.grant_extract import GrantExtractStep
-from pipeline_configs.transform_steps.scraper import GetTechnologyConfiguration
+from pipeline_configs.transform_steps.technologies import TechnologiesStep
 
 
 class ProgrammeExtractStep(StepConfig):
@@ -103,7 +103,7 @@ class ProgrammeEnrichStep(StepConfig):
         return LocalisationString("Desc", "Desc")
 
     def dependencies(self) -> Union[List[str], None]:
-        return [ProgrammeNormalizeStep.name(), GetTechnologyConfiguration.name()]
+        return [ProgrammeNormalizeStep.name(), TechnologiesStep.name()]
 
 
 class ProgrammesDatabaseStep(StepConfig):

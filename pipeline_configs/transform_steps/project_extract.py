@@ -60,7 +60,6 @@ class ProjectExtractStep(StepConfig):
             "end",
             "status",
             "keywords",
-            "keyTechnologies",
             "organisations",
             "data_source",
             *MATCH_ONLY_COLUMNS,

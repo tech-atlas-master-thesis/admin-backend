@@ -13,7 +13,7 @@ from pipelineFramework import (
 )
 from pipelineFramework.server.db.helper import get_fe_db_client
 from pipeline_configs.transform_steps.create_dataset import CreateDataSetStep
-from pipeline_configs.transform_steps.scraper import GetTechnologyConfiguration
+from pipeline_configs.transform_steps.configs import GetTechnologyConfiguration
 
 
 class TechnologiesStep(StepConfig):

@@ -14,7 +14,7 @@ from pipeline_configs.transform_steps.create_dataset import CreateDataSetStep
 from pipeline_configs.transform_steps.grant_database import GrantDatabaseStep
 from pipeline_configs.transform_steps.programmes import ProgrammesDatabaseStep
 from pipeline_configs.transform_steps.project_enrich import ProjectEnrichStep
-from pipeline_configs.transform_steps.scraper import GetTechnologyConfiguration
+from pipeline_configs.transform_steps.technologies import TechnologiesStep
 
 
 class PrefillTechnologyCounts(StepConfig):
@@ -63,7 +63,7 @@ class PrefillTechnologyCounts(StepConfig):
         return LocalisationString("Desc", "Desc")
 
     def dependencies(self) -> Union[List[str], None]:
-        return [ProjectEnrichStep.name(), GetTechnologyConfiguration.name()]
+        return [ProjectEnrichStep.name(), TechnologiesStep.name()]
 
 
 class PrefillGrantCounts(StepConfig):

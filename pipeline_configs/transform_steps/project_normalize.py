@@ -51,7 +51,8 @@ class ProjectNormalizeStep(StepConfig):
 
     def parse_keywords(self, projects: List[Dict[str, Any]]) -> None:
         for project in projects:
-            project["keywords"] = project["keywords"].split(", ")
+            keywords = project.get("keywords") or ""
+            project["keywords"] = [keyword for keyword in keywords.split(", ") if keyword]
 
     def normalize_grant(self, projects: List[Dict[str, Any]]) -> None:
         for project in projects:

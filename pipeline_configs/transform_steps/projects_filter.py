@@ -11,8 +11,13 @@ from pipelineFramework import (
     EventType,
 )
 from pipeline_configs.transform_steps.project_extract import ProjectExtractStep, MATCH_ONLY_COLUMNS
-from pipeline_configs.transform_steps.scraper import GetTechnologyConfiguration
-from scrapers.technology_matcher import ScoreWeights, project_texts, score_project, technologies_from_config
+from pipeline_configs.transform_steps.configs import GetTechnologyConfiguration
+from pipeline_configs.transform_steps.technology_matcher import (
+    ScoreWeights,
+    project_texts,
+    score_project,
+    technologies_from_config,
+)
 
 FIELD_COLUMNS = {
     "title": ["title", "short", "title_en"],

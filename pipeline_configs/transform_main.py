@@ -1,5 +1,5 @@
 from pipelineFramework import LocalisationString, PipelineConfig
-from pipeline_configs.transform_steps.configs import GetOrganisationTypeMapperConfiguration
+from pipeline_configs.transform_steps.configs import GetOrganisationTypeMapperConfiguration, GetTechnologyConfiguration
 from pipeline_configs.transform_steps.create_dataset import CreateDataSetStep
 from pipeline_configs.transform_steps.grant_database import GrantDatabaseStep
 from pipeline_configs.transform_steps.grant_enrich import GrantEnrichStep
@@ -21,7 +21,7 @@ from pipeline_configs.transform_steps.project_extract import ProjectExtractStep
 from pipeline_configs.transform_steps.project_normalize import ProjectNormalizeStep
 from pipeline_configs.transform_steps.projects_filter import ProjectsFilterStep
 from pipeline_configs.transform_steps.publish_dataset import PublishDataSetStep
-from pipeline_configs.transform_steps.scraper import GetScraperResults, GetTechnologyConfiguration
+from pipeline_configs.transform_steps.scraper import GetScraperResults
 from pipeline_configs.transform_steps.technologies import TechnologiesStep
 
 TRANSFORMER_PIPELINE = PipelineConfig(
