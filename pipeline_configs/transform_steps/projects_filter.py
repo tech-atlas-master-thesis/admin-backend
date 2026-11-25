@@ -1,4 +1,6 @@
+import asyncio
 import json
+import math
 from collections import Counter
 from typing import Optional, Union, List, Dict, Any
 
@@ -14,6 +16,7 @@ from pipeline_configs.transform_steps.project_extract import ProjectExtractStep,
 from pipeline_configs.transform_steps.configs import GetTechnologyConfiguration
 from pipeline_configs.transform_steps.technology_matcher import (
     ScoreWeights,
+    TechnologyTerms,
     project_texts,
     score_project,
     technologies_from_config,
@@ -27,6 +30,9 @@ FIELD_COLUMNS = {
 
 
 class ProjectsFilterStep(StepConfig):
+    MIN_CHUNK_SIZE = 500
+    PROGRESS_REPORTS = 10
+
     DEFAULTS = {
         "SCORE_TITLE": 5.0,
         "SCORE_KEYWORDS": 3.0,
@@ -57,7 +63,33 @@ class ProjectsFilterStep(StepConfig):
 
         kept: List[Dict[str, Any]] = []
         dropped = Counter()
-        for project in PROJECTS:
+        chunk_size = max(self.MIN_CHUNK_SIZE, math.ceil(len(PROJECTS) / self.PROGRESS_REPORTS))
+        for start in range(0, len(PROJECTS), chunk_size):
+            chunk_kept, chunk_dropped = await asyncio.to_thread(
+                self.filter_projects, PROJECTS[start : start + chunk_size], technologies, weights, threshold
+            )
+            kept.extend(chunk_kept)
+            dropped.update(chunk_dropped)
+            done = min(start + chunk_size, len(PROJECTS))
+            if done < len(PROJECTS):
+                yield f"Scored {done} of {len(PROJECTS)} projects", EventType.INFO
+
+        kept_by_source = Counter(project.get("data_source") for project in kept)
+        yield (
+            f"Kept {len(kept)} of {len(PROJECTS)} projects with a technology score of at least {threshold} "
+            f"(kept: {dict(kept_by_source)}, dropped: {dict(dropped)})",
+            EventType.INFO,
+        )
+        yield kept, EventType.RESULT
+
+    @staticmethod
+    def filter_projects(
+        projects: List[Dict[str, Any]], technologies: List[TechnologyTerms], weights: ScoreWeights, threshold: float
+    ) -> tuple[List[Dict[str, Any]], Counter]:
+        # Runs in a worker thread: it only reads the shared projects and builds new dicts.
+        kept: List[Dict[str, Any]] = []
+        dropped = Counter()
+        for project in projects:
             match = score_project(project_texts(project, FIELD_COLUMNS), technologies, weights)
             for entry in match.values():
                 entry["passed"] = entry["score"] >= threshold
@@ -70,14 +102,7 @@ class ProjectsFilterStep(StepConfig):
             filtered["keyTechnologies"] = json.dumps(passed)
             filtered["_match"] = match
             kept.append(filtered)
-
-        kept_by_source = Counter(project.get("data_source") for project in kept)
-        yield (
-            f"Kept {len(kept)} of {len(PROJECTS)} projects with a technology score of at least {threshold} "
-            f"(kept: {dict(kept_by_source)}, dropped: {dict(dropped)})",
-            EventType.INFO,
-        )
-        yield kept, EventType.RESULT
+        return kept, dropped
 
     def _get(self, user_config: Optional[UserStepConfig], key: str) -> float:
         value = user_config.get(key) if user_config else None

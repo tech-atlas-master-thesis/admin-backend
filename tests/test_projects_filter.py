@@ -1,4 +1,9 @@
+import asyncio
 import json
+import random
+import re
+import time
+from collections import Counter
 
 import pandas as pd
 import pytest
@@ -8,6 +13,7 @@ from pipeline_configs.transform_steps.project_extract import ProjectExtractStep
 from pipeline_configs.transform_steps.project_normalize import ProjectNormalizeStep
 from pipeline_configs.transform_steps.projects_filter import ProjectsFilterStep
 from pipeline_configs.transform_steps.technology_matcher import (
+    _Text,
     ScoreWeights,
     project_texts,
     score_project,
@@ -187,3 +193,51 @@ async def test_normalize_output_only_gains_the_match_field():
             k: v for k, v in old.items() if k != "keyTechnologies"
         }
         assert isinstance(project["keyTechnologies"], str)
+
+
+def scan_reference(terms, text):
+    # The straightforward version the word index must agree with: scan the whole text.
+    keys = sorted({t.casefold() for t in terms}, key=len, reverse=True)
+    pattern = re.compile(
+        r"(?<!\w)(?:" + "|".join(r"\s+".join(map(re.escape, k.split())) for k in keys) + r")(?!\w)", re.IGNORECASE
+    )
+    return Counter(" ".join(found.group(0).split()).casefold() for found in pattern.finditer(text))
+
+
+def test_word_index_finds_the_same_matches_as_a_full_scan():
+    rng = random.Random(5)
+    words = ["self", "supervised", "learning", "machine", "LLM", "LLMs", "Wasserstoff", "peroxid", "saf", "x"]
+    words += ["self-supervised learning", "supervised  learning", "Wasserstoffperoxid"]
+    separators = [" ", "  ", "\n", "-", ", ", "_", ""]
+    matched = 0
+    for tech in TECHS:
+        for _ in range(300):
+            text = "".join(rng.choice(words) + rng.choice(separators) for _ in range(rng.randint(1, 12)))
+            found = Counter()
+            for patterns in (tech.positive_patterns, tech.excluded_patterns):
+                found.update({term.casefold(): n for term, n in tech.count(patterns, [_Text(text)]).items()})
+            expected = scan_reference(tech.any_of, text)
+            if tech.excluded:
+                expected += scan_reference(tech.excluded, text)
+            assert found == expected, text
+            matched += sum(found.values())
+    assert matched > 100
+
+
+@pytest.mark.asyncio
+async def test_filter_does_not_stall_the_event_loop():
+    abstract = " ".join(["Wir untersuchen Machine Learning und Wasserstoff in der Praxis."] * 40)
+    projects = [
+        {"externalId": str(i), "title": "Projekt", "abstract": abstract, "data_source": "FFG"} for i in range(3000)
+    ]
+    step = asyncio.create_task(
+        result_of(ProjectsFilterStep(), {"project_extract": projects, "getTechnologyConfiguration": TECH_CONFIG})
+    )
+    longest = 0.0
+    while not step.done():
+        started = time.perf_counter()
+        await asyncio.sleep(0.005)
+        longest = max(longest, time.perf_counter() - started)
+
+    assert len(step.result()) == 3000
+    assert longest < 0.25

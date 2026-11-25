@@ -22,18 +22,32 @@ def _first_word(term: str) -> Optional[str]:
     return word.group(0) if word else None
 
 
-def _compile(terms: Iterable[str]) -> Optional[re.Pattern]:
-    unique = {}
+def _compile_by_first_word(terms: Iterable[str]) -> Dict[str, re.Pattern]:
+    groups: Dict[str, Dict[str, None]] = {}
     for term in terms:
         key = _normalise(term)
-        if key and key not in unique:
-            unique[key] = term
-    if not unique:
-        return None
-    # Longest first, so the regex alternation prefers the longer of two overlapping terms.
-    ordered = sorted(unique, key=len, reverse=True)
-    alternatives = "|".join(r"\s+".join(re.escape(part) for part in key.split(" ")) for key in ordered)
-    return re.compile(rf"(?<!\w)(?:{alternatives})(?!\w)", re.IGNORECASE)
+        first = _first_word(key)
+        if key and first:
+            groups.setdefault(first, {})[key] = None
+    patterns = {}
+    for first, keys in groups.items():
+        # Longest first, so the regex alternation prefers the longer of two overlapping terms.
+        ordered = sorted(keys, key=len, reverse=True)
+        alternatives = "|".join(r"\s+".join(re.escape(part) for part in key.split(" ")) for key in ordered)
+        patterns[first] = re.compile(rf"(?:{alternatives})(?!\w)", re.IGNORECASE)
+    return patterns
+
+
+class _Text:
+    """A text with the start positions of each of its (casefolded) words."""
+
+    __slots__ = ("text", "positions")
+
+    def __init__(self, text: str):
+        self.text = text
+        self.positions: Dict[str, List[int]] = {}
+        for word in _WORD.finditer(text):
+            self.positions.setdefault(word.group(0).casefold(), []).append(word.start())
 
 
 @dataclass
@@ -42,14 +56,14 @@ class TechnologyTerms:
     short: str
     any_of: List[str]
     excluded: List[str]
-    positive_pattern: Optional[re.Pattern] = field(init=False, repr=False)
-    excluded_pattern: Optional[re.Pattern] = field(init=False, repr=False)
+    positive_patterns: Dict[str, re.Pattern] = field(init=False, repr=False)
+    excluded_patterns: Dict[str, re.Pattern] = field(init=False, repr=False)
     first_words: set = field(init=False, repr=False)
     canonical: Dict[str, str] = field(init=False, repr=False)
 
     def __post_init__(self):
-        self.positive_pattern = _compile(self.any_of)
-        self.excluded_pattern = _compile(self.excluded)
+        self.positive_patterns = _compile_by_first_word(self.any_of)
+        self.excluded_patterns = _compile_by_first_word(self.excluded)
         self.first_words = {w for w in map(_first_word, [*self.any_of, *self.excluded]) if w}
         # Maps the normalised matched text back to the term as written in the configuration.
         self.canonical = {}
@@ -65,14 +79,21 @@ class TechnologyTerms:
             raise KeyError(f"Technology configuration {config.get('label')} has no short")
         return cls(config.get("label"), config["short"], search["anyOf"], search.get("excluded") or [])
 
-    def count(self, pattern: Optional[re.Pattern], texts: List[str]) -> Dict[str, int]:
+    def count(self, patterns: Dict[str, re.Pattern], texts: List[_Text]) -> Dict[str, int]:
         counts: Dict[str, int] = {}
-        if pattern is None:
-            return counts
         for text in texts:
-            for found in pattern.finditer(text):
-                term = self.canonical.get(_normalise(found.group(0)), found.group(0))
-                counts[term] = counts.get(term, 0) + 1
+            starts = sorted(
+                (start, patterns[word]) for word in patterns.keys() & text.positions for start in text.positions[word]
+            )
+            free_from = 0
+            for start, pattern in starts:
+                if start < free_from:
+                    continue
+                found = pattern.match(text.text, start)
+                if found:
+                    term = self.canonical.get(_normalise(found.group(0)), found.group(0))
+                    counts[term] = counts.get(term, 0) + 1
+                    free_from = found.end()
         return counts
 
 
@@ -130,13 +151,14 @@ def project_texts(project: Dict[str, Any], field_columns: Dict[str, List[str]]) 
 def score_project(
     texts: Dict[str, List[str]], technologies: List[TechnologyTerms], weights: ScoreWeights
 ) -> Dict[str, Dict[str, Any]]:
-    words = {word for field_texts in texts.values() for text in field_texts for word in _WORD.findall(text.casefold())}
+    indexed = {f: [_Text(text) for text in texts.get(f, [])] for f in FIELDS}
+    words = {word for field_texts in indexed.values() for text in field_texts for word in text.positions}
     result: Dict[str, Dict[str, Any]] = {}
     for tech in technologies:
         if not (tech.first_words & words):
             continue
-        matches = {f: tech.count(tech.positive_pattern, texts.get(f, [])) for f in FIELDS}
-        excluded = {f: tech.count(tech.excluded_pattern, texts.get(f, [])) for f in FIELDS}
+        matches = {f: tech.count(tech.positive_patterns, indexed[f]) for f in FIELDS}
+        excluded = {f: tech.count(tech.excluded_patterns, indexed[f]) for f in FIELDS}
         if not any(matches.values()) and not any(excluded.values()):
             continue
         score = sum(weights.of(f) * sum(matches[f].values()) for f in FIELDS) - weights.excluded_multiplier * sum(
