@@ -10,7 +10,7 @@ from pipelineFramework import (
     StepUserConfig,
     EventType,
 )
-from pipeline_configs.transform_steps.scraper import GetScraperResults
+from pipeline_configs.transform_steps.projects_filter import ProjectsFilterStep
 
 
 def get_non_null_value(collection: dict, key: str):
@@ -26,12 +26,15 @@ class OrganisationExtractStep(StepConfig):
     async def run(self, user_config: Optional[UserStepConfig], results: Optional[Dict[str, Any]] = None, **_):
         if results is None:
             results = {}
-        SCRAPER_DATA = results.get("getScraperResults")
-        if SCRAPER_DATA is None:
+        PROJECTS: List[Dict[str, Any]] = results.get(ProjectsFilterStep.name())
+        if PROJECTS is None:
             raise FileNotFoundError("No organisation data found")
         organisations = {}
         available_fields = set()
-        for collection in SCRAPER_DATA["organisations"]:
+        for project in PROJECTS:
+            collection = project.get("organisations")
+            if not collection:
+                continue
             for organisation in json.loads(collection):
                 org_name = get_non_null_value(organisation, "organisationName")
                 if not org_name:
@@ -74,4 +77,4 @@ class OrganisationExtractStep(StepConfig):
         return LocalisationString("Desc", "Desc")
 
     def dependencies(self) -> Union[List[str], None]:
-        return [GetScraperResults.name()]
+        return [ProjectsFilterStep.name()]

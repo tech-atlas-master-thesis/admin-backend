@@ -198,6 +198,38 @@ class FWFScraper(StepConfig):
                 ["_str.prproposalsummary.de", "_str.prfinalreport.de"],
             ),
             StepUserConfig(
+                "TITLE_EN_FIELD",
+                LocalisationString("English title field", "Englisches Titelfeld"),
+                LocalisationString(
+                    "Field with the English project title. Only used to match the technologies.",
+                    "Feld mit dem englischen Projekttitel. Wird nur zur Zuordnung der Technologien verwendet.",
+                ),
+                StepUserConfig.StepUserConfigType.STRING,
+                "_str.projecttitle.en",
+            ),
+            StepUserConfig(
+                "ABSTRACT_EN_CONCAT",
+                LocalisationString("English abstract fields", "Englische Abstract Felder"),
+                LocalisationString(
+                    "Fields concatenated to the English abstract. Only used to match the technologies.",
+                    "Zu konkatenierende Felder für den englischen Abstract. Wird nur zur Zuordnung der "
+                    "Technologien verwendet.",
+                ),
+                StepUserConfig.StepUserConfigType.LIST,
+                ["_str.prproposalsummary.en", "_str.prfinalreport.en"],
+            ),
+            StepUserConfig(
+                "KEYWORD_EN_CONCAT",
+                LocalisationString("English keyword fields", "Englische Keyword Felder"),
+                LocalisationString(
+                    "Fields concatenated to the English keywords. Only used to match the technologies.",
+                    "Zu konkatenierende Felder für die englischen Keywords. Wird nur zur Zuordnung der "
+                    "Technologien verwendet.",
+                ),
+                StepUserConfig.StepUserConfigType.LIST,
+                ["_list.researchareas.en", "_list.researchfields.en", "_list.researchdisciplines.en"],
+            ),
+            StepUserConfig(
                 "ORGANIZATION_PROJECT_LEADER",
                 LocalisationString("Project Leader Field", "Projektleiterfeld"),
                 LocalisationString(

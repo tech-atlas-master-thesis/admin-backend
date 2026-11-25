@@ -19,6 +19,7 @@ from pipeline_configs.transform_steps.project_database import ProjectDatabaseSte
 from pipeline_configs.transform_steps.project_enrich import ProjectEnrichStep
 from pipeline_configs.transform_steps.project_extract import ProjectExtractStep
 from pipeline_configs.transform_steps.project_normalize import ProjectNormalizeStep
+from pipeline_configs.transform_steps.projects_filter import ProjectsFilterStep
 from pipeline_configs.transform_steps.publish_dataset import PublishDataSetStep
 from pipeline_configs.transform_steps.scraper import GetScraperResults, GetTechnologyConfiguration
 from pipeline_configs.transform_steps.technologies import TechnologiesStep
@@ -32,6 +33,8 @@ TRANSFORMER_PIPELINE = PipelineConfig(
         GetTechnologyConfiguration,
         GetOrganisationTypeMapperConfiguration,
         TechnologiesStep(),
+        ProjectExtractStep(),
+        ProjectsFilterStep(),
         OrganisationExtractStep(),
         OrganisationNormalizeStep(),
         OrganisationEnrichStep(),
@@ -41,7 +44,6 @@ TRANSFORMER_PIPELINE = PipelineConfig(
         GrantNormalizeStep(),
         GrantEnrichStep(),
         GrantDatabaseStep(),
-        ProjectExtractStep(),
         ProjectNormalizeStep(),
         ProjectEnrichStep(),
         ProjectDatabaseStep(),

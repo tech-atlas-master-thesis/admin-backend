@@ -97,9 +97,7 @@ class FFG(Scraper):
         return "FFG"
 
     def get_query_string(self, keyword: super().Keyword) -> str:
-        any_of = " ".join(f'"{term}"' for term in keyword.any_of)
-        excluded = " ".join(f'-"{term}"' for term in keyword.exclude)
-        return f"{any_of} {excluded}"
+        return " ".join(f'"{term}"' for term in keyword.any_of)
 
     async def get_all_ids_for_keyword(self, keyword: super().Keyword) -> List[str]:
         page = 0

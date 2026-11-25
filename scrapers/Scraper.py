@@ -44,7 +44,7 @@ class Scraper(metaclass=ABCMeta):
         dfs = []
         keywords = self.get_keywords()
         for i, keyword in enumerate(keywords):
-            yield f"({i}/{len(keywords)}) Searching for keyword \"{keyword.name}\" with search terms any of [{', '.join(keyword.any_of)}] and excluding [{', '.join(keyword.exclude)}]", EventType.INFO
+            yield f"({i}/{len(keywords)}) Searching for keyword \"{keyword.name}\" with search terms any of [{', '.join(keyword.any_of)}]", EventType.INFO
             csv, warnings = await self.get_results_for_keyword(keyword)
             if warnings:
                 yield "\n".join(warnings), EventType.WARNING

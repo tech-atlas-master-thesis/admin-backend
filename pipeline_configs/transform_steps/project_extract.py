@@ -14,6 +14,8 @@ from pipelineFramework import (
 )
 from pipeline_configs.transform_steps.scraper import GetScraperResults
 
+MATCH_ONLY_COLUMNS = ["title_en", "abstract_en", "keywords_en"]
+
 
 class ProjectExtractStep(StepConfig):
     async def run(self, user_config: Optional[UserStepConfig], results: Optional[Dict[str, Any]] = None, **_):
@@ -53,6 +55,7 @@ class ProjectExtractStep(StepConfig):
             "abstract",
             "bidding",
             "programme",
+            "grant",
             "start",
             "end",
             "status",
@@ -60,6 +63,7 @@ class ProjectExtractStep(StepConfig):
             "keyTechnologies",
             "organisations",
             "data_source",
+            *MATCH_ONLY_COLUMNS,
         ]
 
         # The other extract steps read this frame at the same time. Under pandas' copy-on-write a

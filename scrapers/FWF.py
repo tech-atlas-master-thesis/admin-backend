@@ -40,6 +40,18 @@ class FWF(Scraper):
         self.KEYWORD_COLUMN = "keywords"
         self.ABSTRACT_CONCAT = user_config.get("ABSTRACT_CONCAT")
         self.ABSTRACT_COLUMN = "abstract"
+        self.TITLE_EN_FIELD = self._get_or_default(user_config, "TITLE_EN_FIELD", "_str.projecttitle.en")
+        self.TITLE_EN_COLUMN = "title_en"
+        self.ABSTRACT_EN_CONCAT = self._get_or_default(
+            user_config, "ABSTRACT_EN_CONCAT", ["_str.prproposalsummary.en", "_str.prfinalreport.en"]
+        )
+        self.ABSTRACT_EN_COLUMN = "abstract_en"
+        self.KEYWORD_EN_CONCAT = self._get_or_default(
+            user_config,
+            "KEYWORD_EN_CONCAT",
+            ["_list.researchareas.en", "_list.researchfields.en", "_list.researchdisciplines.en"],
+        )
+        self.KEYWORD_EN_COLUMN = "keywords_en"
         self.ORGANIZATION_COLUMN = "organisations"
         self.ORGANIZATION_PROJECT_LEADER = user_config.get("ORGANIZATION_PROJECT_LEADER")
         self.ORGANISATION_RESEARCH_INSTITUTIONS = user_config.get("ORGANISATION_RESEARCH_INSTITUTIONS")
@@ -68,17 +80,28 @@ class FWF(Scraper):
             self.KEYWORD_COLUMN,
             self.ORGANIZATION_COLUMN,
             self.ORGANIZATION_PROJECT_LEADER,
+            self.TITLE_EN_COLUMN,
+            self.ABSTRACT_EN_COLUMN,
+            self.KEYWORD_EN_COLUMN,
         ]
 
         self.QUERY_REQUIRED_FIELDS = [
             *self.COLUMN_TRANSLATIONS.keys(),
             *self.ABSTRACT_CONCAT,
             *self.KEYWORD_CONCAT,
+            self.TITLE_EN_FIELD,
+            *self.ABSTRACT_EN_CONCAT,
+            *self.KEYWORD_EN_CONCAT,
             self.ORGANIZATION_PROJECT_LEADER,
             self.ORGANISATION_RESEARCH_INSTITUTIONS,
             self.ORGANISATION_NATIONAL_PARTNERS,
             self.ORGANISATION_INTERNATIONAL_PARTNERS,
         ]
+
+    @staticmethod
+    def _get_or_default(user_config: UserStepConfig, key: str, default: Any) -> Any:
+        value = user_config.get(key)
+        return default if value is None else value
 
     async def get_results_for_keyword(self, keyword: super().Keyword) -> Tuple[pd.DataFrame | None, List[str]]:
         self.warnings = []
@@ -132,12 +155,11 @@ class FWF(Scraper):
             return json.loads(await response.content.read())[self.PROJECT_SEARCH_ITEMS_FIELD]
 
     def _build_queries(self, keyword: super().Keyword) -> List[Dict[str, Any]]:
-        excluded = " ".join(f"-{self._as_phrase(term)}" for term in keyword.exclude)
         queries = []
         for term in keyword.any_of:
             query = {
                 "indexUid": self.PROJECT_SEARCH_INDEX,
-                "q": self._check_query_length(f"{self._as_phrase(term)} {excluded}".strip(), keyword),
+                "q": self._check_query_length(self._as_phrase(term), keyword),
                 "matchingStrategy": self.PROJECT_SEARCH_MATCHING_STRATEGY,
                 "attributesToRetrieve": self.QUERY_REQUIRED_FIELDS,
             }
@@ -171,6 +193,9 @@ class FWF(Scraper):
     def _transform_dataframe(self, df: pd.DataFrame) -> pd.DataFrame:
         df[self.ABSTRACT_COLUMN] = self._concat_columns(df, self.ABSTRACT_CONCAT, "")
         df[self.KEYWORD_COLUMN] = self._concat_columns(df, self.KEYWORD_CONCAT, [])
+        df[self.TITLE_EN_COLUMN] = df[self.TITLE_EN_FIELD]
+        df[self.ABSTRACT_EN_COLUMN] = self._concat_columns(df, self.ABSTRACT_EN_CONCAT, "")
+        df[self.KEYWORD_EN_COLUMN] = self._concat_columns(df, self.KEYWORD_EN_CONCAT, [])
         df[self.ORGANIZATION_COLUMN] = self._transform_organisations(df)
         return df.rename(columns=self.COLUMN_TRANSLATIONS)[self.RELEVANT_COLUMNS]
 

@@ -12,7 +12,7 @@ from pipelineFramework import (
 )
 from pipeline_configs.transform_steps.grant_database import GrantDatabaseStep
 from pipeline_configs.transform_steps.organisations_database import OrganisationDatabaseStep
-from pipeline_configs.transform_steps.project_extract import ProjectExtractStep
+from pipeline_configs.transform_steps.projects_filter import ProjectsFilterStep
 
 
 class ProjectNormalizeStep(StepConfig):
@@ -25,7 +25,7 @@ class ProjectNormalizeStep(StepConfig):
     ):
         if results is None:
             results = {}
-        PROJECTS: List[Dict[str, Any]] = results.get("project_extract")
+        PROJECTS: List[Dict[str, Any]] = results.get(ProjectsFilterStep.name())
         if PROJECTS is None:
             raise FileNotFoundError("No scraper data found")
         STATUS_MAPPING: Dict[str, str] = user_config.get("STATUS_MAPPING")
@@ -96,4 +96,4 @@ class ProjectNormalizeStep(StepConfig):
         return LocalisationString("Desc", "Desc")
 
     def dependencies(self) -> Union[List[str], None]:
-        return [ProjectExtractStep.name(), OrganisationDatabaseStep.name(), GrantDatabaseStep.name()]
+        return [ProjectsFilterStep.name(), OrganisationDatabaseStep.name(), GrantDatabaseStep.name()]

@@ -9,6 +9,14 @@ from pipeline_configs.transform_steps.grant_extract import GrantExtractStep
 from pipeline_configs.transform_steps.project_enrich import ProjectEnrichStep
 from pipeline_configs.transform_steps.project_extract import ProjectExtractStep
 from pipeline_configs.transform_steps.project_normalize import ProjectNormalizeStep
+from pipeline_configs.transform_steps.projects_filter import ProjectsFilterStep
+
+TECH_CONFIG = [
+    {
+        "label": "Field",
+        "technologies": [{"label": "AI", "short": "ai", "searchTerms": {"anyOf": ["AI"], "excluded": []}}],
+    }
+]
 
 
 async def result_of(step, results, user_config=None):
@@ -23,7 +31,7 @@ def scraper_frame():
         [
             {
                 "externalId": "1",
-                "title": "Project",
+                "title": "AI Project",
                 "start": "2024-01-15",
                 "end": "2025-01-15",
                 "status": "laufend",
@@ -51,22 +59,23 @@ async def test_project_extract_leaves_the_shared_scraper_frame_untouched():
 
 
 @pytest.mark.asyncio
-async def test_grant_extract_does_not_depend_on_project_extract_having_run():
-    # project_extract used to add these columns to the shared frame, which made grant_extract
-    # accept rows it skips on its own, so the result depended on which step ran first.
+async def test_grant_extract_skips_projects_without_funding_data():
+    # project_extract fills missing columns with None; grant_extract must not turn those into grants.
     frame = scraper_frame().drop(columns=["bidding", "programme"])
+    projects = await result_of(ProjectExtractStep(), {"getScraperResults": frame})
+    filtered = await result_of(
+        ProjectsFilterStep(), {"project_extract": projects, "getTechnologyConfiguration": TECH_CONFIG}
+    )
 
-    alone = await result_of(GrantExtractStep(), {"getScraperResults": frame.copy(deep=True)})
-    await result_of(ProjectExtractStep(), {"getScraperResults": frame})
-    after = await result_of(GrantExtractStep(), {"getScraperResults": frame})
-
-    assert alone == after == {}
+    assert await result_of(GrantExtractStep(), {"projects_filter": filtered}) == {}
 
 
 @pytest.mark.asyncio
 async def test_project_steps_work_when_each_receives_its_own_copy():
     results = {"getScraperResults": scraper_frame()}
     results["project_extract"] = await result_of(ProjectExtractStep(), results)
+    results["getTechnologyConfiguration"] = TECH_CONFIG
+    results["projects_filter"] = await result_of(ProjectsFilterStep(), copy.deepcopy(results))
     results["project_normalize"] = await result_of(
         ProjectNormalizeStep(), copy.deepcopy(results), {"STATUS_MAPPING": {"laufend": "ONGOING"}}
     )
@@ -84,4 +93,6 @@ async def test_project_steps_work_when_each_receives_its_own_copy():
     assert projects[0]["keyTechnologies"] == ["tech-id"]
     assert projects[0]["organisations"] == ["org-id"]
     assert projects[0]["projectLeader"] == "org-id"
-    assert "grant" not in results["project_extract"][0]
+    assert results["project_extract"][0]["grant"] is None
+    assert "_match" not in results["project_extract"][0]
+    assert results["projects_filter"][0]["grant"] is None
