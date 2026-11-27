@@ -42,7 +42,7 @@ def organisation(name, ror=None, lei=None, geo=None, precision=None, aliases=Non
     }
 
 
-def build(threshold, tech_terms, projects, organisations, grants, programmes):
+def build(threshold, tech_terms, projects, organisations, grants, programmes, abstracts=None):
     field_id = ObjectId()
     technologies = [technology(short, short.upper(), field_id, terms) for short, terms in tech_terms.items()]
     by_short = {tech["short"]: tech["_id"] for tech in technologies}
@@ -59,6 +59,8 @@ def build(threshold, tech_terms, projects, organisations, grants, programmes):
             "externalId": external_id,
             "data_source": "FFG",
             "title": f"Project {external_id}",
+            "keywords": ["KI", "Energie"],
+            "abstract": (abstracts or {}).get(external_id, f"Abstract of {external_id}"),
             "keyTechnologies": [by_short[short] for short in techs],
             "organisations": [orgs[name]["_id"] for name in org_names],
             "_match": matches,
@@ -114,6 +116,7 @@ def scenario():
         ],
         {"Basisprogramm": ("Basis", 1), "Spinoff": ("Basis", 1)},
         {"Basis": 2},
+        abstracts={"2": "Wasserstoff wurde aus dem Abstract gestrichen."},
     )
     return compare_datasets(base, candidate)
 
@@ -130,7 +133,7 @@ def test_project_link_changes_and_reasons():
     assert rows["FFG:4"]["change"] == "entered"
     assert rows["FFG:2"]["added"] == ["saf"] and rows["FFG:2"]["removed"] == ["h2"]
     reasons = {t["short"]: t["reason"] for t in rows["FFG:2"]["technologies"] if t["reason"]}
-    assert reasons == {"saf": "technology added", "h2": "score changed"}
+    assert reasons == {"saf": "technology added", "h2": "text changed"}
     assert comparison.summary["technologyLinks"]["replacements"] == [{"from": "h2", "to": "saf", "count": 1}]
     assert comparison.summary["links"] == {"base": 4, "candidate": 4, "delta": 0, "added": 2, "removed": 2}
 
@@ -194,3 +197,13 @@ def test_network_and_findings():
     assert network["ml"]["organisations"]["base"] == 2 and network["ml"]["organisations"]["candidate"] == 3
     assert summary["findings"][0] == "Score threshold changed from 5 to 6."
     assert not summary["snapshots"]["differs"]
+
+
+def test_project_text_and_text_changes():
+    rows = {row["key"]: row for row in scenario().rows["projects"]}
+    changed = rows["FFG:2"]
+    assert changed["text"]["abstract"] == "Wasserstoff wurde aus dem Abstract gestrichen."
+    assert changed["text"]["keywords"] == ["KI", "Energie"]
+    assert changed["textChanged"] == ["abstract"]
+    assert changed["textBase"] == {"abstract": "Abstract of 2"}
+    assert rows["FFG:1"]["text"]["abstract"] == "Abstract of 1" and rows["FFG:1"]["textChanged"] == []

@@ -7,13 +7,14 @@ from dataclasses import dataclass, field
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 # Bump when the shape or the rules of a comparison change, so cached comparisons are recomputed.
-COMPARISON_VERSION = 1
+COMPARISON_VERSION = 2
 
 DEFAULT_SCORE_THRESHOLD = 5.0
 BORDERLINE_SHARE = 0.2
 GEO_MOVE_KM = 0.01
 GEO_FLAG_KM = 5.0
 MATCH_FIELDS = ("title", "keywords", "abstract")
+TEXT_FIELDS = ("title", "keywords", "abstract")
 
 IDENTIFIER_ATTRIBUTES = ("ror", "lei", "firmenbuchnummer")
 ADDRESS_ATTRIBUTES = ("country_code", "state", "city", "postal_code", "street", "house_number")
@@ -296,6 +297,25 @@ def _project_views(
     return views
 
 
+def _project_text(project: Dict[str, Any]) -> Dict[str, Any]:
+    keywords = project.get("keywords")
+    if isinstance(keywords, str):
+        keywords = [keyword for keyword in keywords.split(", ") if keyword]
+    abstract = project.get("abstract")
+    return {
+        "title": None if _blank(project.get("title")) else str(project.get("title")),
+        "keywords": [str(keyword) for keyword in keywords or [] if not _blank(keyword)],
+        "abstract": None if _blank(abstract) else str(abstract),
+    }
+
+
+def _text_changes(base: Optional[_ProjectView], candidate: Optional[_ProjectView]) -> List[str]:
+    if base is None or candidate is None:
+        return []
+    old, new = _project_text(base.document), _project_text(candidate.document)
+    return [name for name in TEXT_FIELDS if old[name] != new[name]]
+
+
 def _link_reason(
     short: str,
     added: bool,
@@ -316,7 +336,8 @@ def _link_reason(
     old_score = old["score"] if old else 0
     new_score = new["score"] if new else 0
     if old_score != new_score:
-        return "score changed"
+        # The scraped text itself changed between the runs, so the configuration is not (only) the cause.
+        return "text changed" if _text_changes(base, candidate) else "score changed"
     if thresholds[0] != thresholds[1]:
         return "threshold changed"
     return "unknown"
@@ -400,6 +421,7 @@ def compare_projects(
                     replacements[(lost, gained)] += 1
 
         document = (new or old).document
+        text_changed = _text_changes(old, new)
         score_deltas = [
             abs(((t["candidate"] or {}).get("score") or 0) - ((t["base"] or {}).get("score") or 0))
             for t in technologies_detail
@@ -423,6 +445,11 @@ def compare_projects(
                 ),
                 "technologies": technologies_detail,
                 "maxScoreDelta": max(score_deltas, default=0),
+                "text": _project_text(document),
+                "textChanged": text_changed,
+                "textBase": (
+                    {name: _project_text(old.document)[name] for name in text_changed} if text_changed else None
+                ),
                 "search": name_key(f"{key} {title}"),
             }
         )

@@ -35,6 +35,8 @@ PROJECT_FIELDS = {
     "data_source": 1,
     "title": 1,
     "short": 1,
+    "keywords": 1,
+    "abstract": 1,
     "keyTechnologies": 1,
     "organisations": 1,
     "_match": 1,
