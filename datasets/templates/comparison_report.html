@@ -1,0 +1,421 @@
+<!doctype html>
+{%- set s = summary -%}
+{%- macro more(items) -%}
+  {%- if limit and items|length > limit -%}
+    <p class="note">Showing {{ limit }} of {{ items|length }}. Download the report with appendix for the full list.</p>
+  {%- endif -%}
+{%- endmacro -%}
+{%- macro terms(items) -%}{% for t in items %}<span class="term">{{ t }}</span>{% endfor %}{%- endmacro -%}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Dataset comparison {{ s.base.pipelineName }} vs {{ s.candidate.pipelineName }}</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 18mm 15mm 18mm 15mm;
+        @bottom-left {
+          content: "TechAtlas · dataset comparison";
+          font-size: 7pt;
+          color: #777;
+        }
+        @bottom-right {
+          content: "Page " counter(page) " of " counter(pages);
+          font-size: 7pt;
+          color: #777;
+        }
+      }
+      body { font-family: "DejaVu Sans", sans-serif; font-size: 8.5pt; color: #222; line-height: 1.35; }
+      h1 { font-size: 17pt; margin: 0 0 4mm; }
+      h2 { font-size: 12.5pt; margin: 7mm 0 2mm; border-bottom: 1px solid #ccc; padding-bottom: 1mm; break-after: avoid; }
+      h3 { font-size: 10pt; margin: 4mm 0 1.5mm; break-after: avoid; }
+      table { border-collapse: collapse; width: 100%; margin: 1mm 0 3mm; }
+      th, td { border-bottom: 1px solid #e3e3e3; padding: 1mm 1.5mm; text-align: left; vertical-align: top; }
+      th { background: #f3f5f7; font-weight: bold; }
+      tr { break-inside: avoid; }
+      td.n, th.n { text-align: right; white-space: nowrap; }
+      .pos { color: #2e7d32; }
+      .neg { color: #c62828; }
+      .note { color: #666; font-size: 7.5pt; }
+      .warning { background: #fff4e5; border-left: 3px solid #ef6c00; padding: 2mm 3mm; margin: 2mm 0; }
+      .term { display: inline-block; background: #eef1f4; border-radius: 2px; padding: 0 1mm; margin: 0 0.6mm 0.6mm 0; font-size: 7.5pt; }
+      .meta td { border: none; padding: 0.5mm 2mm 0.5mm 0; }
+      .meta th { background: none; border: none; padding: 0.5mm 2mm 0.5mm 0; width: 32mm; }
+      .grid { display: flex; gap: 5mm; }
+      .grid > div { flex: 1; }
+      .matrix td { text-align: right; }
+      .matrix td.diag { font-weight: bold; }
+      .chart { width: 100%; }
+      .small td, .small th { font-size: 7.5pt; }
+      ul.findings li { margin-bottom: 1mm; }
+    </style>
+  </head>
+  <body>
+    {%- macro signed(value) -%}
+      <span class="{{ 'pos' if value and value > 0 else ('neg' if value and value < 0 else '') }}">{{ value|delta }}</span>
+    {%- endmacro %}
+
+    <h1>Dataset comparison</h1>
+    <table class="meta">
+      <tr><th></th><th>Base</th><th>Candidate</th></tr>
+      <tr><th>Dataset</th><td>{{ s.base.id }}</td><td>{{ s.candidate.id }}</td></tr>
+      <tr><th>Pipeline</th><td>{{ s.base.pipelineName }}</td><td>{{ s.candidate.pipelineName }}</td></tr>
+      <tr><th>Pipeline id</th><td>{{ s.base.pipeline }}</td><td>{{ s.candidate.pipeline }}</td></tr>
+      <tr>
+        <th>Created</th>
+        <td>{{ s.base.created.at|date if s.base.created else '–' }}{% if s.base.created and s.base.created.by %} · {{ s.base.created.by.name }}{% endif %}</td>
+        <td>{{ s.candidate.created.at|date if s.candidate.created else '–' }}{% if s.candidate.created and s.candidate.created.by %} · {{ s.candidate.created.by.name }}{% endif %}</td>
+      </tr>
+    </table>
+    <p class="note">Compared {{ computedAt|date }} UTC · report generated {{ generatedAt|date }} UTC</p>
+
+    <h2>1. Summary</h2>
+    <table>
+      <tr><th></th><th class="n">Base</th><th class="n">Candidate</th><th class="n">Δ</th><th>Changes</th></tr>
+      <tr>
+        <td>Projects</td><td class="n">{{ s.projects.base|number }}</td><td class="n">{{ s.projects.candidate|number }}</td>
+        <td class="n">{{ signed(s.projects.delta) }}</td>
+        <td>{{ s.projects.counts.entered or 0 }} entered, {{ s.projects.counts.left or 0 }} left, {{ s.projects.counts.changed or 0 }} with changed technologies</td>
+      </tr>
+      <tr>
+        <td>Project–technology links</td><td class="n">{{ s.links.base|number }}</td><td class="n">{{ s.links.candidate|number }}</td>
+        <td class="n">{{ signed(s.links.delta) }}</td><td>{{ s.links.added }} added, {{ s.links.removed }} removed</td>
+      </tr>
+      <tr>
+        <td>Organisations</td><td class="n">{{ s.organisations.organisations.base|number }}</td>
+        <td class="n">{{ s.organisations.organisations.candidate|number }}</td><td class="n">{{ signed(s.organisations.organisations.delta) }}</td>
+        <td>{{ s.organisations.counts.added or 0 }} added, {{ s.organisations.counts.removed or 0 }} removed, {{ s.organisations.counts.changed or 0 }} changed, {{ s.organisations.counts.conflict or 0 }} conflicts</td>
+      </tr>
+      <tr>
+        <td>Technology–organisation edges</td><td class="n">{{ s.network.edges.base|number }}</td><td class="n">{{ s.network.edges.candidate|number }}</td>
+        <td class="n">{{ signed(s.network.edges.delta) }}</td><td></td>
+      </tr>
+      <tr>
+        <td>Grants</td><td class="n">{{ s.grants.grants.base|number }}</td><td class="n">{{ s.grants.grants.candidate|number }}</td>
+        <td class="n">{{ signed(s.grants.grants.delta) }}</td>
+        <td>{{ s.grants.counts.added or 0 }} added, {{ s.grants.counts.removed or 0 }} removed, {{ s.grants.counts.changed or 0 }} changed</td>
+      </tr>
+      <tr>
+        <td>Programmes</td><td class="n">{{ s.programmes.programmes.base|number }}</td><td class="n">{{ s.programmes.programmes.candidate|number }}</td>
+        <td class="n">{{ signed(s.programmes.programmes.delta) }}</td>
+        <td>{{ s.programmes.counts.added or 0 }} added, {{ s.programmes.counts.removed or 0 }} removed, {{ s.programmes.counts.changed or 0 }} changed</td>
+      </tr>
+    </table>
+    {% if s.findings %}
+      <h3>Findings</h3>
+      <ul class="findings">{% for finding in s.findings %}<li>{{ finding }}</li>{% endfor %}</ul>
+    {% endif %}
+
+    <h2>2. Configuration differences</h2>
+    <p>Score threshold: {{ s.config.thresholds.base|number }} → {{ s.config.thresholds.candidate|number }}</p>
+    {% if s.snapshots.differs %}
+      <div class="warning">
+        The datasets were enriched against different registry snapshots. Enrichment changes may come from the registry
+        data rather than from the configuration.
+      </div>
+    {% endif %}
+    {% if s.snapshots.base or s.snapshots.candidate %}
+      <h3>Registry snapshots</h3>
+      <table class="small">
+        <tr><th>Registry</th><th>Base</th><th>Candidate</th></tr>
+        {% for registry in (s.snapshots.base.keys()|list + s.snapshots.candidate.keys()|list)|unique|sort %}
+          <tr><td>{{ registry }}</td><td>{{ s.snapshots.base.get(registry, '–') }}</td><td>{{ s.snapshots.candidate.get(registry, '–') }}</td></tr>
+        {% endfor %}
+      </table>
+    {% endif %}
+    <h3>Pipeline settings</h3>
+    {% if s.config.userConfig %}
+      <table class="small">
+        <tr><th>Step</th><th>Setting</th><th>Base</th><th>Candidate</th></tr>
+        {% for change in s.config.userConfig %}
+          <tr><td>{{ change.step }}</td><td>{{ change.key }}</td><td>{{ change.base|short(70) }}</td><td>{{ change.candidate|short(70) }}</td></tr>
+        {% endfor %}
+      </table>
+    {% else %}
+      <p class="note">No differences in the pipeline settings.</p>
+    {% endif %}
+    <h3>Technology configuration</h3>
+    {% if s.config.technologies %}
+      <table class="small">
+        <tr><th>Technology</th><th>Field</th><th>Change</th><th>Search terms added</th><th>Search terms removed</th><th>Excluded terms ±</th></tr>
+        {% for tech in s.config.technologies %}
+          <tr>
+            <td>{{ tech.label }}{% if tech.labelBefore %} <span class="note">(was {{ tech.labelBefore }})</span>{% endif %}</td>
+            <td>{{ tech.field or '–' }}{% if tech.fieldBefore %} <span class="note">(was {{ tech.fieldBefore }})</span>{% endif %}</td>
+            <td>{{ tech.change }}</td>
+            <td>{{ terms(tech.anyOf.added) }}</td>
+            <td>{{ terms(tech.anyOf.removed) }}</td>
+            <td>
+              {% if tech.excluded %}
+                {% for t in tech.excluded.added %}<span class="term pos">+{{ t }}</span>{% endfor %}
+                {% for t in tech.excluded.removed %}<span class="term neg">−{{ t }}</span>{% endfor %}
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% else %}
+      <p class="note">The technology configurations are identical.</p>
+    {% endif %}
+
+    <h2>3. Projects</h2>
+    <table class="small">
+      <tr><th>Data source</th><th class="n">Base</th><th class="n">Candidate</th><th class="n">Δ</th></tr>
+      {% set sources = s.technologyLinks.dataSources %}
+      {% for source in (sources.base.keys()|list + sources.candidate.keys()|list)|unique|sort %}
+        {% set old = sources.base.get(source, 0) %}{% set new = sources.candidate.get(source, 0) %}
+        <tr><td>{{ source }}</td><td class="n">{{ old|number }}</td><td class="n">{{ new|number }}</td><td class="n">{{ signed(new - old) }}</td></tr>
+      {% endfor %}
+    </table>
+    {% for title, items in [("Projects that entered the dataset", projectsEntered), ("Projects that left the dataset", projectsLeft)] %}
+      {% if items %}
+        <h3>{{ title }} ({{ items|length }})</h3>
+        <table class="small">
+          <tr><th>Project</th><th>Title</th><th>Technologies</th></tr>
+          {% for row in items[:limit] %}
+            <tr><td>{{ row.key }}</td><td>{{ row.title|short(80) }}</td><td>{{ (row.technologiesCandidate or row.technologiesBase)|join(', ') }}</td></tr>
+          {% endfor %}
+        </table>
+        {{ more(items) }}
+      {% endif %}
+    {% endfor %}
+
+    <h2>4. Project–technology links</h2>
+    {% if charts.technologies %}<img class="chart" src="{{ charts.technologies }}" alt="Links added and removed per technology" />{% endif %}
+    <h3>Per technology</h3>
+    <table class="small">
+      <tr><th>Field</th><th>Technology</th><th class="n">Base</th><th class="n">Candidate</th><th class="n">Added</th><th class="n">Removed</th><th class="n">Δ</th><th class="n">Overlap</th></tr>
+      {% for row in s.technologyLinks.perTechnology %}
+        <tr>
+          <td>{{ row.field }}</td>
+          <td>{{ row.label }}{% if not row.inBase %} <span class="note">(new)</span>{% elif not row.inCandidate %} <span class="note">(removed)</span>{% endif %}</td>
+          <td class="n">{{ row.base|number }}</td><td class="n">{{ row.candidate|number }}</td>
+          <td class="n pos">{{ row.added or '' }}</td><td class="n neg">{{ row.removed or '' }}</td>
+          <td class="n">{{ signed(row.delta) }}</td><td class="n">{{ row.jaccard|percent }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+    <h3>Per field</h3>
+    <table class="small">
+      <tr><th>Field</th><th class="n">Base</th><th class="n">Candidate</th><th class="n">Added</th><th class="n">Removed</th><th class="n">Δ</th><th class="n">Overlap</th></tr>
+      {% for row in s.technologyLinks.perField %}
+        <tr>
+          <td>{{ row.field }}</td><td class="n">{{ row.base|number }}</td><td class="n">{{ row.candidate|number }}</td>
+          <td class="n pos">{{ row.added or '' }}</td><td class="n neg">{{ row.removed or '' }}</td>
+          <td class="n">{{ signed(row.delta) }}</td><td class="n">{{ row.jaccard|percent }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+    <div class="grid">
+      {% for side, title in [("added", "Why links were added"), ("removed", "Why links were removed")] %}
+        <div>
+          <h3>{{ title }}</h3>
+          <table class="small">
+            <tr><th>Reason</th><th class="n">Links</th></tr>
+            {% for reason, count in s.technologyLinks.linkReasons[side]|dictsort(by='value', reverse=true) %}
+              <tr><td>{{ reason }}</td><td class="n">{{ count|number }}</td></tr>
+            {% else %}
+              <tr><td colspan="2" class="note">none</td></tr>
+            {% endfor %}
+          </table>
+          <table class="small">
+            <tr><th>Search term hits in</th><th class="n">Links</th></tr>
+            {% for profile, count in s.technologyLinks.linkProfiles[side]|dictsort(by='value', reverse=true) %}
+              <tr><td>{{ profile }}</td><td class="n">{{ count|number }}</td></tr>
+            {% endfor %}
+          </table>
+        </div>
+      {% endfor %}
+    </div>
+    <h3>Borderline scores</h3>
+    <p class="note">Technology scores within ±{{ (100 * 0.2)|int }} % of the threshold: candidates for a threshold change.</p>
+    <table class="small">
+      <tr><th></th><th class="n">Threshold</th><th class="n">Just below</th><th class="n">Just above</th></tr>
+      {% for side in ("base", "candidate") %}
+        {% set b = s.technologyLinks.borderline[side] %}
+        <tr><td>{{ side|capitalize }}</td><td class="n">{{ b.threshold|number }}</td><td class="n">{{ b.below|number }}</td><td class="n">{{ b.above|number }}</td></tr>
+      {% endfor %}
+    </table>
+    {% if s.technologyLinks.replacements %}
+      <h3>Technology replacements</h3>
+      <p class="note">Projects that lost one technology and gained another between the runs.</p>
+      <table class="small">
+        <tr><th>Lost</th><th>Gained</th><th class="n">Projects</th></tr>
+        {% for item in s.technologyLinks.replacements[:20] %}
+          <tr><td>{{ item.from }}</td><td>{{ item.to }}</td><td class="n">{{ item.count }}</td></tr>
+        {% endfor %}
+      </table>
+    {% endif %}
+    {% if topProjects %}
+      <h3>Changed projects per technology (top {{ 10 }})</h3>
+      {% for tech in topProjects %}
+        <p><b>{{ tech.label }}</b> · {{ tech.gainedTotal }} gained, {{ tech.lostTotal }} lost</p>
+        <table class="small">
+          <tr><th></th><th>Project</th><th>Title</th><th class="n">Score</th><th>Reason</th><th>Terms</th></tr>
+          {% for item in tech.gained %}
+            <tr><td class="pos">+</td><td>{{ item.key }}</td><td>{{ item.title|short(55) }}</td>
+              <td class="n">{{ item.base|number }} → {{ item.candidate|number }}</td><td>{{ item.reason }}</td><td>{{ terms(item.terms) }}</td></tr>
+          {% endfor %}
+          {% for item in tech.lost %}
+            <tr><td class="neg">−</td><td>{{ item.key }}</td><td>{{ item.title|short(55) }}</td>
+              <td class="n">{{ item.base|number }} → {{ item.candidate|number }}</td><td>{{ item.reason }}</td><td>{{ terms(item.terms) }}</td></tr>
+          {% endfor %}
+        </table>
+      {% endfor %}
+    {% endif %}
+
+    <h2>5. Organisation enrichment</h2>
+    {% if charts.coverage %}<img class="chart" src="{{ charts.coverage }}" alt="Coverage per attribute" />{% endif %}
+    <table class="small">
+      <tr><th>Attribute</th><th class="n">Base</th><th class="n">Candidate</th><th class="n">Δ</th><th class="n">Gained</th><th class="n">Lost</th><th class="n">Changed</th></tr>
+      {% for row in s.organisations.coverage %}
+        <tr>
+          <td>{{ row.attribute }}</td><td class="n">{{ row.base|number }}</td><td class="n">{{ row.candidate|number }}</td>
+          <td class="n">{{ signed(row.delta) }}</td><td class="n pos">{{ row.gained or '' }}</td><td class="n neg">{{ row.lost or '' }}</td>
+          <td class="n">{{ row.changed or '' }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+    <p class="note">
+      Coordinates moved for {{ s.organisations.geoMoves.moved }} organisations
+      {%- if s.organisations.geoMoves.medianKm is not none %} (median {{ '%.1f'|format(s.organisations.geoMoves.medianKm) }} km){% endif %},
+      {{ s.organisations.geoMoves.flagged }} by more than 5 km.
+    </p>
+    <h3>Status transitions (rows: base, columns: candidate)</h3>
+    <div class="grid">
+      {% for stage in ("ror", "gleif") %}
+        <div>{% with matrix = transitions[stage], title = stage|upper %}{% include "transition_matrix.html" %}{% endwith %}</div>
+      {% endfor %}
+    </div>
+    <div class="grid">
+      {% for stage, title in [("geo", "Geo"), ("precision", "Geo precision")] %}
+        <div>{% with matrix = transitions[stage] %}{% include "transition_matrix.html" %}{% endwith %}</div>
+      {% endfor %}
+    </div>
+
+    {% macro org_table(items, columns) %}
+      <table class="small">
+        <tr><th>Organisation</th>{% for column in columns %}<th>{{ column }}</th>{% endfor %}</tr>
+        {% for row in items[:limit] %}
+          <tr>
+            <td>{{ row.name|short(50) }}{% if row.identity == 'alias' %} <span class="note">(was {{ row.nameBase }})</span>{% endif %}</td>
+            {% for column in columns %}
+              {% set a = row.attributes.get(column) %}
+              <td>{% if a %}{{ a.base if a.base is not none else '–' }} → {{ a.candidate if a.candidate is not none else '–' }}{% endif %}</td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
+      </table>
+      {{ more(items) }}
+    {% endmacro %}
+
+    <h3>Identifier conflicts ({{ conflicts|length }})</h3>
+    {% if conflicts %}{{ org_table(conflicts, ["ror", "lei", "firmenbuchnummer"]) }}{% else %}<p class="note">none</p>{% endif %}
+    <h3>Lost matches ({{ lostMatches|length }})</h3>
+    {% if lostMatches %}
+      <table class="small">
+        <tr><th>Organisation</th><th>Lost</th><th>ROR status</th><th>GLEIF status</th><th>Geo</th></tr>
+        {% for row in lostMatches[:limit] %}
+          <tr>
+            <td>{{ row.name|short(50) }}</td>
+            <td>{% for name, a in row.attributes|dictsort if a.change == 'lost' %}{{ name }}{{ ', ' if not loop.last }}{% endfor %}</td>
+            <td>{{ row.statusBase.ror }} → {{ row.statusCandidate.ror }}</td>
+            <td>{{ row.statusBase.gleif }} → {{ row.statusCandidate.gleif }}</td>
+            <td>{{ row.statusBase.precision }} → {{ row.statusCandidate.precision }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+      {{ more(lostMatches) }}
+    {% else %}<p class="note">none</p>{% endif %}
+    <h3>Coordinates moved more than 5 km ({{ geoMoves|length }})</h3>
+    {% if geoMoves %}
+      <table class="small">
+        <tr><th>Organisation</th><th class="n">Distance</th><th>Precision</th><th>City</th></tr>
+        {% for row in geoMoves[:limit] %}
+          {% set city = row.attributes.get('city') %}
+          <tr>
+            <td>{{ row.name|short(50) }}</td><td class="n">{{ '%.1f'|format(row.geoDistanceKm) }} km</td>
+            <td>{{ row.statusBase.precision }} → {{ row.statusCandidate.precision }}</td>
+            <td>{% if city %}{{ city.base or '–' }} → {{ city.candidate or '–' }}{% endif %}</td>
+          </tr>
+        {% endfor %}
+      </table>
+      {{ more(geoMoves) }}
+    {% else %}<p class="note">none</p>{% endif %}
+    {% for title, items in [("Organisations added", organisationsAdded), ("Organisations removed", organisationsRemoved), ("Organisations matched through aliases", organisationsRenamed)] %}
+      {% if items %}
+        <h3>{{ title }} ({{ items|length }})</h3>
+        <table class="small">
+          <tr><th>Organisation</th><th>Type</th><th class="n">Projects</th></tr>
+          {% for row in items[:limit] %}
+            <tr>
+              <td>{{ row.name|short(70) }}{% if row.identity == 'alias' %} <span class="note">(was {{ row.nameBase }})</span>{% endif %}</td>
+              <td>{{ row.type or '–' }}</td>
+              <td class="n">{{ row.projects.base|number }} → {{ row.projects.candidate|number }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+        {{ more(items) }}
+      {% endif %}
+    {% endfor %}
+
+    <h2>6. Network impact</h2>
+    <p>Technology–organisation edges: {{ s.network.edges.base|number }} → {{ s.network.edges.candidate|number }} ({{ signed(s.network.edges.delta) }})</p>
+    <table class="small">
+      <tr><th>Field</th><th>Technology</th><th class="n">Organisations base</th><th class="n">Candidate</th><th class="n">Δ</th><th class="n">Added</th><th class="n">Removed</th><th class="n">Overlap</th></tr>
+      {% for row in s.network.perTechnology %}
+        <tr>
+          <td>{{ row.field }}</td><td>{{ row.label }}</td>
+          <td class="n">{{ row.organisations.base|number }}</td><td class="n">{{ row.organisations.candidate|number }}</td>
+          <td class="n">{{ signed(row.organisations.delta) }}</td>
+          <td class="n pos">{{ row.organisationsAdded or '' }}</td><td class="n neg">{{ row.organisationsRemoved or '' }}</td>
+          <td class="n">{{ row.jaccard|percent }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+
+    <h2>7. Grants and programmes</h2>
+    <p>
+      Grants: {{ s.grants.grants.base|number }} → {{ s.grants.grants.candidate|number }},
+      {{ s.grants.reassigned }} assigned to a different programme.
+      Projects counted on grants: {{ s.grants.projects.base|number }} → {{ s.grants.projects.candidate|number }}.
+    </p>
+    {% for title, items, columns in [("Programmes", programmes, ["projects", "grants"]), ("Grants", grants, ["programme", "projects"])] %}
+      {% if items %}
+        <h3>{{ title }} with changes ({{ items|length }})</h3>
+        <table class="small">
+          <tr><th>Name</th><th>Change</th>{% for column in columns %}<th>{{ column }}</th>{% endfor %}</tr>
+          {% for row in items[:limit] %}
+            <tr>
+              <td>{{ row.name|short(60) }}</td><td>{{ row.change }}</td>
+              {% for column in columns %}
+                <td>{{ (row.base or {}).get(column, '–') if row.base else '–' }} → {{ (row.candidate or {}).get(column, '–') if row.candidate else '–' }}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </table>
+        {{ more(items) }}
+      {% else %}
+        <p class="note">No changes in {{ title|lower }}.</p>
+      {% endif %}
+    {% endfor %}
+
+    {% if appendix %}
+      <h2>Appendix A. All changed projects ({{ projects|length }})</h2>
+      <table class="small">
+        <tr><th>Project</th><th>Title</th><th>Change</th><th>Added</th><th>Removed</th></tr>
+        {% for row in projects %}
+          <tr><td>{{ row.key }}</td><td>{{ row.title|short(60) }}</td><td>{{ row.change }}</td>
+            <td class="pos">{{ row.added|join(', ') }}</td><td class="neg">{{ row.removed|join(', ') }}</td></tr>
+        {% endfor %}
+      </table>
+      <h2>Appendix B. All changed organisations ({{ organisations|length }})</h2>
+      <table class="small">
+        <tr><th>Organisation</th><th>Change</th><th>Attributes</th></tr>
+        {% for row in organisations %}
+          <tr><td>{{ row.name|short(60) }}</td><td>{{ row.change }}</td><td>{{ row.changedAttributes|join(', ') }}</td></tr>
+        {% endfor %}
+      </table>
+    {% endif %}
+  </body>
+</html>

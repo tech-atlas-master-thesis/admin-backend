@@ -1,0 +1,17 @@
+<p><b>{{ title }}</b></p>
+<table class="small matrix">
+  <tr>
+    <th></th>
+    {% for state in matrix.states %}<th class="n">{{ state }}</th>{% endfor %}
+  </tr>
+  {% for row in matrix.rows %}
+    <tr>
+      <th>{{ row.state }}</th>
+      {% for cell in row.cells %}
+        <td class="{{ 'diag' if cell.diagonal }}" style="background: rgba({{ '21,101,192' if cell.diagonal else '198,40,40' }}, {{ (cell.shade * 0.35)|round(2) if cell.count else 0 }})">
+          {{ cell.count if cell.count else '' }}
+        </td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+</table>

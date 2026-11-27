@@ -10,6 +10,7 @@ from bson import ObjectId, json_util as bson_util
 from fastapi import FastAPI, HTTPException, Depends, Query
 from starlette.responses import Response
 
+from datasets.compare_api import add_dataset_compare_endpoints, drop_comparisons
 from datasets.dto import DatasetDto
 from pipelineFramework import (
     PaginatedListDto,
@@ -160,6 +161,8 @@ async def _get_data_set_export(
 
 
 def add_dataset_endpoints(app: FastAPI, api_base_url: str) -> None:
+    add_dataset_compare_endpoints(app, api_base_url)
+
     @app.get(api_base_url + "/datasets")
     async def get_datasets(
         pipelineType: Annotated[Optional[List[str]], Query()] = None,
@@ -234,6 +237,7 @@ def add_dataset_endpoints(app: FastAPI, api_base_url: str) -> None:
 
         if not result.acknowledged or result.deleted_count != 1:
             raise HTTPException(status_code=404, detail=f"Pipeline '{dataset_id}' not found")
+        await drop_comparisons(dataset_id=ObjectId(dataset_id))
 
     @app.get(api_base_url + "/datasets/{dataset_id}/export")
     async def get_full_dataset_export(
